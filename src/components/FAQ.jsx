@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import FAQitem from './FAQitem';
+import FAQitem from './FAQItem';
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(0);
