@@ -3,7 +3,7 @@ import Hero from "../components/Herosection";
 import Projects from "../components/Projects";
 import AboutUs from "../components/AboutUs";
 import Services from "../components/Service";
-import WhyMahaMumbai from "../components/Whymahamumbai";
+import WhyMahaMumbai from "../components/WhyMahaMumbai";
 import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
 
