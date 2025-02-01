@@ -1,12 +1,19 @@
-import React from 'react';
+import React from "react";
+import ProjectPageCarousel from "../components/ProjectPageCarousel";
+import Herosection from "../components/Herosection"
+import ProjectSection from "../components/ProjectSection";
 
 const ProjectPage = () => {
   return (
-    <div className="container mx-auto px-4 py-8 mt-14">
-      <h1 className="text-3xl font-bold mb-4">Project page</h1>
-      <h1>IN devlopment</h1>
+    <div className=" px-4 py-8 mt-14">
 
+      <Herosection/>
+      <ProjectPageCarousel />
+      <div className="bg-gray-50">
+
+      <ProjectSection/>
       </div>
+    </div>
   );
 };
 

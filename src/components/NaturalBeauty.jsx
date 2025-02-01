@@ -1,7 +1,7 @@
 import React from 'react';
-// import nature1 from '../assets/nature1.jpg';  // Replace with your fort image
-// import nature2 from '../assets/nature2.jpg';  // Replace with your foggy houses image
-// import nature3 from '../assets/nature3.jpg';  // Replace with your coastline image
+import mountainview from '../assets/mountain-senic.jpg'
+import fogyyland from '../assets/foggy-land.jpg'
+import seaview from '../assets/sea-view.jpg'
 
 const NaturalBeauty = () => {
   return (
@@ -22,7 +22,7 @@ const NaturalBeauty = () => {
 
           <div className="relative">
             <img
-              src=""
+              src={mountainview}
               alt="Scenic mountain view"
               className="w-full h-[400px] object-cover rounded-3xl"
             />
@@ -36,7 +36,7 @@ const NaturalBeauty = () => {
         <div className="space-y-8 pt-24">
           <div className="relative">
             <img
-              src=""
+              src={fogyyland}
               alt="Foggy landscape"
               className="w-full h-[400px] object-cover rounded-3xl"
             />
@@ -44,7 +44,7 @@ const NaturalBeauty = () => {
 
           <div className="relative">
             <img
-              src=""
+              src={seaview}
               alt="Coastal view"
               className="w-full h-[300px] object-cover rounded-3xl"
             />

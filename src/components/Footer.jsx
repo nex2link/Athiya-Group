@@ -1,10 +1,11 @@
+import React from 'react';
 import Logo from "../assets/Athiya-logo.png";
 
-
 const Footer = () => {
-    return (
-      <footer className="bg-black text-white py-8 rounded-t-3xl ">
-        <div className="container mx-auto px-4">
+  return (
+    <div className="w-full bg-black relative mt-20 rounded-t-2xl">
+      <footer className="text-white py-8">
+        <div className="container mx-auto px-4 md:px-8">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             {/* Logo and Description */}
@@ -21,7 +22,7 @@ const Footer = () => {
                 for a future-ready lifestyle.
               </p>
             </div>
-  
+
             {/* Company Links */}
             <div>
               <h3 className="text-sm font-semibold mb-4">Company</h3>
@@ -29,10 +30,10 @@ const Footer = () => {
                 <li><a href="#" className="text-sm text-gray-400 hover:text-white">Home</a></li>
                 <li><a href="#" className="text-sm text-gray-400 hover:text-white">About Us</a></li>
                 <li><a href="#" className="text-sm text-gray-400 hover:text-white">Services</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Why Mulki Mumbai?</a></li>
+                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Why Maha Mumbai?</a></li>
               </ul>
             </div>
-  
+
             {/* Resources Links */}
             <div>
               <h3 className="text-sm font-semibold mb-4">Resources</h3>
@@ -44,7 +45,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-  
+
           {/* Bottom Footer */}
           <div className="border-t border-gray-800 pt-4">
             <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
@@ -57,8 +58,8 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-    );
-  };
-  
-  export default Footer;
-  
+    </div>
+  );
+};
+
+export default Footer;  
