@@ -73,12 +73,12 @@ const Navbar = () => {
                         >
                             Projects
                         </Link>
-                        <Link 
+                        {/* <Link 
                             to="/service" 
                             className="text-black hover:text-yellow-400 transition-colors duration-300"
                         >
                             Services
-                        </Link>
+                        </Link> */}
                         <Link 
                             to="/mahamumbai" 
                             className="text-black hover:text-yellow-400 transition-colors duration-300"
