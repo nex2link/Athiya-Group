@@ -7,11 +7,13 @@ import MahaMumbai from "./pages/MahaMumbai";
 import AboutUsPage from './pages/AboutUsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
+import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
   return (
     <div>
       <Navbar />
+        <ScrollToTop/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUsPage />} />

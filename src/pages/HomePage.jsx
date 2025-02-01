@@ -1,9 +1,9 @@
 import React from "react";
 import Hero from "../components/Herosection";
 import Projects from "../components/Projects";
-import AboutUs from "../components/AboutUs";
+import AboutUs from "../components/AboutUsCard";
 import Services from "../components/Service";
-import WhyMahaMumbai from "../components/WhyMahaMumbai";
+import WhyMahaMumbai from "../components/Whymahamumbai";
 import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
 
