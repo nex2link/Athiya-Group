@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Logo from "../assets/Athiya-logo.png";
 import { Link } from 'react-router-dom';
 import ContactModal from './ContactModal';
-import { Modal } from 'bootstrap';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
