@@ -2,12 +2,13 @@ import React from "react";
 import ProjectPageCarousel from "../components/ProjectPageCarousel";
 import Hero from "../components/Herosection"
 import ProjectSection from "../components/ProjectSection";
+import ProjectPageHero from "../components/ProjectHerosection";
 
 const ProjectPage = () => {
   return (
-    <div className=" px-4 py-8 mt-14">
+    <div className="  py-8 mt-14">
 
-      <Hero/>
+      <ProjectPageHero/>
       <ProjectPageCarousel />
       <div className="bg-gray-50">
 

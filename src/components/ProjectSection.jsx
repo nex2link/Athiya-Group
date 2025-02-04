@@ -49,8 +49,8 @@ const ProjectSection = () => {
         "2 hours from Navi Mumbai International Airport"
       ],
       details: [
-        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
-        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
+        { price: "₹X lakhs", area: "20 Guntha (20,000 SQ. FT)", type: "Residential Plot" },
+        { price: "₹X lakhs", area: "ACRE (40,000 SQ. FT)", type: "Residential Plot" }
       ]
     },
     {
@@ -200,7 +200,7 @@ const ProjectSection = () => {
             <div
               ref={el => contentRefs.current[project.id] = el}
               style={{ height: `${contentHeights[project.id] || 0}px` }}
-              className="transition-all duration-500 ease-in-out overflow-hidden"
+              className="transition-all duration-500 ease-in-out overflow-hidden origin-top will-change-transform"
             >
               <div className="p-6 border-t border-gray-100">
                 <div className="flex flex-col lg:flex-row gap-8">
