@@ -111,7 +111,7 @@ const Navbar = () => {
                         <a href="/service" className="text-black hover:text-yellow-400 transition-colors duration-300">Services</a>
                         <a href="/mahamumbai" className="text-black hover:text-yellow-400 transition-colors duration-300">Why Maha Mumbai?</a>
                         <Link to="/contactus">
-                        <button className="bg-[#0F1F14] text-yellow-400 px-6 py-2 rounded-full hover:bg-yellow-400 hover:text-[#0F1F14] transition-colors duration-300">
+                        <button className="bg-yellow-400 text-black px-6 py-2 rounded-full hover:bg-yellow-600 hover:text-[#0F1F14] transition-colors duration-300">
                             Contact Us
                         </button>
                         </Link>

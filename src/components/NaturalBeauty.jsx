@@ -78,7 +78,7 @@ const NaturalBeauty = () => {
               />
             </div>
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/30 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
+              opacity-0  transition-opacity duration-500"/>
             <p className="mt-4 text-gray-700 text-lg transform transition-all duration-300 
               group-hover:translate-x-2">
               Lush green surroundings and scenic coastline.
@@ -129,7 +129,7 @@ const NaturalBeauty = () => {
               />
             </div>
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/30 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
+              opacity-0  transition-opacity duration-500"/>
             <p className="mt-4 text-gray-700 text-lg transform transition-all duration-300 
               group-hover:translate-x-2">
               Proximity to hill stations, beaches, and cultural landmarks.

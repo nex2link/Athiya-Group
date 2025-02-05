@@ -40,6 +40,14 @@ const ProjectSection = () => {
         dapoliimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      WhyInvest: "Why invest Dapoli 712",
+      whyIvestPoints:[
+        "• Close to key infrastructure projects",
+        "• Perfect for organic farming and eco-retreats",
+        "• With upcoming highways and connectivity plans",
+        "• Clear LAnd Titles & Hassle-Free Documentation"
+
+      ],
       highlights: [
         "10 mins from the Beach",
         "1 hour from Mumbai-Goa Highway",
@@ -61,11 +69,20 @@ const ProjectSection = () => {
         agroimg3,
         agroimg4
       ],
-      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      description: "AGrow Eco is a prestigious farmland design for eco-conscious investors and nature lovers. Located in the lush greenery of raigad, this project offers on excellent opportunity to own land in a rapidly developing region while embracing sustainable living",
+      WhyInvest: "Why invest in AGrow Eco",
+      whyIvestPoints:[
+        "• Close to key infrastructure projects",
+        "• Perfect for organic farming and eco-retreats",
+        "• With upcoming highways and connectivity plans",
+        "• Clear LAnd Titles & Hassle-Free Documentation"
+
+      ],
       highlights: [
-        "10 mins from the Beach",
-        "1 hour from Mumbai-Goa Highway",
-        "2 hours from Navi Mumbai International Airport"
+        "Mumbai Goa Four-Lane Highway",
+        "Mumabi Multimodal corridor",
+        "CST-Raha Local Train Expansion",
+        "Ro-Ro Ferry System"
       ],
       details: [
         { price: "₹X lakhs", area: "20 Guntha (20,000 SQ. FT)", type: "Residential Plot" },
@@ -83,7 +100,15 @@ const ProjectSection = () => {
         farmimg3,
         farmimg4
       ],
-      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      description: "",
+      WhyInvest: "Why invest in Farm Dale",
+      whyIvestPoints:[
+        "• Close to key infrastructure projects",
+        "• Perfect for organic farming and eco-retreats",
+        "• With upcoming highways and connectivity plans",
+        "• Clear LAnd Titles & Hassle-Free Documentation"
+
+      ],
       highlights: [
         "10 mins from the Beach",
         "1 hour from Mumbai-Goa Highway",
@@ -106,6 +131,14 @@ const ProjectSection = () => {
         "/api/placeholder/300/200"
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      WhyInvest: "Why invest in Shivsprash",
+      whyIvestPoints:[
+        "• Close to key infrastructure projects",
+        "• Perfect for organic farming and eco-retreats",
+        "• With upcoming highways and connectivity plans",
+        "• Clear LAnd Titles & Hassle-Free Documentation"
+
+      ],
       highlights: [
         "10 mins from the Beach",
         "1 hour from Mumbai-Goa Highway",
@@ -128,6 +161,14 @@ const ProjectSection = () => {
         samimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      WhyInvest: "Why invest in Smarath Hill",
+      whyIvestPoints:[
+        "• Close to key infrastructure projects",
+        "• Perfect for organic farming and eco-retreats",
+        "• With upcoming highways and connectivity plans",
+        "• Clear LAnd Titles & Hassle-Free Documentation"
+
+      ],
       highlights: [
         "10 mins from the Beach",
         "1 hour from Mumbai-Goa Highway",
@@ -294,6 +335,18 @@ const ProjectSection = () => {
                       </p>
                     </div>
 
+                    {/* why buy */}
+                    <div>
+                      <h3 className='text'>{project.WhyInvest}</h3>
+                      <p>
+                      {project.whyIvestPoints.map((points, idx) => (
+                            <p key={idx} className="text-gray-600">
+                              {points}
+                            </p>
+                          ))}
+                      </p>
+                    </div>
+
                     {/* Project Details */}
                     <div className="transform transition-all duration-500">
                       <h3 className="text-xl font-bold text-gray-900 mb-4">
@@ -331,7 +384,7 @@ const ProjectSection = () => {
         ))}
       </div>
 
-      <style jsx global>{`
+      <style jsx='true' >{`
         .animate-in {
           opacity: 1 !important;
           transform: translateY(0) !important;

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import projectPosterimg from '../assets/project-poster.jpg'
-import projectVidwebm from '../assets/project-vid.webm'
-import projectvid from '../assets/project-vid.mp4'
+import samarthPosterimg from '../assets/samarth-poster-img.jpg'
+import Samarthwebvid from '../assets/Samarth-Hill-WEBM.webm'
+import Samarthvid from '../assets/Samarth-Hill-video.mp4'
 
 const ProjectPageHero = () => {
   const videoRef = useRef(null);
@@ -55,7 +55,7 @@ const ProjectPageHero = () => {
   return (
     <section className="relative min-h-screen">
       <div className="w-full max-w-[2000px] mx-auto">
-        <div className="relative h-[100vh] mt-3 overflow-hidden">
+        <div className="relative h-[90vh] mt-3 overflow-hidden">
           {/* Video Background */}
           <div className="absolute inset-0">
             {!isVideoLoaded && (
@@ -64,17 +64,17 @@ const ProjectPageHero = () => {
             <video
               ref={videoRef}
               className="w-full h-full object-cover"
-              poster={projectPosterimg}
+              poster={samarthPosterimg}
               playsInline
               muted
               loop
             >
               <source 
-                src={projectvid}
+                src={Samarthvid}
                 type="video/mp4" 
               />
               <source 
-                src={projectVidwebm}
+                src={Samarthwebvid}
                 type="video/webm" 
               />
             </video>
@@ -86,10 +86,10 @@ const ProjectPageHero = () => {
           {/* Multi-layer gradient for smoother transition */}
           <div className="absolute top-0 left-0 right-0">
             {/* Primary gradient */}
-            {/* <div className="h-40 bg-gradient-to-b from-white via-white/10 to-transparent"></div> */}
+            <div className="h-40 bg-gradient-to-b from-white via-white/40 to-transparent"></div>
             
             {/* Subtle secondary gradient for smoother blend */}
-            {/* <div className="h-20 -mt-4 bg-gradient-to-b from-transparent via-white/10 to-transparent opacity-40"></div>  */}
+            <div className="h-20 -mt-4 bg-gradient-to-b from-transparent via-white/20 to-transparent opacity-40"></div> 
           </div>
 
           {/* Optional: Add a very subtle noise texture for better blending */}

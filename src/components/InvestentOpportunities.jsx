@@ -15,7 +15,7 @@ const InvestmentOpportunities = () => {
       text: "High ROI potential due to increasing demand for residential and commercial spaces.",
       style: "sm:col-start-3 lg:col-start-3 lg:col-span-2 lg:row-start-1",
       delay: "delay-100",
-      color: "text-blue-600"
+      color: "text-yellow-500"
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ const InvestmentOpportunities = () => {
       text: "Proximity to key business districts and industrial zones makes Maha Mumbai a magnet for investors.",
       style: "sm:col-start-4 lg:col-start-4 lg:col-span-2 lg:row-start-2",
       delay: "delay-200",
-      color: "text-purple-600"
+      color: "text-yellow-500"
     },
     {
       id: 3,
@@ -33,7 +33,7 @@ const InvestmentOpportunities = () => {
       text: "Ongoing developments in healthcare, education, and leisure increase the quality of life.",
       style: "sm:col-start-3 lg:col-start-3 lg:col-span-2 lg:row-start-3",
       delay: "delay-300",
-      color: "text-emerald-600"
+      color: "text-yellow-500"
     }
   ];
 

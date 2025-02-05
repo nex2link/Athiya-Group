@@ -1,11 +1,11 @@
-import React from "react";
-import { motion, useAnimation } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ArrowRightCircle } from "lucide-react";
-import maha1 from "../assets/maha1.jpg";
-import maha2 from "../assets/maha2.jpg";
-import maha3 from "../assets/maha3.jpg";
 import KnowMoreButton from "./KnowMoreButton";
+import airpot from "../assets/airport.jpg"
+import bridge from "../assets/bridge.jpg"
+import highway from "../assets/road.jpg"
+import { Link } from "react-router-dom";
 
 const WhyMahaMumbai = () => {
   const controls = useAnimation();
@@ -14,51 +14,93 @@ const WhyMahaMumbai = () => {
     threshold: 0.2,
   });
 
-  React.useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
+  // State for carousel
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const features = [
     {
-      image: maha1,
+      image: airpot,
       alt: "Airport runway with plane",
       title: "World-Class Infrastructure"
     },
     {
-      image: maha2,
+      image: bridge,
       alt: "Coastal road view",
       title: "Strategic Location"
     },
     {
-      image: maha3,
+      image: highway,
       alt: "Metro infrastructure",
       title: "Modern Connectivity"
     }
   ];
 
-  // Calculate number of duplicates needed based on screen width
-  const [duplicateCount, setDuplicateCount] = React.useState(2);
-
-  React.useEffect(() => {
-    const updateDuplicateCount = () => {
-      const width = window.innerWidth;
-      setDuplicateCount(width < 640 ? 4 : width < 1024 ? 3 : 2);
+  // Check if mobile on mount and window resize
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 640);
     };
-
-    updateDuplicateCount();
-    window.addEventListener('resize', updateDuplicateCount);
-    return () => window.removeEventListener('resize', updateDuplicateCount);
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  const scrollImages = Array(duplicateCount)
-    .fill(features)
-    .flat()
-    .map((feature, index) => ({
-      ...feature,
-      key: `${feature.title}-${index}`
-    }));
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  // Auto-slide functionality for mobile
+  useEffect(() => {
+    let interval;
+    if (isMobile && !isPaused) {
+      interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % features.length);
+      }, 2000);
+    }
+    return () => clearInterval(interval);
+  }, [isMobile, isPaused, features.length]);
+
+  // Handle touch events for mobile
+  const handleTouchStart = (e) => {
+    setIsPaused(true);
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    setIsPaused(false);
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(distance) < minSwipeDistance) return;
+
+    if (distance > 0) {
+      setCurrentIndex((prev) => (prev + 1) % features.length);
+    } else {
+      setCurrentIndex((prev) => (prev - 1 + features.length) % features.length);
+    }
+
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
+
+  // Create duplicated array for desktop infinite scroll
+  const desktopScrollImages = [...features, ...features, ...features].map((feature, index) => ({
+    ...feature,
+    key: `${feature.title}-${index}`
+  }));
 
   return (
     <section className="w-full py-8 sm:py-12 lg:py-16 overflow-hidden bg-gray-50">
@@ -91,54 +133,140 @@ const WhyMahaMumbai = () => {
           </motion.div>
 
           {/* Images section */}
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0 },
-              visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-            }}
-            className="lg:flex-[2] relative overflow-hidden rounded-2xl sm:rounded-3xl"
-          >
-            <div className="relative">
-              <div 
-                className="flex gap-4 sm:gap-6 animate-scroll"
-                style={{
-                  '--scroll-duration': `${scrollImages.length * 1}s`,
-                }}
-              >
-                {scrollImages.map((feature, index) => (
-                  <motion.div 
-                    key={feature.key}
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { 
+          {isMobile ? (
+            /* Mobile Carousel */
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1 }
+              }}
+              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentIndex}
+                  initial={{ 
+                    opacity: 0,
+                    x: 50,
+                    scale: 0.95
+                  }}
+                  animate={{ 
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    transition: {
+                      opacity: { duration: 0.5, ease: "easeInOut" },
+                      x: { duration: 0.5, ease: "easeOut" },
+                      scale: { duration: 0.5, ease: "easeOut" }
+                    }
+                  }}
+                  exit={{ 
+                    opacity: 0,
+                    x: -50,
+                    scale: 0.95,
+                    transition: {
+                      opacity: { duration: 0.3, ease: "easeInOut" },
+                      x: { duration: 0.3, ease: "easeIn" },
+                      scale: { duration: 0.3, ease: "easeIn" }
+                    }
+                  }}
+                  className="absolute inset-0 will-change-transform"
+                >
+                  <img 
+                    src={features[currentIndex].image}
+                    alt={features[currentIndex].alt}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+                    <motion.p 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ 
                         opacity: 1, 
                         y: 0,
-                        transition: { duration: 0.5, delay: index * 0.1 }
-                      }
+                        transition: {
+                          delay: 0.2,
+                          duration: 0.4
+                        }
+                      }}
+                      className="text-white text-lg font-medium"
+                    >
+                      {features[currentIndex].title}
+                    </motion.p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="absolute bottom-16 left-0 right-0 flex justify-center gap-2">
+                {features.map((_, index) => (
+                  <motion.div
+                    key={index}
+                    initial={false}
+                    animate={{
+                      scale: index === currentIndex ? 1.25 : 1,
+                      opacity: index === currentIndex ? 1 : 0.5
                     }}
-                    className="relative flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] 
-                             rounded-xl sm:rounded-2xl overflow-hidden group"
-                  >
-                    <div className="aspect-[4/3]">
-                      <img 
-                        src={feature.image} 
-                        alt={feature.alt}
-                        className="w-full h-full object-cover transform transition-transform duration-700 
-                                 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 
-                                    transition-colors duration-300" />
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t 
-                                  from-black/60 to-transparent">
-                      <p className="text-white text-lg font-medium">{feature.title}</p>
-                    </div>
-                  </motion.div>
+                    transition={{
+                      duration: 0.3,
+                      ease: "easeOut"
+                    }}
+                    className="w-2 h-2 rounded-full bg-white"
+                  />
                 ))}
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          ) : (
+            /* Desktop infinite scroll */
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1 }
+              }}
+              className="lg:flex-[2] relative overflow-hidden rounded-2xl sm:rounded-3xl"
+            >
+              <div className="relative">
+                <div 
+                  className="flex gap-4 sm:gap-6 animate-scroll"
+                  style={{ width: "max-content" }}
+                >
+                  {desktopScrollImages.map((feature, index) => (
+                    <motion.div 
+                      key={feature.key}
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { 
+                          opacity: 1, 
+                          y: 0,
+                          transition: { duration: 0.5, delay: index * 0.1 }
+                        }
+                      }}
+                      className="relative flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] 
+                               rounded-xl sm:rounded-2xl overflow-hidden group"
+                    >
+                      <div className="aspect-[4/3]">
+                        <img 
+                          src={feature.image} 
+                          alt={feature.alt}
+                          className="w-full h-full object-cover transform transition-transform duration-700 
+                                   group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 
+                                      transition-colors duration-300" />
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t 
+                                    from-black/60 to-transparent">
+                        <p className="text-white text-lg font-medium">{feature.title}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
         </div>
 
         {/* Button */}
@@ -153,32 +281,24 @@ const WhyMahaMumbai = () => {
           }}
           className="flex justify-end mt-6 sm:mt-8"
         >
-          {/* <button 
-            className="group flex items-center gap-2 px-5 py-2.5 rounded-full
-                     bg-white border border-gray-200 shadow-sm
-                     hover:bg-gray-50 hover:border-gray-300
-                     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
-                     transform transition-all duration-300 hover:scale-105"
-          >
-            <span className="text-gray-900 font-medium">Know More</span>
-            <ArrowRightCircle className="w-5 h-5 text-gray-600 group-hover:translate-x-1 transition-transform" />
-          </button> */}
-          <KnowMoreButton/>
+          <Link to="/mahamumbai">
+          <KnowMoreButton />
+          </Link>
         </motion.div>
       </motion.div>
 
       <style jsx global>{`
         .animate-scroll {
-          animation: scroll var(--scroll-duration) linear infinite;
+          animation: scrollX 20s linear infinite;
           will-change: transform;
         }
 
-        @keyframes scroll {
-          from {
+        @keyframes scrollX {
+          0% {
             transform: translateX(0);
           }
-          to {
-            transform: translateX(calc(-50% - 0.75rem));
+          100% {
+            transform: translateX(-33.33%);
           }
         }
 

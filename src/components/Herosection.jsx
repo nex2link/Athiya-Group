@@ -1,201 +1,161 @@
 import { motion } from 'framer-motion';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState, memo } from 'react';
 import bgimgweb from '../assets/mumbai-skyline-webm.webp';
+import { Link } from 'react-router-dom';
 
-const BackgroundImage = lazy(() => import('./BackgroundImage'));
+// Memoize BackgroundImage component
+const BackgroundImage = memo(({ imagePath, onLoad }) => (
+  <div className="absolute inset-0">
+    <picture>
+      <source srcSet={imagePath} type="image/webp" />
+      <img
+        src={imagePath}
+        alt="Mumbai Skyline"
+        onLoad={onLoad}
+        className="w-full h-full object-cover"
+        loading="eager"
+      />
+    </picture>
+  </div>
+));
+
+BackgroundImage.displayName = 'BackgroundImage';
 
 const Hero = () => {
-  // Faster animation variants
-  const fadeInUp = {
-    hidden: { 
-      opacity: 0, 
-      y: 20,
-    },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        type: "spring",
-        damping: 25,
-        stiffness: 200,
-        duration: 0.4
-      }
-    }
-  };
+  const [isMobile, setIsMobile] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const fadeIn = {
-    hidden: { 
-      opacity: 0,
-      scale: 0.98
-    },
-    visible: { 
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut"
+  // Optimize resize listener with debounce
+  useEffect(() => {
+    let timeoutId;
+    const checkMobile = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
-    }
-  };
+      timeoutId = setTimeout(() => {
+        setIsMobile(window.innerWidth <= 768);
+      }, 100);
+    };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08, // Even faster stagger
-        delayChildren: 0.1,    // Minimal initial delay
-        duration: 0.5,
-        ease: "easeOut"
+    // Initial check
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Image preload
+    const img = new Image();
+    img.src = bgimgweb;
+    img.onload = () => setIsLoaded(true);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
-    }
-  };
+    };
+  }, []);
 
-  // Faster text animation
-  const letterAnimation = {
-    hidden: { opacity: 0, y: 20 },
+  // Reduced animation complexity for better performance
+  const fadeUpVariant = {
+    hidden: { opacity: 0, y: isMobile ? 10 : 20 },
     visible: {
       opacity: 1,
       y: 0,
+      transition: { duration: 0.3 }
     }
   };
 
-  // Image animation variants
-  const imageVariants = {
-    hidden: { 
-      scale: 1.2,
-      opacity: 0 
-    },
-    visible: { 
-      scale: 1,
-      opacity: 1,
-      transition: { 
-        duration: 0.7,
-        ease: "easeOut"
-      }
-    }
+  const buttonVariant = {
+    rest: { scale: 1 },
+    hover: { scale: 1.02 },
+    tap: { scale: 0.98 }
   };
-
-  const title = "Transforming".split("");
 
   return (
-    <section className="relative min-h-screen">
-      <div className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+    <section className="relative min-h-screen w-screen overflow-x-hidden px-6">
+      <div className="w-full max-w-[2000px] mx-auto px-4">
         <div className="relative h-[90vh] mt-6 rounded-3xl overflow-hidden">
-          {/* Background with animation */}
-          <Suspense fallback={<div className="absolute inset-0 bg-gray-900" />}>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={imageVariants}
-              className="absolute inset-0"
-            >
-              <BackgroundImage imagePath={bgimgweb} />
-            </motion.div>
+          {/* Background Image */}
+          <Suspense fallback={
+            <div className="absolute inset-0 bg-gray-900 animate-pulse" />
+          }>
+            {isLoaded && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0"
+              >
+                <BackgroundImage 
+                  imagePath={bgimgweb}
+                  onLoad={() => setIsLoaded(true)}
+                />
+              </motion.div>
+            )}
           </Suspense>
 
-          <motion.div 
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ 
-              opacity: 1, 
-              backdropFilter: "blur(2px)",
-              transition: { duration: 0.5 }
-            }}
-            className="absolute inset-0 bg-black/40" 
-          />
+          {/* Optimized overlay */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
 
+          {/* Content */}
           <div className="relative h-full flex items-center justify-center text-center">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="max-w-3xl px-6"
-            >
+            <div className="w-full max-w-3xl px-4 sm:px-6">
               <motion.h1 
-                className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 flex justify-center flex-wrap"
+                initial="hidden"
+                animate="visible"
+                variants={fadeUpVariant}
+                className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6"
               >
-                <div className="flex">
-                  {title.map((letter, index) => (
-                    <motion.span
-                      key={index}
-                      variants={letterAnimation}
-                      transition={{
-                        duration: 0.3,
-                        delay: index * 0.02, // Ultra-fast letter animation
-                        type: "spring",
-                        damping: 20,
-                        stiffness: 200
-                      }}
-                    >
-                      {letter === " " ? "\u00A0" : letter}
-                    </motion.span>
-                  ))}
-                </div>
-                <motion.span 
-                  variants={fadeInUp}
-                  className="text-yellow-400 inline-block ml-4"
-                  whileHover={{ 
-                    scale: 1.05,
-                    transition: {
-                      type: "spring",
-                      stiffness: 400,
-                      damping: 10
-                    }
-                  }}
-                >
+                <span className="block mb-2">Transforming</span>
+                <span className="text-yellow-400 inline-block">
                   Maha Mumbai
-                </motion.span>
+                </span>
               </motion.h1>
               
               <motion.p 
-                variants={fadeIn}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
                 className="text-xl sm:text-2xl text-gray-200 mb-10"
               >
                 Your Gateway to Prosperity
               </motion.p>
 
               <motion.div 
-                variants={fadeInUp}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               >
+                <Link to='/mahamumbai'>
                 <motion.button 
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 20px rgba(250, 204, 21, 0.4)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 15
-                  }}
-                  className="bg-yellow-400 text-black px-8 py-3 rounded-lg 
-                           transform transition-all duration-300 ease-out
-                           hover:bg-yellow-400 hover:text-[#0F1F14]
+                  variants={buttonVariant}
+                  initial="rest"
+                  whileHover="hover"
+                  whileTap="tap"
+                  className="w-full sm:w-auto bg-yellow-400 text-black px-8 py-3 rounded-lg 
+                           transition-colors duration-200
+                           hover:bg-yellow-300
                            focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50"
                 >
                   View Project
                 </motion.button>
+                </Link>
+                <Link to="/contactus">
                 <motion.button 
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 0 20px rgba(255, 255, 255, 0.4)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 15
-                  }}
-                  className="bg-white text-[#0F1F14] px-8 py-3 rounded-lg
-                           transform transition-all duration-300 ease-out
-                           hover:bg-[#0F1F14] hover:text-white
-                           focus:outline-none focus:ring-2 focus:ring-[#0F1F14] focus:ring-opacity-50"
+                  variants={buttonVariant}
+                  initial="rest"
+                  whileHover="hover"
+                  whileTap="tap"
+                  className="w-full sm:w-auto bg-white text-[#0F1F14] px-8 py-3 rounded-lg
+                           transition-colors duration-200
+                           hover:bg-gray-100
+                           focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
                 >
                   Get A Call!
                 </motion.button>
+                </Link>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -203,4 +163,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

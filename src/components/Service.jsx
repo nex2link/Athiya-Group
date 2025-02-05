@@ -9,6 +9,7 @@ import consulticon from "../assets/icons/consult.png"
 import investmenticon from "../assets/icons/investment.png"
 import landdevlopmenticon from "../assets/icons/land-devlopment.png"
 import legalicon from "../assets/icons/legal-icon.png"
+import {Link} from "react-router-dom"
 
 const Services = () => {
   const [ref, inView] = useInView({
@@ -124,8 +125,11 @@ const Services = () => {
           className="mt-10 sm:mt-12 text-center"
           variants={itemVariants}
         >
+          <Link to='/service'>
           <KnowMoreButton />
+          </Link>
         </motion.div>
+
       </motion.div>
     </section>
   );

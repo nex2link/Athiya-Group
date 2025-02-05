@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Aboutimg from "../assets/About-us.jpg";
+import {Link}  from "react-router-dom"
 
 const AboutUs = () => {
   const [ref, inView] = useInView({
@@ -82,7 +83,7 @@ const AboutUs = () => {
             commitment to client satisfaction. Explore our journey of growth, 
             milestones, and the people behind our success.
           </motion.p>
-          
+          <Link to="/aboutus">
           <motion.button 
             className="bg-white px-6 py-3 rounded-full text-[#0A2919] font-medium
                        transform transition-all duration-300 ease-out
@@ -95,6 +96,7 @@ const AboutUs = () => {
           >
             Know More About Us!
           </motion.button>
+          </Link>
         </motion.div>
 
         {/* Image Section */}

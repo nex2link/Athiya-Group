@@ -3,7 +3,7 @@ import Logo from "../assets/Athiya-logo.png";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-[#0D2013] relative mt-20 rounded-t-2xl">
+    <div className="w-full bg-[#0D2013] relative mt[-5] rounded-t-2xl">
       <footer className="text-white py-8">
         <div className="container mx-auto px-4 md:px-8">
           {/* Main Footer Content */}

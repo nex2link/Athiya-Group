@@ -25,7 +25,7 @@ const ContactUs = () => {
   return (
     <div className="flex min-h-[400px] rounded-3xl overflow-hidden mt-28 mx-16 relative">
       {/* Left side with background image */}
-      <div className="absolute left-0 w-1/2 h-full">
+      <div className="absolute left-5 w-1/2 h-full rounded-xl">
         <img 
           src={buildingimg} 
           alt="City buildings" 
