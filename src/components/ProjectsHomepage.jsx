@@ -55,13 +55,13 @@ const ProjectsHomepage = () => {
     },
     {
       id: 4,
-      title: "shivsprash",
+      title: "Shivsprash",
       sqft: "00",
       image: project4
     },
     {
       id: 5,
-      title: "samarth Hill",
+      title: "Samarth Hill",
       sqft: "00",
       image: project5
     }

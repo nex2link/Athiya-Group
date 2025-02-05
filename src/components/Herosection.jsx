@@ -71,7 +71,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-screen overflow-x-hidden px-6">
+    <section className="relative min-h-screen w-full overflow-x-hidden  lg:px-6">
       <div className="w-full max-w-[2000px] mx-auto px-4">
         <div className="relative h-[90vh] mt-6 rounded-3xl overflow-hidden">
           {/* Background Image */}
