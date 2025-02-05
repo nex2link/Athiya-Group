@@ -54,8 +54,8 @@ const TestimonialCard = ({ image, name, role, testimonial, index, inView }) => {
       </p>
 
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-20 h-20 bg-yellow-400/10 rounded-full -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-16 h-16 bg-gray-100 rounded-full translate-x-1/3 translate-y-1/3" />
+      {/* <div className="absolute top-0 left-0 w-20 h-20 bg-yellow-400/10 rounded-full -translate-x-1/2 -translate-y-1/2" /> */}
+      {/* <div className="absolute bottom-0 right-0 w-16 h-16 bg-gray-100 rounded-full translate-x-1/3 translate-y-1/3" /> */}
     </motion.div>
   );
 };
