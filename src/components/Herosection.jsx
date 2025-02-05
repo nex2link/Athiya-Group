@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { lazy, Suspense } from 'react';
-import bgimg from '../assets/mumbai-skyline.jpg';
+import bgimgweb from '../assets/mumbai-skyline-webm.webp';
 
 const BackgroundImage = lazy(() => import('./BackgroundImage'));
 
@@ -90,7 +90,7 @@ const Hero = () => {
               variants={imageVariants}
               className="absolute inset-0"
             >
-              <BackgroundImage imagePath={bgimg} />
+              <BackgroundImage imagePath={bgimgweb} />
             </motion.div>
           </Suspense>
 
