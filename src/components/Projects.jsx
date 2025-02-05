@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProjectCard from "./ProjectCard";
-import project1 from "../assets/project-1.png";
-import project2 from "../assets/project-2.png";
-import project3 from "../assets/project-3.png";
+import project1 from "../assets/project-1.jpg";
+import project2 from "../assets/project-2.jpg";
+import project3 from "../assets/project-3.jpg";
+import project4 from "../assets/project-4.jpg";
+import project5 from "../assets/project-5.jpg";
 
-// Main Projects component
 const Projects = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -23,7 +25,7 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "Farm Dale, Pali",
+      title: "Farm Dale",
       sqft: "00",
       image: project2
     },
@@ -32,31 +34,34 @@ const Projects = () => {
       title: "AGrow Eco, Mahad",
       sqft: "00",
       image: project3
+    },
+    {
+      id: 4,
+      title: "shivsprash",
+      sqft: "00",
+      image: project4
+    },
+    {
+      id: 5,
+      title: "samarth Hill",
+      sqft: "00",
+      image: project5
     }
   ];
 
-  // Calculate number of duplicates needed based on screen width
-  const [duplicateCount, setDuplicateCount] = useState(2);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const updateDuplicateCount = () => {
-      const width = window.innerWidth;
-      setDuplicateCount(width < 640 ? 3 : width < 1024 ? 2 : 2);
-    };
+  const nextSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === projects.length - 1 ? 0 : prev + 1
+    );
+  };
 
-    updateDuplicateCount();
-    window.addEventListener('resize', updateDuplicateCount);
-    return () => window.removeEventListener('resize', updateDuplicateCount);
-  }, []);
-
-  // Create scrolling projects array with optimal number of duplicates
-  const scrollProjects = Array(duplicateCount)
-    .fill(projects)
-    .flat()
-    .map((project, index) => ({
-      ...project,
-      key: `${project.id}-${index}`
-    }));
+  const prevSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === 0 ? projects.length - 1 : prev - 1
+    );
+  };
 
   useEffect(() => {
     if (inView) {
@@ -64,15 +69,8 @@ const Projects = () => {
     }
   }, [controls, inView]);
 
-  // Smooth scroll animation
-  const scrollDuration = useCallback(() => {
-    const base = 30;
-    const width = window.innerWidth;
-    return width < 640 ? base * 1.5 : width < 1024 ? base * 1.25 : base;
-  }, []);
-
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 overflow-hidden">
+    <section className="w-full max-w-8xl mx-auto sm:px-6 lg:px-16 py-8 sm:py-12 lg:py-16">
       <motion.div
         ref={ref}
         initial="hidden"
@@ -104,47 +102,60 @@ const Projects = () => {
         </motion.p>
       </motion.div>
 
-      <div className="relative w-full overflow-hidden py-8 sm:py-12">
-        <div
-          className="flex gap-4 sm:gap-6 lg:gap-8 animate-scroll"
-          style={{
-            '--scroll-duration': `${scrollDuration()}s`,
-          }}
-        >
-          {scrollProjects.map((project, index) => (
-            <div
-              key={project.key}
-              className={`flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] transition-transform duration-500
-                ${index % 2 === 1 ? 'translate-y-8 sm:translate-y-12 lg:translate-y-16' : 
-                '-translate-y-8 sm:-translate-y-12 lg:-translate-y-16'}`}
+      {/* Slider container with overflow hidden */}
+      <div className="relative overflow-hidden w-full">
+        <div className="py-8 sm:py-12">
+          <motion.div
+            className="flex gap-4 sm:gap-6 lg:gap-8"
+            animate={{
+              x: `-${currentIndex * 100}%`
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut"
+            }}
+          >
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className="flex-none w-[260px] sm:w-[300px] lg:w-[340px]"
+              >
+                <ProjectCard project={project} index={index} />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+         {/* Navigation Buttons with line */}
+          {/* Navigation Buttons with separate lines */}
+        <div className="flex justify-between w-full mt-8 p-3">
+          {/* Left button with line */}
+          <div className="flex items-center gap-4">
+            <motion.button
+              onClick={prevSlide}
+              className="p-2 rounded-full bg-gray-900 text-white hover:bg-gray-800"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <ProjectCard project={project} index={index} />
-            </div>
-          ))}
+              <ChevronLeft size={24} />
+            </motion.button>
+            <div className="w-16 h-px bg-gray-900"></div>
+          </div>
+          
+          {/* Right button with line */}
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-px bg-gray-900"></div>
+            <motion.button
+              onClick={nextSlide}
+              className="p-2 rounded-full bg-gray-900 text-white hover:bg-gray-800"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight size={24} />
+            </motion.button>
+          </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        .animate-scroll {
-          animation: scroll var(--scroll-duration) linear infinite;
-          will-change: transform;
-        }
-
-        @keyframes scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(calc(-50% - 0.5rem));
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .animate-scroll {
-            animation: none;
-          }
-        }
-      `}</style>
     </section>
   );
 };

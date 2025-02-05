@@ -13,7 +13,7 @@ const OptimizedImageSection = ({ src, alt }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {    
     // Check if element is in viewport
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -118,6 +118,8 @@ const MahaMumbai = () => {
         <WhyChooseUs />
 
       </div>
+
+
     </div>
   );
 };

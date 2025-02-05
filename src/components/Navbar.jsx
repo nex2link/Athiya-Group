@@ -94,21 +94,30 @@ const Navbar = () => {
                         {/* <button className="bg-[#0F1F14] text-yellow-400 px-6 py-2 rounded-full hover:bg-yellow-400 hover:text-[#0F1F14] transition-colors duration-300 shadow-lg">
                             Contact Us
                         </button> */}
-                        <ContactModal/>
+                        <Link to="/contactus">
+                        <button className="bg-yellow-400 text-black px-6 py-2 rounded-full hover:bg-yellow-600 hover:text-[#0F1F14] transition-colors duration-300">
+                            Contact Us
+                        </button>
+                        </Link>
+                        {/* <ContactModal/> */}
                     </div>
                 </div>
 
                 {/* Mobile Menu */}
                 <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} mt-4`}>
                     <div className="flex flex-col space-y-4 bg-white p-4 rounded-lg shadow-lg">
-                        <a href="/aboutus" className="text-black hover:text-yellow-400 transition-colors duration-300">About Us</a>
+                        <a href="aboutus" className="text-black hover:text-yellow-400 transition-colors duration-300">About Us</a>
                         <a href="/project" className="text-black hover:text-yellow-400 transition-colors duration-300">Projects</a>
                         <a href="/service" className="text-black hover:text-yellow-400 transition-colors duration-300">Services</a>
                         <a href="/mahamumbai" className="text-black hover:text-yellow-400 transition-colors duration-300">Why Maha Mumbai?</a>
-                        {/* <button className="bg-[#0F1F14] text-yellow-400 px-6 py-2 rounded-full hover:bg-yellow-400 hover:text-[#0F1F14] transition-colors duration-300">
+                        <Link to="/contactus">
+                        <button className="bg-[#0F1F14] text-yellow-400 px-6 py-2 rounded-full hover:bg-yellow-400 hover:text-[#0F1F14] transition-colors duration-300">
                             Contact Us
-                        </button> */}
-                        <ContactModal isOpen={isContactOpen} setIsOpen={setIsContactOpen}/>
+                        </button>
+                        </Link>
+
+                        {/* <button>contact us</button> */}
+                        {/* <ContactModal isOpen={isContactOpen} setIsOpen={setIsContactOpen}/> */}
                     </div>
                 </div>
             </div>

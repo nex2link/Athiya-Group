@@ -8,6 +8,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
 import ScrollToTop from './components/ScrollToTop';
+import ContactUsPage from './pages/ContactUsPage';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/project" element={<ProjectsPage />} />
         <Route path="/service" element={<ServicesPage />} />
         <Route path="/mahamumbai" element={<MahaMumbai />} />
+        <Route path="/contactus" element={<ContactUsPage />} />
       </Routes>
     <Footer/>
     </div>

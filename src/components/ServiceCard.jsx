@@ -22,12 +22,13 @@ const ServiceCard = ({ title, description, icon, index, inView }) => {
       animate={inView ? "visible" : "hidden"}
       variants={cardVariants}
       className="group flex flex-col items-start gap-4 p-6 rounded-xl
-                 bg-white hover:bg-gray-50 transition-colors duration-300
+                   transition-colors duration-300
                  transform hover:-translate-y-1 hover:shadow-lg"
     >
       <div className="w-16 h-16 rounded-full bg-[#0A2919] flex items-center justify-center
                     transform transition-transform duration-300 group-hover:scale-110">
-        <span className="text-2xl">{icon}</span>
+        <span className="text-2xl"><img src={icon}  />
+        </span>
       </div>
       
       <div>

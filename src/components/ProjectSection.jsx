@@ -1,5 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Star, Share, ChevronDown, ChevronUp } from 'lucide-react';
+import agroimg1 from "../assets/agrow/age02.jpg"
+import agroimg2 from "../assets/agrow/age04.jpg"
+import agroimg3 from "../assets/agrow/age04.jpg"
+import agroimg4 from "../assets/agrow/age07.jpg"
+import samimg1 from "../assets/samarth/sam04.jpg"
+import samimg2 from "../assets/samarth/sam05.jpg"
+import samimg3 from "../assets/samarth/sam06.jpg"
+import samimg4 from "../assets/samarth/sam16.jpg"
+import dapoliimg1 from "../assets/dapoli/tfd07.jpg"
+import dapoliimg2 from "../assets/dapoli/tfd05.jpg"
+import dapoliimg3 from "../assets/dapoli/tfd04.jpg"
+import dapoliimg4 from "../assets/dapoli/tfd09.jpg"
+import farmimg1 from "../assets/farmDale/farmdale_1_1.jpg"
+import farmimg2 from "../assets/farmDale/farmdale_2.jpg"
+import farmimg3 from "../assets/farmDale/farmdale_3.jpg"
+import farmimg4 from "../assets/farmDale/farmdale_1.jpg"
+import shivimg1 from "../assets/shiv/sparsh_1.jpg"
+import shivimg2 from "../assets/shiv/sparsh_2.jpg"
+import shivimg3 from "../assets/shiv/sparsh_3.jpg"
 
 const ProjectSection = () => {
   const [expandedId, setExpandedId] = useState(1);
@@ -14,11 +33,11 @@ const ProjectSection = () => {
       title: "Dapoli 712 – Coastal Living in Kelashi",
       type: "Residential Plot",
       rating: "4.5",
-      mainImage: "/api/placeholder/800/500",
+      mainImage: dapoliimg1,
       subImages: [
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200"
+        dapoliimg2,
+        dapoliimg3,
+        dapoliimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
       highlights: [
@@ -36,11 +55,11 @@ const ProjectSection = () => {
       title: "Agrow Eco",
       type: "Residential Plot",
       rating: "4.5",
-      mainImage: "/api/placeholder/800/500",
+      mainImage: agroimg2,
       subImages: [
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200"
+        agroimg1,
+        agroimg3,
+        agroimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
       highlights: [
@@ -58,11 +77,11 @@ const ProjectSection = () => {
       title: "The Fram dale",
       type: "Residential Plot",
       rating: "4.5",
-      mainImage: "/api/placeholder/800/500",
+      mainImage: farmimg1,
       subImages: [
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200"
+        farmimg2,
+        farmimg3,
+        farmimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
       highlights: [
@@ -80,10 +99,10 @@ const ProjectSection = () => {
       title: "Shivsprash",
       type: "Residential Plot",
       rating: "4.5",
-      mainImage: "/api/placeholder/800/500",
+      mainImage: shivimg1,
       subImages: [
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200",
+        shivimg2, 
+        shivimg3,
         "/api/placeholder/300/200"
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
@@ -102,11 +121,11 @@ const ProjectSection = () => {
       title: "Smarath Hill",
       type: "Residential Plot",
       rating: "4.5",
-      mainImage: "/api/placeholder/800/500",
+      mainImage: samimg1,
       subImages: [
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200",
-        "/api/placeholder/300/200"
+        samimg2,
+        samimg3,
+        samimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
       highlights: [
@@ -186,10 +205,10 @@ const ProjectSection = () => {
                 <h2 className="text-2xl font-bold text-gray-900 transition-transform duration-300 hover:translate-x-2">
                   {project.title}
                 </h2>
-                <span className="inline-flex items-center text-gray-600">
-                  <Star className="w-5 h-5 text-yellow-400 fill-yellow-400 mr-1" />
-                  {project.rating}
-                </span>
+                  {/* <span className="inline-flex items-center text-gray-600">
+                    <Star className="w-5 h-5 text-yellow-400 fill-yellow-400 mr-1" />
+                    {project.rating}
+                  </span> */}
               </div>
               <div className={`transform transition-transform duration-300 ${expandedId === project.id ? 'rotate-180' : ''}`}>
                 <ChevronDown className="w-6 h-6 text-gray-500" />

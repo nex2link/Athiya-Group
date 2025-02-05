@@ -2,46 +2,108 @@ import { motion } from 'framer-motion';
 import { lazy, Suspense } from 'react';
 import bgimg from '../assets/mumbai-skyline.jpg';
 
-// Lazy load the background image
 const BackgroundImage = lazy(() => import('./BackgroundImage'));
 
 const Hero = () => {
-  // Animation variants for better organization and reusability
+  // Faster animation variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    hidden: { 
+      opacity: 0, 
+      y: 20,
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 200,
+        duration: 0.4
+      }
+    }
   };
 
   const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
+    hidden: { 
+      opacity: 0,
+      scale: 0.98
+    },
+    visible: { 
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
   };
 
-  // Stagger children animations
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.08, // Even faster stagger
+        delayChildren: 0.1,    // Minimal initial delay
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
   };
+
+  // Faster text animation
+  const letterAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+    }
+  };
+
+  // Image animation variants
+  const imageVariants = {
+    hidden: { 
+      scale: 1.2,
+      opacity: 0 
+    },
+    visible: { 
+      scale: 1,
+      opacity: 1,
+      transition: { 
+        duration: 0.7,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const title = "Transforming".split("");
 
   return (
     <section className="relative min-h-screen">
       <div className="w-full max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="relative h-[90vh] mt-6 rounded-3xl overflow-hidden">
-          {/* Background with lazy loading and loading state */}
+          {/* Background with animation */}
           <Suspense fallback={<div className="absolute inset-0 bg-gray-900" />}>
-            <BackgroundImage imagePath={bgimg} />
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={imageVariants}
+              className="absolute inset-0"
+            >
+              <BackgroundImage imagePath={bgimg} />
+            </motion.div>
           </Suspense>
 
-          {/* Optimized overlay gradient */}
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
+          <motion.div 
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ 
+              opacity: 1, 
+              backdropFilter: "blur(2px)",
+              transition: { duration: 0.5 }
+            }}
+            className="absolute inset-0 bg-black/40" 
+          />
 
-          {/* Content with improved responsive layout */}
           <div className="relative h-full flex items-center justify-center text-center">
             <motion.div
               variants={containerVariants}
@@ -50,13 +112,39 @@ const Hero = () => {
               className="max-w-3xl px-6"
             >
               <motion.h1 
-                variants={fadeInUp}
-                className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6"
+                className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 flex justify-center flex-wrap"
               >
-                Transforming{' '}
-                <span className="text-yellow-400 inline-block transform transition-transform hover:scale-105">
+                <div className="flex">
+                  {title.map((letter, index) => (
+                    <motion.span
+                      key={index}
+                      variants={letterAnimation}
+                      transition={{
+                        duration: 0.3,
+                        delay: index * 0.02, // Ultra-fast letter animation
+                        type: "spring",
+                        damping: 20,
+                        stiffness: 200
+                      }}
+                    >
+                      {letter === " " ? "\u00A0" : letter}
+                    </motion.span>
+                  ))}
+                </div>
+                <motion.span 
+                  variants={fadeInUp}
+                  className="text-yellow-400 inline-block ml-4"
+                  whileHover={{ 
+                    scale: 1.05,
+                    transition: {
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 10
+                    }
+                  }}
+                >
                   Maha Mumbai
-                </span>
+                </motion.span>
               </motion.h1>
               
               <motion.p 
@@ -70,24 +158,42 @@ const Hero = () => {
                 variants={fadeInUp}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
-                <button 
-                  className="bg-[#0F1F14] text-white px-8 py-3 rounded-lg 
+                <motion.button 
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(250, 204, 21, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 15
+                  }}
+                  className="bg-yellow-400 text-black px-8 py-3 rounded-lg 
                            transform transition-all duration-300 ease-out
-                           hover:bg-yellow-400 hover:text-[#0F1F14] hover:scale-105
-                           focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50
-                           active:scale-95"
+                           hover:bg-yellow-400 hover:text-[#0F1F14]
+                           focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50"
                 >
                   View Project
-                </button>
-                <button 
+                </motion.button>
+                <motion.button 
+                  whileHover={{ 
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(255, 255, 255, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 15
+                  }}
                   className="bg-white text-[#0F1F14] px-8 py-3 rounded-lg
                            transform transition-all duration-300 ease-out
-                           hover:bg-[#0F1F14] hover:text-white hover:scale-105
-                           focus:outline-none focus:ring-2 focus:ring-[#0F1F14] focus:ring-opacity-50
-                           active:scale-95"
+                           hover:bg-[#0F1F14] hover:text-white
+                           focus:outline-none focus:ring-2 focus:ring-[#0F1F14] focus:ring-opacity-50"
                 >
                   Get A Call!
-                </button>
+                </motion.button>
               </motion.div>
             </motion.div>
           </div>
@@ -96,6 +202,5 @@ const Hero = () => {
     </section>
   );
 };
-
 
 export default Hero;

@@ -44,7 +44,7 @@ const AboutUs = () => {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 my-8 sm:my-12 lg:my-14">
+    <div className="px-4 sm:px-6 lg:px-16 my-8 sm:my-12 lg:my-14">
       <motion.div
         ref={ref}
         initial="hidden"

@@ -5,6 +5,10 @@ import { useInView } from "react-intersection-observer";
 import ServiceCard from "./ServiceCard";
 import KnowMoreButton from "./KnowMoreButton";
 import Serviceimg from "../assets/services.jpg";
+import consulticon from "../assets/icons/consult.png"
+import investmenticon from "../assets/icons/investment.png"
+import landdevlopmenticon from "../assets/icons/land-devlopment.png"
+import legalicon from "../assets/icons/legal-icon.png"
 
 const Services = () => {
   const [ref, inView] = useInView({
@@ -16,22 +20,22 @@ const Services = () => {
     {
       title: "Real Estate Consulting",
       description: "Expert advice to maximize property investments.",
-      icon: "💼"
+      icon: consulticon
     },
     {
       title: "Land Development",
       description: "Transform land into premium spaces.",
-      icon: "🏗️"
+      icon: landdevlopmenticon
     },
     {
       title: "Investment Strategies",
       description: "Customized plans for optimal returns.",
-      icon: "📈"
+      icon: investmenticon
     },
     {
       title: "Legal Advisory",
       description: "Simplified legal support for transactions",
-      icon: "⚖️"
+      icon: legalicon
     },
   ];
 
