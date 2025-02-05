@@ -8,7 +8,7 @@ import AboutUsPage from './pages/AboutUsPage';
 import ProjectsPage from './pages/ProjectsPage';
 import ServicesPage from './pages/ServicesPage';
 import ScrollToTop from './components/ScrollToTop';
-import ContactUsPage from './pages/ContactUsPage';
+import ContactUsPage from './pages/ContactusPage';
 
 export default function App() {
   return (
