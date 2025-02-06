@@ -1,5 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { TrendingUp, Building2, Map } from 'lucide-react';
+// import { TrendingUp, Building2, Map } from 'lucide-react';
+import TrendingUp from "../assets/investicon.png"
+import Building2 from "../assets/factory.png"
+import Map from "../assets/growth.png"
 
 const InvestmentOpportunities = () => {
   const sectionRef = useRef(null);
@@ -87,7 +90,7 @@ const InvestmentOpportunities = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="col-span-1 sm:col-span-3 grid gap-6 sm:gap-8">
+        <div className="col-span-1 sm:col-span-3 grid gap-6 sm:gap-8 ">
           {cards.map((card, index) => {
             const Icon = card.icon;
             return (
@@ -97,7 +100,7 @@ const InvestmentOpportunities = () => {
                 className={`
                   bg-white rounded-3xl p-6 sm:p-8
                   transform transition-all duration-700 ${card.delay}
-                  hover:shadow-xl hover:-translate-y-2
+                  hover:shadow-xl hover:-translate-y-2 shadow-md 
                   cursor-pointer
                   ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'}
                   ${card.style}
@@ -107,7 +110,7 @@ const InvestmentOpportunities = () => {
                 `}
               >
                 {/* Background decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16 transform transition-transform duration-700 group-hover:scale-150" />
+                {/* <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16 transform transition-transform duration-700 group-hover:scale-150" /> */}
 
                 {/* Icon container */}
                 <div className={`
@@ -116,7 +119,7 @@ const InvestmentOpportunities = () => {
                   group-hover:scale-110 group-hover:rotate-12
                   ${card.color}
                 `}>
-                  <Icon size={32} strokeWidth={1.5} />
+                  <img src={card.icon} className='w-12 h-12' alt="" />
                 </div>
 
                 {/* Content */}
@@ -139,7 +142,8 @@ const InvestmentOpportunities = () => {
                 </div>
 
                 {/* Hover gradient effect */}
-                <div className="
+                <div 
+                className="
                   absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent
                   opacity-0 group-hover:opacity-20
                   transform -translate-x-full group-hover:translate-x-full

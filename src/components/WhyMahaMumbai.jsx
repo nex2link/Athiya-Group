@@ -287,7 +287,7 @@ const WhyMahaMumbai = () => {
         </motion.div>
       </motion.div>
 
-      <style jsx global>{`
+      <style global="true">{`
         .animate-scroll {
           animation: scrollX 20s linear infinite;
           will-change: transform;

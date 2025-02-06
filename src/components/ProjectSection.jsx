@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Star, Share, ChevronDown, ChevronUp } from 'lucide-react';
 import agroimg1 from "../assets/agrow/age02.jpg"
 import agroimg2 from "../assets/agrow/age04.jpg"
@@ -21,6 +22,7 @@ import shivimg2 from "../assets/shiv/sparsh_2.jpg"
 import shivimg3 from "../assets/shiv/sparsh_3.jpg"
 
 const ProjectSection = () => {
+  const [searchParams] = useSearchParams();
   const [expandedId, setExpandedId] = useState(1);
   const [contentHeights, setContentHeights] = useState({});
   const contentRefs = useRef({});
@@ -30,7 +32,7 @@ const ProjectSection = () => {
   const projects = [
     {
       id: 1,
-      title: "Dapoli 712 – Coastal Living in Kelashi",
+      title: "Maha Mumbai Project - A Prime Investment Opportunity",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
@@ -39,8 +41,39 @@ const ProjectSection = () => {
         dapoliimg3,
         dapoliimg4
       ],
+      description: "Maha Mummbai Project is a premium farmland venture catering to investors looking for high-growth opportunities near Mumbai. Located in the heart of Raigad, this project offers an excellent chance to own land in a strategically developing region while enjoying the beuty of nature.",
+      WhyInvest: "Why invest in Maha Mumbai Project?",
+      whyIvestPoints:[
+        "• Near Key infrastructure projects and industrial zones",
+        "• Rapid urbanization and demand surge",
+        "• Ensuring a smooth investment process",
+        "• Perfect for eco-retreats, farmhouses, and long-term gains"
+
+      ],
+      highlights: [
+        "Mumbai Goa Four-Lane",
+        "Mumbai Trans Harbour Link(MTHL)",
+        "Navi Mumbai International Airport",
+        "Dedicated Industrial & Bussiness Hubs"
+      ],
+      details: [
+        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
+        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
+      ]
+    },
+    {
+      id: 2,
+      title: "Dapoli 712 – Coastal Living in Kelashi",
+      type: "Residential Plot",
+      rating: "4.5",
+      mainImage: dapoliimg1,
+      subImages: [
+        agroimg1,
+        agroimg3,
+        agroimg4
+      ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
-      WhyInvest: "Why invest Dapoli 712",
+      WhyInvest: "Why invest in Dapoli 712",
       whyIvestPoints:[
         "• Close to key infrastructure projects",
         "• Perfect for organic farming and eco-retreats",
@@ -54,12 +87,12 @@ const ProjectSection = () => {
         "2 hours from Navi Mumbai International Airport"
       ],
       details: [
-        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
-        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
+        { price: "₹X lakhs", area: "20 Guntha (20,000 SQ. FT)", type: "Residential Plot" },
+        { price: "₹X lakhs", area: "ACRE (40,000 SQ. FT)", type: "Residential Plot" }
       ]
     },
     {
-      id: 2,
+      id: 3,
       title: "Agrow Eco",
       type: "Residential Plot",
       rating: "4.5",
@@ -90,7 +123,7 @@ const ProjectSection = () => {
       ]
     },
     {
-      id: 3,
+      id: 4,
       title: "The Fram dale",
       type: "Residential Plot",
       rating: "4.5",
@@ -100,19 +133,19 @@ const ProjectSection = () => {
         farmimg3,
         farmimg4
       ],
-      description: "",
+      description: "Farm Dale is an exclusive farm-living community offeriing lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blemds sustainable living with luxury.",
       WhyInvest: "Why invest in Farm Dale",
       whyIvestPoints:[
-        "• Close to key infrastructure projects",
-        "• Perfect for organic farming and eco-retreats",
-        "• With upcoming highways and connectivity plans",
-        "• Clear LAnd Titles & Hassle-Free Documentation"
+        "• Gated & Secure community",
+        "• Plots with Plantation & Organic Farming",
+        "• Modern Amenities with Rustic Charm",
+        "• Excellent Investment & Weekend Gateway"
 
       ],
       highlights: [
-        "10 mins from the Beach",
-        "1 hour from Mumbai-Goa Highway",
-        "2 hours from Navi Mumbai International Airport"
+        "30 mins from City Center",
+        "10 mins from Nearest Railway Station",
+        "Surrounded by Natural Lakes & Hills"
       ],
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
@@ -120,7 +153,7 @@ const ProjectSection = () => {
       ]
     },
     {
-      id: 4,
+      id: 5,
       title: "Shivsprash",
       type: "Residential Plot",
       rating: "4.5",
@@ -130,19 +163,20 @@ const ProjectSection = () => {
         shivimg3,
         "/api/placeholder/300/200"
       ],
-      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      description: "Shivsparsh is a Premium land investmnet prject set amidst the serene landscapes of raigad. with a vision to offer tranquil and strategically located farmland, this project presents a perfect opportunity for investors and nature enthusiasts looking for a balance modern infrasturcture and peaceful living",
       WhyInvest: "Why invest in Shivsprash",
       whyIvestPoints:[
-        "• Close to key infrastructure projects",
-        "• Perfect for organic farming and eco-retreats",
-        "• With upcoming highways and connectivity plans",
-        "• Clear LAnd Titles & Hassle-Free Documentation"
+        "• ideal for weekend homes and agricultural ventures",
+        "• Nestled in the heart of developing Raigad",
+        "• Ensuring high appreciation value",
+        "• Surrounded by natural beauty and greenery"
 
       ],
       highlights: [
-        "10 mins from the Beach",
-        "1 hour from Mumbai-Goa Highway",
-        "2 hours from Navi Mumbai International Airport"
+        "Mumbai Goa Four-Lane Highway",
+        "CST-Raha Local Train Expansion",
+        "Mumbai Multimodal Corridor (Virar-Alibag)",
+        "Ro-ro Ferry System"
       ],
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
@@ -150,7 +184,7 @@ const ProjectSection = () => {
       ]
     },
     {
-      id: 5,
+      id: 6,
       title: "Smarath Hill",
       type: "Residential Plot",
       rating: "4.5",
@@ -160,19 +194,19 @@ const ProjectSection = () => {
         samimg3,
         samimg4
       ],
-      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      description: "samarth Hill is a premium plotted development project designed to blend modern infrastructure with nautre's serenit. Nestled in the lush landscapes of sindhudurg, this project offers an excellent opportunity for those seeking investment, weekend homes, or sustainable farm living",
       WhyInvest: "Why invest in Smarath Hill",
       whyIvestPoints:[
-        "• Close to key infrastructure projects",
-        "• Perfect for organic farming and eco-retreats",
-        "• With upcoming highways and connectivity plans",
-        "• Clear LAnd Titles & Hassle-Free Documentation"
+        "• Growing demand for real estate in Sindhudurg",
+        "• A perceft gateway from the city's hustle",
+        "• Backed by government projects"
 
       ],
       highlights: [
-        "10 mins from the Beach",
-        "1 hour from Mumbai-Goa Highway",
-        "2 hours from Navi Mumbai International Airport"
+        "Mumbai Goa Four-Lane Highway",
+        "Mumbai Multimodal Corridor",
+        "CST-Raha Local Expansion",
+        "Ro-Ro Ferry System"
       ],
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
@@ -223,6 +257,21 @@ const ProjectSection = () => {
     }
   };
 
+  useEffect(() => {
+    // Check URL params first, then localStorage
+    const projectId = parseInt(searchParams.get('id')) || parseInt(localStorage.getItem('activeProject'));
+    if (projectId) {
+      setExpandedId(projectId);
+      const element = document.getElementById(`project-${projectId}`);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          localStorage.removeItem('activeProject'); // Clear after use
+        }, 100);
+      }
+    }
+  }, [searchParams]);
+
   return (
     <div 
       ref={sectionRef}
@@ -234,7 +283,9 @@ const ProjectSection = () => {
 
       <div className="space-y-6">
         {projects.map((project) => (
-          <div key={project.id} 
+          <div 
+          id={`project-${project.id}`}
+          key={project.id} 
             className="bg-white rounded-2xl shadow-sm overflow-hidden transform transition-all duration-300 hover:shadow-lg"
           >
             {/* Clickable Header */}
@@ -267,7 +318,8 @@ const ProjectSection = () => {
                   {/* Left side - Images */}
                   <div className="lg:w-1/2 space-y-4">
                     {/* Main Image */}
-                    <div className="rounded-2xl overflow-hidden">
+                    <div id={`project-${project.id}`} className="rounded-2xl overflow-hidden">
+                    
                       <img
                         src={project.mainImage}
                         alt={project.title}
@@ -348,7 +400,7 @@ const ProjectSection = () => {
                     </div>
 
                     {/* Project Details */}
-                    <div className="transform transition-all duration-500">
+                    {/* <div className="transform transition-all duration-500">
                       <h3 className="text-xl font-bold text-gray-900 mb-4">
                         Project Details
                       </h3>
@@ -375,7 +427,7 @@ const ProjectSection = () => {
                           </tbody>
                         </table>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

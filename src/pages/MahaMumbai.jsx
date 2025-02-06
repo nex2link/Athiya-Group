@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import bgimgWEb from '../assets/mumbai-skyline-webm.webp';
 import GrowthSection from '../components/GrowthSection';
 import KeyHighlights from '../components/KeyHighlights';
-import InvestmentOpportunities from '../components/InvestentOpportunities';
+import InvestmentOpportunities from '../components/InvestmentOpportunities';
 import NaturalBeauty from '../components/NaturalBeauty';
 import WhyChooseUs from '../components/WhyChooseUs';
 import SustainabilitySection from "../components/SustainabilitySection";
