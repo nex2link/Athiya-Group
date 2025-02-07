@@ -8,6 +8,10 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
     };
@@ -27,7 +31,7 @@ const Navbar = () => {
     <nav className={`font-bold fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-lg' : 'bg-transparent'
     }`}>
-      <div className="max-w-screen-xl mx-auto px-4 py-4"> 
+      <div className="max-w-screen-xl mx-auto px-4 py-4 overflow-x-hidden"> 
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
@@ -92,7 +96,7 @@ const Navbar = () => {
             <Link to="/project" className={linkClass('/project')}>Projects</Link>
             <Link to="/service" className={linkClass('/service')}>Services</Link>
             <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Why Maha Mumbai?</Link>
-            <Link>
+            <Link to="/contactus">
             <button className={`w-full px-6 py-2 rounded-full transition-colors duration-300 font-normal ${
               isActive('/contactus')
                 ? 'bg-yellow-600 text-black'

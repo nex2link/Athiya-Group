@@ -263,8 +263,8 @@ const ContactUs = () => {
               type="submit"
               disabled={isSubmitting}
               className="w-full sm:w-auto bg-white text-[#1a2e1a] px-8 lg:px-14 py-3 rounded-xl font-medium 
-                       hover:bg-gray-100 transition-all duration-200 shadow-lg 
-                       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      hover:bg-gray-100 transition-all duration-200 shadow-lg 
+                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>

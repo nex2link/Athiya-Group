@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import KnowMoreButton from "./KnowMoreButton";
@@ -14,11 +14,10 @@ const WhyMahaMumbai = () => {
     threshold: 0.2,
   });
 
-  // State for carousel
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
 
   const features = [
@@ -39,16 +38,29 @@ const WhyMahaMumbai = () => {
     }
   ];
 
-  // Check if mobile on mount and window resize
+  // Optimized resize handler with debounce
+  const checkIfMobile = useCallback(() => {
+    const mobileBreakpoint = 640;
+    const isMobileView = window.innerWidth < mobileBreakpoint;
+    if (isMobileView !== isMobile) {
+      setIsMobile(isMobileView);
+    }
+  }, [isMobile]);
+
   useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 640);
+    let timeoutId;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkIfMobile, 150);
     };
-    
+
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    return () => window.removeEventListener('resize', checkIfMobile);
-  }, []);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
+  }, [checkIfMobile]);
 
   useEffect(() => {
     if (inView) {
@@ -56,48 +68,101 @@ const WhyMahaMumbai = () => {
     }
   }, [controls, inView]);
 
-  // Auto-slide functionality for mobile
+  // Optimized auto-slide with RAF
   useEffect(() => {
-    let interval;
-    if (isMobile && !isPaused) {
-      interval = setInterval(() => {
+    let rafId;
+    let lastTime = 0;
+    const interval = 3000; // Increased interval for smoother transitions
+
+    const animate = (timestamp) => {
+      if (!lastTime) lastTime = timestamp;
+      const progress = timestamp - lastTime;
+
+      if (isMobile && !isPaused && progress >= interval) {
         setCurrentIndex((prev) => (prev + 1) % features.length);
-      }, 2000);
+        lastTime = timestamp;
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    if (isMobile && !isPaused) {
+      rafId = requestAnimationFrame(animate);
     }
-    return () => clearInterval(interval);
+
+    return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+    };
   }, [isMobile, isPaused, features.length]);
 
-  // Handle touch events for mobile
-  const handleTouchStart = (e) => {
+  // Optimized touch handlers
+  const handleTouchStart = useCallback((e) => {
     setIsPaused(true);
     setTouchStart(e.touches[0].clientX);
-  };
+    setTouchEnd(null);
+  }, []);
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = useCallback((e) => {
     setTouchEnd(e.touches[0].clientX);
-  };
+  }, []);
 
-  const handleTouchEnd = () => {
-    setIsPaused(false);
-    if (!touchStart || !touchEnd) return;
-    
+  const handleTouchEnd = useCallback(() => {
+    if (!touchStart || !touchEnd) {
+      setIsPaused(false);
+      return;
+    }
+
     const distance = touchStart - touchEnd;
     const minSwipeDistance = 50;
 
-    if (Math.abs(distance) < minSwipeDistance) return;
-
-    if (distance > 0) {
-      setCurrentIndex((prev) => (prev + 1) % features.length);
-    } else {
-      setCurrentIndex((prev) => (prev - 1 + features.length) % features.length);
+    if (Math.abs(distance) > minSwipeDistance) {
+      const direction = distance > 0 ? 1 : -1;
+      setCurrentIndex((prev) => {
+        const next = prev + direction;
+        if (next < 0) return features.length - 1;
+        if (next >= features.length) return 0;
+        return next;
+      });
     }
 
-    setTouchStart(0);
-    setTouchEnd(0);
+    setTouchStart(null);
+    setTouchEnd(null);
+    setIsPaused(false);
+  }, [touchStart, touchEnd, features.length]);
+
+  // Mobile carousel variants
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction > 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 0.95
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 }
+      }
+    },
+    exit: (direction) => ({
+      x: direction < 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 },
+        scale: { duration: 0.2 }
+      }
+    })
   };
 
-  // Create duplicated array for desktop infinite scroll
-  const desktopScrollImages = [...features, ...features, ...features].map((feature, index) => ({
+  // Create optimized desktop scroll images
+  const desktopScrollImages = [...features, ...features].map((feature, index) => ({
     ...feature,
     key: `${feature.title}-${index}`
   }));
@@ -110,7 +175,7 @@ const WhyMahaMumbai = () => {
         animate={controls}
         variants={{
           hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { duration: 0.6 } }
+          visible: { opacity: 1, transition: { duration: 0.4 } }
         }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
@@ -118,11 +183,19 @@ const WhyMahaMumbai = () => {
           {/* Left section */}
           <motion.div 
             variants={{
-              hidden: { opacity: 0, x: -50 },
-              visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+              hidden: { opacity: 0, x: -30 },
+              visible: { 
+                opacity: 1, 
+                x: 0, 
+                transition: { 
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                } 
+              }
             }}
             className="bg-[#E5EFE1] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 
-                       lg:flex-1 transform transition-all duration-500"
+                       lg:flex-1 will-change-transform"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 pr-8 lg:pr-14">
               Why<br />Maha Mumbai?
@@ -134,7 +207,6 @@ const WhyMahaMumbai = () => {
 
           {/* Images section */}
           {isMobile ? (
-            /* Mobile Carousel */
             <motion.div 
               variants={{
                 hidden: { opacity: 0 },
@@ -145,42 +217,35 @@ const WhyMahaMumbai = () => {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              <AnimatePresence mode="wait" initial={false}>
+              <AnimatePresence
+                initial={false}
+                mode="wait"
+                custom={touchStart && touchEnd ? Math.sign(touchEnd - touchStart) : 1}
+              >
                 <motion.div
                   key={currentIndex}
-                  initial={{ 
-                    opacity: 0,
-                    x: 50,
-                    scale: 0.95
-                  }}
-                  animate={{ 
-                    opacity: 1,
-                    x: 0,
-                    scale: 1,
-                    transition: {
-                      opacity: { duration: 0.5, ease: "easeInOut" },
-                      x: { duration: 0.5, ease: "easeOut" },
-                      scale: { duration: 0.5, ease: "easeOut" }
-                    }
-                  }}
-                  exit={{ 
-                    opacity: 0,
-                    x: -50,
-                    scale: 0.95,
-                    transition: {
-                      opacity: { duration: 0.3, ease: "easeInOut" },
-                      x: { duration: 0.3, ease: "easeIn" },
-                      scale: { duration: 0.3, ease: "easeIn" }
-                    }
-                  }}
+                  custom={touchStart && touchEnd ? Math.sign(touchEnd - touchStart) : 1}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
                   className="absolute inset-0 will-change-transform"
+                  style={{
+                    containIntrinsicSize: '100%',
+                    contain: 'layout'
+                  }}
                 >
                   <img 
                     src={features[currentIndex].image}
                     alt={features[currentIndex].alt}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform-gpu"
+                    loading="lazy"
+                    style={{
+                      willChange: 'transform',
+                      backfaceVisibility: 'hidden'
+                    }}
                   />
-                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute inset-0 bg-black/20 transition-opacity" />
                   <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
                     <motion.p 
                       initial={{ opacity: 0, y: 10 }}
@@ -188,11 +253,13 @@ const WhyMahaMumbai = () => {
                         opacity: 1, 
                         y: 0,
                         transition: {
-                          delay: 0.2,
-                          duration: 0.4
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                          delay: 0.1
                         }
                       }}
-                      className="text-white text-lg font-medium"
+                      className="text-white text-lg font-medium will-change-transform"
                     >
                       {features[currentIndex].title}
                     </motion.p>
@@ -206,20 +273,20 @@ const WhyMahaMumbai = () => {
                     key={index}
                     initial={false}
                     animate={{
-                      scale: index === currentIndex ? 1.25 : 1,
-                      opacity: index === currentIndex ? 1 : 0.5
+                      scale: index === currentIndex ? 1.2 : 1,
+                      opacity: index === currentIndex ? 1 : 0.6
                     }}
                     transition={{
-                      duration: 0.3,
-                      ease: "easeOut"
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
                     }}
-                    className="w-2 h-2 rounded-full bg-white"
+                    className="w-2 h-2 rounded-full bg-white will-change-transform"
                   />
                 ))}
               </div>
             </motion.div>
           ) : (
-            /* Desktop infinite scroll */
             <motion.div 
               variants={{
                 hidden: { opacity: 0 },
@@ -229,8 +296,11 @@ const WhyMahaMumbai = () => {
             >
               <div className="relative">
                 <div 
-                  className="flex gap-4 sm:gap-6 animate-scroll"
-                  style={{ width: "max-content" }}
+                  className="flex gap-4 sm:gap-6 smooth-scroll"
+                  style={{ 
+                    width: "max-content",
+                    willChange: 'transform'
+                  }}
                 >
                   {desktopScrollImages.map((feature, index) => (
                     <motion.div 
@@ -240,22 +310,32 @@ const WhyMahaMumbai = () => {
                         visible: { 
                           opacity: 1, 
                           y: 0,
-                          transition: { duration: 0.5, delay: index * 0.1 }
+                          transition: { 
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 30,
+                            delay: index * 0.1 
+                          }
                         }
                       }}
                       className="relative flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] 
                                rounded-xl sm:rounded-2xl overflow-hidden group"
+                      style={{ contain: 'layout' }}
                     >
                       <div className="aspect-[4/3]">
                         <img 
                           src={feature.image} 
                           alt={feature.alt}
-                          className="w-full h-full object-cover transform transition-transform duration-700 
-                                   group-hover:scale-110"
+                          className="w-full h-full object-cover transform-gpu transition-transform 
+                                   duration-700 group-hover:scale-110"
                           loading="lazy"
+                          style={{
+                            willChange: 'transform',
+                            backfaceVisibility: 'hidden'
+                          }}
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 
-                                      transition-colors duration-300" />
+                                      transition-opacity duration-300" />
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t 
                                     from-black/60 to-transparent">
@@ -269,41 +349,45 @@ const WhyMahaMumbai = () => {
           )}
         </div>
 
-        {/* Button */}
         <motion.div 
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: { 
               opacity: 1, 
               y: 0,
-              transition: { delay: 0.4, duration: 0.6 }
+              transition: { 
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+                delay: 0.3
+              }
             }
           }}
           className="flex justify-end mt-6 sm:mt-8"
         >
           <Link to="/mahamumbai">
-          <KnowMoreButton />
+            <KnowMoreButton />
           </Link>
         </motion.div>
       </motion.div>
 
-      <style global="true">{`
-        .animate-scroll {
-          animation: scrollX 20s linear infinite;
+      <style>{`
+        .smooth-scroll {
+          animation: smoothScrollX 30s linear infinite;
           will-change: transform;
         }
 
-        @keyframes scrollX {
+        @keyframes smoothScrollX {
           0% {
-            transform: translateX(0);
+            transform: translateX(0) translateZ(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            transform: translateX(-50%) translateZ(0);
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .animate-scroll {
+          .smooth-scroll {
             animation: none;
           }
         }

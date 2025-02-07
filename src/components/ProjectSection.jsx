@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Star, Share, ChevronDown, ChevronUp } from 'lucide-react';
+import ShareButton from "./ShareButton"
 import agroimg1 from "../assets/agrow/age02.jpg"
 import agroimg2 from "../assets/agrow/age04.jpg"
 import agroimg3 from "../assets/agrow/age04.jpg"
@@ -21,10 +22,10 @@ import shivimg1 from "../assets/shiv/sparsh_1.jpg"
 import shivimg2 from "../assets/shiv/sparsh_2.jpg"
 import shivimg3 from "../assets/shiv/sparsh_3.jpg"
 
+
 const ProjectSection = () => {
   const [searchParams] = useSearchParams();
   const [expandedId, setExpandedId] = useState(1);
-  const [contentHeights, setContentHeights] = useState({});
   const contentRefs = useRef({});
   const imageRefs = useRef({});
   const sectionRef = useRef(null);
@@ -216,18 +217,6 @@ const ProjectSection = () => {
   ];
 
   useEffect(() => {
-    // Initialize content heights for smooth animations
-    projects.forEach(project => {
-      if (contentRefs.current[project.id]) {
-        setContentHeights(prev => ({
-          ...prev,
-          [project.id]: expandedId === project.id ? contentRefs.current[project.id].scrollHeight : 0
-        }));
-      }
-    });
-  }, [expandedId]);
-
-  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -248,7 +237,26 @@ const ProjectSection = () => {
   }, []);
 
   const toggleProject = (projectId) => {
-    setExpandedId(expandedId === projectId ? null : projectId);
+    if (expandedId === projectId) {
+      setExpandedId(null);
+    } else {
+      if (expandedId !== null) {
+        setTimeout(() => {
+          setExpandedId(projectId);
+          const element = document.getElementById(`project-${projectId}`);
+          if(element){
+            element.scrollIntoView({behavior: 'smooth', block: 'start'});
+          }
+        }, 50);
+      } else {
+        setExpandedId(projectId);
+
+        const element = document.getElementById(`project-${projectId}`);
+        if(element){
+          element.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+      }
+    }
   };
 
   const handleImageLoad = (projectId, idx) => {
@@ -258,7 +266,6 @@ const ProjectSection = () => {
   };
 
   useEffect(() => {
-    // Check URL params first, then localStorage
     const projectId = parseInt(searchParams.get('id')) || parseInt(localStorage.getItem('activeProject'));
     if (projectId) {
       setExpandedId(projectId);
@@ -266,7 +273,7 @@ const ProjectSection = () => {
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          localStorage.removeItem('activeProject'); // Clear after use
+          localStorage.removeItem('activeProject');
         }, 100);
       }
     }
@@ -284,42 +291,34 @@ const ProjectSection = () => {
       <div className="space-y-6">
         {projects.map((project) => (
           <div 
-          id={`project-${project.id}`}
-          key={project.id} 
+            id={`project-${project.id}`}
+            key={project.id} 
             className="bg-white rounded-2xl shadow-sm overflow-hidden transform transition-all duration-300 hover:shadow-lg"
           >
-            {/* Clickable Header */}
             <button
               onClick={() => toggleProject(project.id)}
               className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors duration-300"
             >
               <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-bold text-gray-900 transition-transform duration-300 hover:translate-x-2">
+                <h2 className="text-2xl font-bold text-left text-gray-900 transition-transform duration-300 hover:translate-x-2">
                   {project.title}
                 </h2>
-                  {/* <span className="inline-flex items-center text-gray-600">
-                    <Star className="w-5 h-5 text-yellow-400 fill-yellow-400 mr-1" />
-                    {project.rating}
-                  </span> */}
               </div>
               <div className={`transform transition-transform duration-300 ${expandedId === project.id ? 'rotate-180' : ''}`}>
                 <ChevronDown className="w-6 h-6 text-gray-500" />
               </div>
             </button>
 
-            {/* Expandable Content */}
             <div
               ref={el => contentRefs.current[project.id] = el}
-              style={{ height: `${contentHeights[project.id] || 0}px` }}
-              className="transition-all duration-500 ease-in-out overflow-hidden origin-top will-change-transform"
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                expandedId === project.id ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+              }`}
             >
               <div className="p-6 border-t border-gray-100">
                 <div className="flex flex-col lg:flex-row gap-8">
-                  {/* Left side - Images */}
                   <div className="lg:w-1/2 space-y-4">
-                    {/* Main Image */}
-                    <div id={`project-${project.id}`} className="rounded-2xl overflow-hidden">
-                    
+                    <div className="rounded-2xl overflow-hidden">
                       <img
                         src={project.mainImage}
                         alt={project.title}
@@ -331,7 +330,6 @@ const ProjectSection = () => {
                       />
                     </div>
                     
-                    {/* Sub Images */}
                     <div className="grid grid-cols-3 gap-4">
                       {project.subImages.map((img, idx) => (
                         <div key={idx} 
@@ -351,17 +349,11 @@ const ProjectSection = () => {
                     </div>
                   </div>
 
-                  {/* Right side - Content */}
                   <div className="lg:w-1/2 space-y-6">
-                    {/* Share button */}
                     <div className="flex justify-end">
-                      <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-300">
-                        <Share className="w-5 h-5" />
-                        Share
-                      </button>
+                    <ShareButton project={project} />
                     </div>
 
-                    {/* Key Highlights */}
                     <div className="transform transition-all duration-500 hover:translate-x-2">
                       <h3 className="text-xl font-bold text-gray-900 mb-4">
                         Key Highlights
@@ -377,7 +369,6 @@ const ProjectSection = () => {
                       </div>
                     </div>
 
-                    {/* Description */}
                     <div className="transform transition-all duration-500 hover:translate-x-2">
                       <h3 className="text-xl font-bold text-gray-900 mb-4">
                         Description
@@ -387,47 +378,18 @@ const ProjectSection = () => {
                       </p>
                     </div>
 
-                    {/* why buy */}
-                    <div>
-                      <h3 className='text'>{project.WhyInvest}</h3>
-                      <p>
-                      {project.whyIvestPoints.map((points, idx) => (
-                            <p key={idx} className="text-gray-600">
-                              {points}
-                            </p>
-                          ))}
-                      </p>
-                    </div>
-
-                    {/* Project Details */}
-                    {/* <div className="transform transition-all duration-500">
+                    <div className="transform transition-all duration-500 hover:translate-x-2">
                       <h3 className="text-xl font-bold text-gray-900 mb-4">
-                        Project Details
+                        {project.WhyInvest}
                       </h3>
-                      <div className="overflow-x-auto">
-                        <table className="w-full border-collapse border border-gray-200 rounded-lg">
-                          <thead>
-                            <tr className="bg-gray-50">
-                              <th className="border border-gray-200 p-4 text-left">Price (Starting)</th>
-                              <th className="border border-gray-200 p-4 text-left">Land Area</th>
-                              <th className="border border-gray-200 p-4 text-left">Type</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {project.details.map((detail, idx) => (
-                              <tr 
-                                key={idx} 
-                                className="bg-white hover:bg-gray-50 transition-colors duration-300"
-                              >
-                                <td className="border border-gray-200 p-4">{detail.price}</td>
-                                <td className="border border-gray-200 p-4">{detail.area}</td>
-                                <td className="border border-gray-200 p-4">{detail.type}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                      <div className="space-y-2">
+                        {project.whyIvestPoints.map((point, idx) => (
+                          <p key={idx} className="text-gray-600">
+                            {point}
+                          </p>
+                        ))}
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -436,7 +398,7 @@ const ProjectSection = () => {
         ))}
       </div>
 
-      <style jsx='true' >{`
+      <style jsx='true'>{`
         .animate-in {
           opacity: 1 !important;
           transform: translateY(0) !important;

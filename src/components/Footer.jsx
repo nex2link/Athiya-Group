@@ -1,9 +1,10 @@
 import React from 'react';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import Logo from "../assets/Athiya-logo.png";
 
 const Footer = () => {
   return (
-    <div className="w-full bg-[#0D2013] relative mt[-5] rounded-t-2xl lg:pl-40">
+    <div className="w-full bg-[#0D2013] relative mt[-5] rounded-t-2xl lg:px-24">
       <footer className="text-white py-8">
         <div className="container mx-auto px-4 md:px-8">
           {/* Main Footer Content */}
@@ -21,6 +22,21 @@ const Footer = () => {
                 Innovative real estate solutions<br />
                 for a future-ready lifestyle.
               </p>
+              {/* Social Media Icons */}
+              <div className="flex space-x-4 mt-6">
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Facebook size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Twitter size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Instagram size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <Linkedin size={20} />
+                </a>
+              </div>
             </div>
 
             {/* Company Links */}
@@ -62,4 +78,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;  
+export default Footer;
