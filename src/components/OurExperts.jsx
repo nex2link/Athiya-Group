@@ -142,7 +142,7 @@ const OurExperts = () => {
                 }
               }}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentSlide === index ? 'bg-blue-600 w-4' : 'bg-gray-300'
+                currentSlide === index ? 'bg-yellow-400 w-4' : 'bg-gray-300'
               }`}
             />
           ))}

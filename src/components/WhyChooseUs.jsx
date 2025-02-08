@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MahaMumbaiSection = () => {
   return (
@@ -18,9 +19,11 @@ const MahaMumbaiSection = () => {
           <h2 className="text-3xl font-bold mb-8">
             Discover the future with Maha Mumbai.
           </h2>
-          <button className="bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800 transition-colors">
-            Explore Our Projects Now
+          <Link to="/contactus">
+          <button className="bg-yellow-400 text-black px-6 py-3 rounded-md hover:bg-yellow-700 transition-colors">
+            contact us
           </button>
+          </Link>
         </div>
       </main>
     </div>

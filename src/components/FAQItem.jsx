@@ -60,13 +60,13 @@ const FAQItem = ({ question, answer, isOpen, onClick, index }) => {
       className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
     >
       <button
-        className="w-full flex justify-between items-center p-4 sm:p-5 text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-lg"
+        className="w-full flex justify-between items-center p-4 sm:p-5 text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0D2013] rounded-lg"
         onClick={onClick}
         aria-expanded={isOpen}
       >
         <span className="font-medium text-gray-900 text-base sm:text-lg pr-4">
           {question}
-        </span>
+        </span> 
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}

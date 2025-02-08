@@ -10,15 +10,13 @@ import farmimg1 from "../assets/project-3.jpg";
 import shivimg1 from "../assets/project-4.jpg";
 import samimg1 from "../assets/project-5.jpg";
 
-// Memoized ProjectCard 
 const MemoizedProjectCard = memo(ProjectCard);
 
-// NavigationButton component
 const NavigationButton = memo(({ onClick, direction, disabled }) => (
   <motion.button
     onClick={onClick}
-    className={`p-2 rounded-full bg-gray-900 text-white ${
-      disabled ? 'opacity-50' : 'hover:bg-gray-800'
+    className={`p-2 rounded-full ${
+      disabled ? 'bg-gray=300 cursor-not-allowed' : 'bg-gray-900 text-white hover:bg-gray-800'
     }`}
     whileHover={disabled ? {} : { scale: 1.1 }}
     whileTap={disabled ? {} : { scale: 0.9 }}
@@ -30,14 +28,13 @@ const NavigationButton = memo(({ onClick, direction, disabled }) => (
 
 NavigationButton.displayName = 'NavigationButton';
 
-// Navigation container component
-const Navigation = memo(({ onPrev, onNext, isAnimating }) => (
+const Navigation = memo(({ onPrev, onNext, isAnimating, canGoPrev, canGoNext }) => (
   <div className="flex justify-between w-full mt-8 p-3">
     <div className="flex items-center gap-4">
       <NavigationButton 
         onClick={onPrev} 
         direction="left" 
-        disabled={isAnimating}
+        disabled={isAnimating || !canGoPrev}
       />
       <div className="w-16 h-px bg-gray-900" />
     </div>
@@ -47,7 +44,7 @@ const Navigation = memo(({ onPrev, onNext, isAnimating }) => (
       <NavigationButton 
         onClick={onNext} 
         direction="right" 
-        disabled={isAnimating}
+        disabled={isAnimating || !canGoNext}
       />
     </div>
   </div>
@@ -56,7 +53,6 @@ const Navigation = memo(({ onPrev, onNext, isAnimating }) => (
 Navigation.displayName = 'Navigation';
 
 const ProjectsHomepage = () => {
-  // Memoized projects data
   const projects = useMemo(() => [
     {
       id: 2,
@@ -96,18 +92,11 @@ const ProjectsHomepage = () => {
     threshold: 0.1,
   });
 
-  const extendedProjects = useMemo(() => {
-    return [
-      ...projects.slice(-3),
-      ...projects,
-      ...projects.slice(0, 3)
-    ];
-  }, [projects]);
-
-  const [currentIndex, setCurrentIndex] = useState(3);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [visibleCards, setVisibleCards] = useState(1);
 
   const containerRef = useRef(null);
   const touchRef = useRef({
@@ -121,13 +110,17 @@ const ProjectsHomepage = () => {
     animationFrame: null
   });
 
-  // Throttled resize handler
   useEffect(() => {
     let timeoutId = null;
     const handleResize = () => {
       if (timeoutId) return;
       timeoutId = setTimeout(() => {
-        setIsMobile(window.innerWidth <= 768);
+        const width = window.innerWidth;
+        setIsMobile(width <= 768);
+        // Calculate visible cards based on viewport
+        if (width < 640) setVisibleCards(1);        // mobile
+        else if (width < 1024) setVisibleCards(2);  // tablet
+        else setVisibleCards(3);                    // desktop
         timeoutId = null;
       }, 150);
     };
@@ -144,7 +137,6 @@ const ProjectsHomepage = () => {
   const cardWidth = isMobile ? 260 : 300;
   const gapWidth = isMobile ? 16 : 32;
 
-  // Optimized touch handling with velocity and momentum
   const handleTouchStart = useCallback((e) => {
     if (touchRef.current.animationFrame) {
       cancelAnimationFrame(touchRef.current.animationFrame);
@@ -164,7 +156,6 @@ const ProjectsHomepage = () => {
     
     setIsDragging(true);
     
-    // Apply GPU acceleration
     if (containerRef.current) {
       containerRef.current.style.willChange = 'transform';
     }
@@ -177,31 +168,34 @@ const ProjectsHomepage = () => {
     const deltaX = touch.clientX - touchRef.current.startX;
     const deltaY = touch.clientY - touchRef.current.startY;
 
-    // Check if scrolling is more horizontal than vertical
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
       e.preventDefault();
       
-      const currentTranslate = touchRef.current.prevTranslate + deltaX;
-      touchRef.current.currentTranslate = currentTranslate;
+      // Calculate boundaries
+      const maxTranslate = 0;
+      const minTranslate = -((projects.length - 1) * (cardWidth + gapWidth));
+      
+      // Limit the translation within bounds
+      const proposedTranslate = touchRef.current.prevTranslate + deltaX;
+      const boundedTranslate = Math.max(minTranslate, Math.min(maxTranslate, proposedTranslate));
+      
+      touchRef.current.currentTranslate = boundedTranslate;  // Store bounded value
 
-      // Calculate velocity
       const timeElapsed = Date.now() - touchRef.current.startTime;
       touchRef.current.velocity = deltaX / timeElapsed;
 
-      // Use requestAnimationFrame for smooth animation
       if (touchRef.current.animationFrame) {
         cancelAnimationFrame(touchRef.current.animationFrame);
       }
 
       touchRef.current.animationFrame = requestAnimationFrame(() => {
         if (containerRef.current) {
-          containerRef.current.style.transform = `translateX(${currentTranslate}px)`;
+          containerRef.current.style.transform = `translateX(${boundedTranslate}px)`;  // Use bounded value
           containerRef.current.style.transition = 'none';
         }
       });
     }
-  }, []);
-
+  }, [cardWidth, gapWidth, projects.length]);
   const handleTouchEnd = useCallback((e) => {
     if (!touchRef.current.isDragging) return;
     
@@ -213,25 +207,17 @@ const ProjectsHomepage = () => {
     const deltaX = currentTranslate - prevTranslate;
     const timeElapsed = Date.now() - touchRef.current.startTime;
     
-    // Calculate final position based on velocity and distance
     const momentumThreshold = 0.1;
     const minSwipeDistance = 50;
     
     let newIndex = currentIndex;
+    const maxIndex = projects.length - visibleCards;
     
     if (Math.abs(velocity) > momentumThreshold || Math.abs(deltaX) > minSwipeDistance) {
       const direction = deltaX > 0 ? -1 : 1;
-      newIndex = currentIndex + direction;
-      
-      // Handle edge cases
-      if (newIndex >= projects.length + 3) {
-        newIndex = 3;
-      } else if (newIndex < 3) {
-        newIndex = projects.length + 2;
-      }
+      newIndex = Math.max(0, Math.min(currentIndex + direction, maxIndex));
     }
     
-    // Animate to final position with easing
     requestAnimationFrame(() => {
       if (containerRef.current) {
         containerRef.current.style.transform = `translateX(${-newIndex * (cardWidth + gapWidth)}px)`;
@@ -243,9 +229,8 @@ const ProjectsHomepage = () => {
       setIsDragging(false);
       touchRef.current.isDragging = false;
     });
-  }, [currentIndex, projects.length, cardWidth, gapWidth]);
+}, [currentIndex, projects.length, cardWidth, gapWidth, visibleCards]);
 
-  // Add passive touch listeners
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -269,49 +254,33 @@ const ProjectsHomepage = () => {
     };
   }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 
-  // Navigation functions
+  // Update your navigate function
   const navigate = useCallback((direction) => {
     if (isAnimating || isDragging) return;
-    setIsAnimating(true);
-
-    const targetIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
     
-    requestAnimationFrame(() => {
-      setCurrentIndex(targetIndex);
-
-      if (targetIndex >= projects.length + 3) {
-        setTimeout(() => {
-          setIsAnimating(true);
-          setCurrentIndex(3);
-          setTimeout(() => setIsAnimating(false), 50);
-        }, 300);
-      } else if (targetIndex < 3) {
-        setTimeout(() => {
-          setIsAnimating(true);
-          setCurrentIndex(projects.length + 2);
-          setTimeout(() => setIsAnimating(false), 50);
-        }, 300);
-      }
-    });
-
+    const targetIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1;
+    const maxIndex = projects.length - visibleCards;
+    
+    if (targetIndex < 0 || targetIndex > maxIndex) return;
+    
+    setIsAnimating(true);
+    setCurrentIndex(targetIndex);
     setTimeout(() => setIsAnimating(false), 300);
-  }, [isAnimating, isDragging, projects.length, currentIndex]);
+  }, [isAnimating, isDragging, currentIndex, projects.length, visibleCards]);
 
   const handlePrev = useCallback(() => navigate('prev'), [navigate]);
   const handleNext = useCallback(() => navigate('next'), [navigate]);
 
-  // Animation controls based on viewport
   useEffect(() => {
     if (inView) {
       controls.start('visible');
     }
   }, [controls, inView]);
 
-  // Memoized variants
   const variants = useMemo(() => ({
     hidden: { 
       opacity: 0,
-      transform: 'translateZ(0)' // Enable hardware acceleration
+      transform: 'translateZ(0)'
     },
     visible: { 
       opacity: 1,
@@ -319,34 +288,32 @@ const ProjectsHomepage = () => {
       transition: { 
         staggerChildren: isMobile ? 0.15 : 0.25,
         delayChildren: 0.1,
-        ease: [0.25, 0.1, 0.25, 1], // Custom cubic-bezier for smoother motion
+        ease: [0.25, 0.1, 0.25, 1],
         duration: 0.6
       } 
     }
   }), [isMobile]);
 
-    // Optimized text animation variants
-const textVariants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    transform: 'translateZ(0)',
-    filter: 'blur(8px)'
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transform: 'translateZ(0)',
-    filter: 'blur(0px)',
-    transition: {
-      type: "spring",
-      bounce: 0.2,
-      duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1]
+  const textVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transform: 'translateZ(0)',
+      filter: 'blur(8px)'
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transform: 'translateZ(0)',
+      filter: 'blur(0px)',
+      transition: {
+        type: "spring",
+        bounce: 0.2,
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1]
+      }
     }
-  }
-};
-
+  };
 
   return (
     <section className="w-full max-w-[1920px] mx-auto sm:px-6 lg:px-16 py-8 sm:py-12 lg:py-16">
@@ -370,7 +337,7 @@ const textVariants = {
           }}
         >
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight px-4">
-          Innovative real estate solutions for a future-ready lifestyle.
+            Innovative real estate solutions for a future-ready lifestyle.
           </h1>
         </motion.div>
 
@@ -383,7 +350,7 @@ const textVariants = {
           }}
         >
           <p className="text-gray-600 text-base sm:text-lg lg:ml-auto lg:max-w-md px-4">
-          Unlocking opportunities where modern living meets visionary development.
+            Unlocking opportunities where modern living meets visionary development.
           </p>
         </motion.div>
       </motion.div>
@@ -400,35 +367,36 @@ const textVariants = {
               transition: isAnimating && !isDragging ? 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none',
             }}
           >
-            {extendedProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <div
-                key={`${project.id}-${index}`}
+                key={project.id}
                 className="flex-none w-[260px] sm:w-[300px] lg:w-[300px] xl:w-[320px]"
               >
                 <MemoizedProjectCard 
                   project={project} 
                   index={index}
-                  isVisible={Math.abs(index - (currentIndex + 3)) <= 3}
+                  isVisible={Math.abs(index - currentIndex) <= 3}
                 />
               </div>
             ))}
           </div>
         </div>
 
-        <Navigation 
-          onPrev={handlePrev}
-          onNext={handleNext}
-          isAnimating={isAnimating || isDragging}
-        />
+  <Navigation 
+    onPrev={handlePrev}
+    onNext={handleNext}
+    isAnimating={isAnimating || isDragging}
+    canGoPrev={currentIndex > 0}
+    canGoNext={currentIndex < projects.length - visibleCards}
+  />
 
-        {/* Mobile indicator dots */}
         {isMobile && (
           <div className="flex justify-center gap-2 mt-4">
             {projects.map((_, index) => (
               <div
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex - 3 ? 'bg-gray-900 scale-125' : 'bg-gray-300'
+                  index === currentIndex ? 'bg-gray-900 scale-125' : 'bg-gray-300'
                 }`}
               />
             ))}
@@ -439,4 +407,4 @@ const textVariants = {
   );
 };
 
-export default memo(ProjectsHomepage);  
+export default memo(ProjectsHomepage);

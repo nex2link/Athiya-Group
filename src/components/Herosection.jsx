@@ -73,7 +73,7 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen overflow-hidden">
       <div className="w-full max-w-[2000px] mx-auto">
-        <div className="relative h-[90vh] mt-6 rounded-3xl overflow-hidden mx-4">
+        <div className="relative h-[90vh] mt-2 rounded-3xl overflow-hidden mx-4">
           {/* Background Image */}
           <Suspense fallback={
             <div className="absolute inset-0 bg-gray-900 animate-pulse" />

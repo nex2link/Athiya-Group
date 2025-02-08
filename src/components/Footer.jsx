@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
 import Logo from "../assets/Athiya-logo.png";
 
 const Footer = () => {
@@ -24,17 +24,14 @@ const Footer = () => {
               </p>
               {/* Social Media Icons */}
               <div className="flex space-x-4 mt-6">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Facebook size={20} />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <Twitter size={20} />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.instagram.com/athiyagroup?igsh=dmNsbGh3bDBjOGt0" className="text-gray-400 hover:text-white transition-colors">
                   <Instagram size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="https://www.linkedin.com/company/athiyagroup/" className="text-gray-400 hover:text-white transition-colors">
                   <Linkedin size={20} />
+                </a>
+                <a href="https://youtube.com/@athiyadeveloperspvt.ltd.5832?si=nDk62azTePq0pHLt" className="text-gray-400 hover:text-white transition-colors">
+                  <Youtube size={20} />
                 </a>
               </div>
             </div>
@@ -43,10 +40,10 @@ const Footer = () => {
             <div>
               <h3 className="text-sm font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Home</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">About Us</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Services</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Why Maha Mumbai?</a></li>
+                <li><a href="/" className="text-sm text-gray-400 hover:text-white">Home</a></li>
+                <li><a href="/aboutus" className="text-sm text-gray-400 hover:text-white">About Us</a></li>
+                <li><a href="/service" className="text-sm text-gray-400 hover:text-white">Services</a></li>
+                <li><a href="/mahamumbai" className="text-sm text-gray-400 hover:text-white">Why Maha Mumbai?</a></li>
               </ul>
             </div>
 
@@ -54,9 +51,9 @@ const Footer = () => {
             <div>
               <h3 className="text-sm font-semibold mb-4">Resources</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Community</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">Contact</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-white">SRA</a></li>
+                {/* <li><a href="#" className="text-sm text-gray-400 hover:text-white">Community</a></li> */}
+                <li><a href="/contactus" className="text-sm text-gray-400 hover:text-white">Contact</a></li>
+                {/* <li><a href="#" className="text-sm text-gray-400 hover:text-white">SRA</a></li> */}
                 <li><a href="#" className="text-sm text-gray-400 hover:text-white">Terms of Services</a></li>
               </ul>
             </div>

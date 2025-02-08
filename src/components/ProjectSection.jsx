@@ -26,6 +26,7 @@ import shivimg3 from "../assets/shiv/sparsh_3.jpg"
 const ProjectSection = () => {
   const [searchParams] = useSearchParams();
   const [expandedId, setExpandedId] = useState(1);
+  const [mainImages, setMainImages] = useState({});
   const contentRefs = useRef({});
   const imageRefs = useRef({});
   const sectionRef = useRef(null);
@@ -216,6 +217,46 @@ const ProjectSection = () => {
     },
   ];
 
+
+    // Add this new function to handle image swapping
+  const handleImageSwap = (projectId, clickedImageIndex) => {
+    const project = projects.find(p => p.id === projectId);
+    if (!project) return;
+
+    // If this project doesn't have a custom main image yet, initialize it
+    if (!mainImages[projectId]) {
+      setMainImages(prev => ({
+        ...prev,
+        [projectId]: {
+          mainImage: project.mainImage,
+          subImages: [...project.subImages]
+        }
+      }));
+    }
+
+    // Get current images state for this project
+    const currentImages = mainImages[projectId] || {
+      mainImage: project.mainImage,
+      subImages: [...project.subImages]
+    };
+
+    // Get the clicked sub-image
+    const clickedImage = currentImages.subImages[clickedImageIndex];
+    
+    // Create new sub-images array with current main image replacing the clicked image
+    const newSubImages = [...currentImages.subImages];
+    newSubImages[clickedImageIndex] = currentImages.mainImage;
+
+    // Update the state with new main image and sub-images
+    setMainImages(prev => ({
+      ...prev,
+      [projectId]: {
+        mainImage: clickedImage,
+        subImages: newSubImages
+      }
+    }));
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -240,22 +281,7 @@ const ProjectSection = () => {
     if (expandedId === projectId) {
       setExpandedId(null);
     } else {
-      if (expandedId !== null) {
-        setTimeout(() => {
-          setExpandedId(projectId);
-          const element = document.getElementById(`project-${projectId}`);
-          if(element){
-            element.scrollIntoView({behavior: 'smooth', block: 'start'});
-          }
-        }, 50);
-      } else {
-        setExpandedId(projectId);
-
-        const element = document.getElementById(`project-${projectId}`);
-        if(element){
-          element.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-      }
+      setExpandedId(projectId);
     }
   };
 
@@ -269,13 +295,7 @@ const ProjectSection = () => {
     const projectId = parseInt(searchParams.get('id')) || parseInt(localStorage.getItem('activeProject'));
     if (projectId) {
       setExpandedId(projectId);
-      const element = document.getElementById(`project-${projectId}`);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          localStorage.removeItem('activeProject');
-        }, 100);
-      }
+      localStorage.removeItem('activeProject');
     }
   }, [searchParams]);
 
@@ -320,7 +340,7 @@ const ProjectSection = () => {
                   <div className="lg:w-1/2 space-y-4">
                     <div className="rounded-2xl overflow-hidden">
                       <img
-                        src={project.mainImage}
+                        src={mainImages[project.id]?.mainImage || project.mainImage}
                         alt={project.title}
                         className="project-image w-full h-96 object-cover transform transition-all duration-700 hover:scale-105"
                         ref={el => imageRefs.current[`${project.id}-main`] = el}
@@ -331,9 +351,10 @@ const ProjectSection = () => {
                     </div>
                     
                     <div className="grid grid-cols-3 gap-4">
-                      {project.subImages.map((img, idx) => (
+                      {(mainImages[project.id]?.subImages || project.subImages).map((img, idx) => (
                         <div key={idx} 
-                          className="rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300"
+                          className="rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+                          onClick={() => handleImageSwap(project.id, idx)}
                         >
                           <img
                             src={img}
@@ -401,7 +422,7 @@ const ProjectSection = () => {
       <style jsx='true'>{`
         .animate-in {
           opacity: 1 !important;
-          transform: translateY(0) !important;
+          transform: none !important;
         }
         
         .project-image {
