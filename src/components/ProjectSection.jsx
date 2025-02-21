@@ -34,7 +34,7 @@ const ProjectSection = () => {
   const projects = [
     {
       id: 1,
-      title: "Maha Mumbai Project - A Prime Investment Opportunity",
+      title: "Third New Town - A Prime Investment Opportunity",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
@@ -292,12 +292,23 @@ const ProjectSection = () => {
   };
 
   useEffect(() => {
-    const projectId = parseInt(searchParams.get('id')) || parseInt(localStorage.getItem('activeProject'));
+    const projectId = parseInt(searchParams.get('id'));
     if (projectId) {
       setExpandedId(projectId);
-      localStorage.removeItem('activeProject');
+
+      //Add small delay to ensure DOM is updated
+      setTimeout(() => {
+        const element = document.getElementById(`project-${projectId}`);
+        if(element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Add some padding from top of viewport
+          window.scrollBy(0, 200);
+        }
+      }, 100)
     }
   }, [searchParams]);
+
+  
 
   return (
     <div 
