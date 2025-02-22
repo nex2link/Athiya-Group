@@ -1,11 +1,11 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef, useCallback, memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dapoliimg1 from "../assets/project-1.jpg";
-import agroimg2 from "../assets/project-2.jpg";
-import farmimg1 from "../assets/project-3.jpg";
-import shivimg1 from "../assets/project-4.jpg";
-import samimg1 from "../assets/project-5.jpg";
+import dapoliimg1 from "../assets/project-1.webp";
+import agroimg2 from "../assets/project-2.webp";
+import farmimg1 from "../assets/project-3.webp";
+import shivimg1 from "../assets/project-4.webp";
+import samimg1 from "../assets/project-5.webp";
 
 const cards = [
   { url: dapoliimg1, title: "Dalopli, Ratnagiri", id: 2 },

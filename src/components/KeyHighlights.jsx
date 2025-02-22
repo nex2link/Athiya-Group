@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
-import airport from "../assets/airport.jpg"
-import bridge from "../assets/bridge.jpg"
-import road from "../assets/road.jpg"
+import airport from "../assets/airport.webp"
+import bridge from "../assets/bridge.webp"
+import road from "../assets/road.webp"
 
 const projects = [
   {

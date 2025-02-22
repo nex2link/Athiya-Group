@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Aboutimg from "../assets/About-us.jpg";
+import Aboutimg from "../assets/about-us.webp";
 import {Link}  from "react-router-dom"
 
 const AboutUs = () => {

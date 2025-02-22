@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mountainview from '../assets/mountain-senic.jpg';
-import fogyyland from '../assets/foggy-land.jpg';
-import seaview from '../assets/sea-view.jpg';
+import mountainview from '../assets/mountain-senic.webp';
+import fogyyland from '../assets/foggy-land.webp';
+import seaview from '../assets/sea-view.webp';
 
 const NaturalBeauty = () => {
   const sectionRef = useRef(null);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from "../assets/Athiya-logo.png"
+import Logo from "../assets/athiya-logo.webp"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,7 +93,6 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} mt-4`}>
           <div className="flex flex-col space-y-4 bg-white p-4 rounded-lg shadow-lg">
-          <Link to="/" className={linkClass('/')}>Home</Link>
           <Link to="/aboutus" className={linkClass('/aboutus')}>About Us</Link>
             <Link to="/project" className={linkClass('/project')}>Projects</Link>
             <Link to="/service" className={linkClass('/service')}>Services</Link>

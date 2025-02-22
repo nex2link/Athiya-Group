@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
-// import bgimg from '../assets/mumbai-skyline.jpg';
-import bgimgWEb from '../assets/mumbai-skyline-webm.webp';
+import React, { useState, useEffect } from 'react'
+import { useSmootherScroll } from '../hooks/useSmootherScroll';
+import { applyScrollOptimizations } from '../utils/scrollOptimizer';
+import bgimgWEb from '../assets/maha2.jpg';
 import GrowthSection from '../components/GrowthSection';
 import KeyHighlights from '../components/KeyHighlights';
 import InvestmentOpportunities from '../components/InvestmentOpportunities';
 import NaturalBeauty from '../components/NaturalBeauty';
 import WhyChooseUs from '../components/WhyChooseUs';
-import SustainabilitySection from "../components/SustainabilitySection";
 
 
 const OptimizedImageSection = ({ src, alt }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
+
+
+    
 
   useEffect(() => {    
     // Check if element is in viewport
@@ -49,6 +52,7 @@ const OptimizedImageSection = ({ src, alt }) => {
       id="skyline-section"
       className="relative h-[100vh] w-full overflow-hidden mt-24 py-36"
     >
+     
       {/* Loading placeholder */}
       <div 
         className={`absolute inset-0 bg-gray-100 transition-opacity duration-500 ease-out ${
@@ -101,8 +105,17 @@ const OptimizedImageSection = ({ src, alt }) => {
 };
 
 const MahaMumbai = () => {
+
+  useSmootherScroll();
+    
+    useEffect(() => {
+      applyScrollOptimizations();
+    }, []);
+
+
   return (
     <div className="relative">
+       <div className="scroll-content">
       <OptimizedImageSection 
         src={bgimgWEb} 
         alt="Mumbai Skyline" 
@@ -114,12 +127,11 @@ const MahaMumbai = () => {
         <KeyHighlights />
         <InvestmentOpportunities />
         <NaturalBeauty />
-        {/* <SustainabilitySection /> */}
         <WhyChooseUs />
 
       </div>
 
-
+      </div>
     </div>
   );
 };

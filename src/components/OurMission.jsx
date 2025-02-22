@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import bussinessimg from "../assets/bussiness.jpg";
-import teamimg from "../assets/team.jpg";
+import bussinessimg from "../assets/bussiness.webp";
+import teamimg from "../assets/team.webp";
 
 const OurMission = () => {
   useEffect(() => {

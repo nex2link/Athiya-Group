@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import KnowMoreButton from "./KnowMoreButton";
-import airpot from "../assets/airport.jpg"
-import bridge from "../assets/bridge.jpg"
-import highway from "../assets/road.jpg"
+import airpot from "../assets/airport.webp"
+import bridge from "../assets/bridge.webp"
+import highway from "../assets/road.webp"
 import { Link } from "react-router-dom";
 
 const WhyMahaMumbai = () => {

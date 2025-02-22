@@ -1,6 +1,6 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
-import Logo from "../assets/Athiya-logo.png";
+import Logo from "../assets/athiya-logo.webp";
 
 const Footer = () => {
   return (
