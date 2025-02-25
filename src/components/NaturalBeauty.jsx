@@ -1,164 +1,139 @@
-import React, { useRef, useEffect, useState } from 'react';
-import mountainview from '../assets/mountain-senic.webp';
-import fogyyland from '../assets/foggy-land.webp';
-import seaview from '../assets/sea-view.webp';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import reac1 from "../assets/Rectangle-1.png";
+import reac2 from "../assets/Rectangle-2.png";
+import reac3 from "../assets/Rectangle-3.png";
 
-const NaturalBeauty = () => {
-  const sectionRef = useRef(null);
-  const imageRefs = useRef([]);
-  const [isVisible, setIsVisible] = useState(false);
+// Custom hook to detect prefers-reduced-motion
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const handler = () => setPrefersReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handler);
 
-    return () => observer.disconnect();
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  const handleImageLoad = (index) => {
-    if (imageRefs.current[index]) {
-      imageRefs.current[index].classList.add('loaded');
-    }
-  };
+  return prefersReducedMotion;
+}
+
+// Animated image component with fade, slide-in, and hover scale effects
+const AnimatedImg = ({ src, alt, className, text, delay = 0 }) => {
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
-    <section 
-      ref={sectionRef}
-      className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-24 overflow-hidden"
+    <motion.div
+      initial={prefersReducedMotion ? {} : { opacity: 0, y: 50 }}
+      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay, type: "spring", stiffness: 200 }}
+      viewport={{ once: false, amount: 0.3 }}
+      className="cursor-pointer"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
-        {/* Left Column - Text and First Image */}
-        <div className="space-y-6 sm:space-y-8">
-          <div className={`
-            transform transition-all duration-1000 delay-100
-            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          `}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
-              <span className="block transform transition-all duration-700 hover:translate-x-2">
-                Natural Beauty Meets
-              </span>
-              <span className="block transform transition-all duration-700 delay-100 hover:translate-x-2 mt-2">
-                Urban Comfort
-              </span>
-            </h2>
-            <p className="text-gray-700 text-lg sm:text-xl">
-              Maha Mumbai offers a unique blend of natural beauty and urban convenience
-            </p>
-          </div>
-
-          <div className={`
-            relative group
-            transform transition-all duration-1000 delay-200
-            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          `}>
-            <div className="overflow-hidden rounded-3xl">
-              <img
-                src={mountainview}
-                alt="Scenic mountain view"
-                className="natural-image w-full h-[300px] sm:h-[400px] object-cover 
-                  transform transition-all duration-700
-                  group-hover:scale-110 filter group-hover:brightness-110"
-                ref={el => imageRefs.current[0] = el}
-                onLoad={() => handleImageLoad(0)}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/30 to-transparent 
-              opacity-0  transition-opacity duration-500"/>
-            <p className="mt-4 text-gray-700 text-lg transform transition-all duration-300 
-              group-hover:translate-x-2">
-              Lush green surroundings and scenic coastline.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Column - Staggered Images */}
-        <div className="space-y-6 sm:space-y-8 pt-0 lg:pt-24">
-          <div className={`
-            relative group
-            transform transition-all duration-1000 delay-300
-            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          `}>
-            <div className="overflow-hidden rounded-3xl">
-              <img
-                src={fogyyland}
-                alt="Foggy landscape"
-                className="natural-image w-full h-[300px] sm:h-[400px] object-cover 
-                  transform transition-all duration-700
-                  group-hover:scale-110 filter group-hover:brightness-110"
-                ref={el => imageRefs.current[1] = el}
-                onLoad={() => handleImageLoad(1)}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/30 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500"/>
-          </div>
-
-          <div className={`
-            relative group
-            transform transition-all duration-1000 delay-400
-            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          `}>
-            <div className="overflow-hidden rounded-3xl">
-              <img
-                src={seaview}
-                alt="Coastal view"
-                className="natural-image w-full h-[250px] sm:h-[300px] object-cover 
-                  transform transition-all duration-700
-                  group-hover:scale-110 filter group-hover:brightness-110"
-                ref={el => imageRefs.current[2] = el}
-                onLoad={() => handleImageLoad(2)}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/30 to-transparent 
-              opacity-0  transition-opacity duration-500"/>
-            <p className="mt-4 text-gray-700 text-lg transform transition-all duration-300 
-              group-hover:translate-x-2">
-              Proximity to hill stations, beaches, and cultural landmarks.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <style jsx global>{`
-        .natural-image {
-          opacity: 0;
-          transition: opacity 0.7s ease-in-out;
-        }
-        
-        .natural-image.loaded {
-          opacity: 1;
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-          *, ::before, ::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-          }
-        }
-      `}</style>
-    </section>
+      {/* Using w-full and h-auto so the image scales responsively */}
+      <img src={src} alt={alt} className={`${className} w-full h-auto`} loading="lazy" />
+      {text && <p className="text-sm mt-2">{text}</p>}
+    </motion.div>
   );
 };
+
+// Variants for staggered container
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+// Variants for each child image in the staggered group
+const childVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+function NaturalBeauty() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  return (
+    <div className="p-4 lg:ml-60 mx-auto max-w-screen-xl">
+      <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+        {/* Left Section */}
+        <div className="relative flex-1">
+          <div className="mb-6 md:mr-12 text-center md:text-left">
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900"
+              initial={
+                prefersReducedMotion
+                  ? {}
+                  : { opacity: 0, y: 100, scale: 0.8, rotate: -5 }
+              }
+              whileInView={
+                prefersReducedMotion
+                  ? {}
+                  : { opacity: 1, y: 0, scale: 1, rotate: 0 }
+              }
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              viewport={{ once: false, amount: 0.3 }}
+            >
+              Natural Beauty Meets <br /> Urban Comfort
+            </motion.h1>
+            <motion.p
+              className="text-gray-700"
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
+              whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              viewport={{ once: false, amount: 0.3 }}
+            >
+              Maha Mumbai offers a unique blend of natural <br />
+              beauty and urban convenience
+            </motion.p>
+          </div>
+          <div className="flex justify-center md:justify-end">
+            <div className="mt-28">
+              <AnimatedImg
+                src={reac2}
+                alt="Green landscape"
+                className="max-w-xs rounded"
+                text="Lush green surroundings and scenic coastline."
+                delay={0.2}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Section: Staggered images */}
+        <motion.div
+          className="flex flex-col gap-4 flex-1"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          <motion.div variants={childVariants}>
+            <AnimatedImg
+              src={reac1}
+              alt="Beachside villa"
+              className="max-w-sm rounded"
+            />
+          </motion.div>
+          <motion.div variants={childVariants}>
+            <AnimatedImg
+              src={reac3}
+              alt="Beach sunset view"
+              className="max-w-xs rounded"
+              text="Proximity to hill stations, beaches and cultural landmarks"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
 
 export default NaturalBeauty;

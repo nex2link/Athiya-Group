@@ -7,37 +7,37 @@ const ServicesSection = () => {
     {
       icon: <Building2 />,
       title: "Property Management",
-      description: "Comprehensive property management services to ensure your assets are well-maintained and optimized for maximum value.",
+      description: "Comprehensive solutions to maintain and enhance the value of your property, ensuring hassle-free ownership.",
     },
     {
       icon: <LineChart />,
       title: "Investment Advisory",
-      description: "Strategic investment advice tailored to your goals, maximizing portfolio value through carefully researched opportunities.",
+      description: "Expert guidance to help you make informed real estate investments for maximum returns.",
     },
     {
       icon: <HardHat />,
       title: "Project Consulting",
-      description: "Expert guidance on property transactions and consulting services with insight and support at every stage.",
+      description: "Strategic consulting for real estate projects, from planning to execution, ensuring efficiency and success.",
     },
     {
       icon: <Home />,
       title: "Real Estate Development",
-      description: "End-to-end development services from planning to completion, ensuring quality delivery of your projects.",
+      description: "Crafting premium residential and commercial spaces with a commitment to quality and innovation.",
     },
     {
       icon: <Wrench />,
       title: "Infrastructure & Construction",
-      description: "Professional construction services for commercial, institutional, and industrial projects with quality certification.",
+      description: "Delivering robust infrastructure and top-tier construction solutions tailored to your needs.",
     },
     {
       icon: <Paintbrush />,
       title: "Interior Designing",
-      description: "Comprehensive interior design services tailored to your vision, from concept to execution.",
+      description: "Transforming spaces with aesthetic and functional interior designs that reflect your style.",
     },
     {
       icon: <TreePine />,
       title: "Landscaping Works",
-      description: "Professional landscaping services using sustainable techniques to enhance property aesthetics and value.",
+      description: "Enhancing outdoor spaces with professional landscaping solutions for beauty and sustainability.",
     }
   ];
 

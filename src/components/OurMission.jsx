@@ -1,10 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef  } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import bussinessimg from "../assets/bussiness.webp";
 import teamimg from "../assets/team.webp";
 
+
+
+
+
+
+
+
+
 const OurMission = () => {
+   // Create refs for elements
+   const teamImageRef = useRef(null);
+   const businessImageRef = useRef(null);
+   const textSectionRef = useRef(null);
+
+
+
   useEffect(() => {
     // Optimize AOS settings for better performance
     AOS.init({
@@ -17,10 +32,14 @@ const OurMission = () => {
       throttleDelay: 99, // Add throttling for scroll events
     });
 
-    // Clean up AOS on component unmount
-    return () => {
+   
+
+     // Clean up AOS on component unmount
+     return () => {
       AOS.refresh();
     };
+
+
   }, []);
 
   return (
@@ -51,6 +70,7 @@ const OurMission = () => {
               className="relative overflow-hidden "
               data-aos="fade-up"
               data-aos-delay="200"
+              ref={teamImageRef}
             >
               <img 
                 src={teamimg}
@@ -66,6 +86,7 @@ const OurMission = () => {
             className="lg:w-1/2 space-y-4"
             data-aos="fade-up"
             data-aos-delay="300"
+            ref={textSectionRef}
           >
             <p className="text-gray-700 text-base leading-relaxed">
               With over seven years of expertise in real estate, we are committed to transparency, qiality and innovation.
@@ -82,6 +103,7 @@ const OurMission = () => {
             className="text-center max-w-2xl mx-auto"
             data-aos="fade-up"
             data-aos-delay="100"
+            
           >
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">
               Our Mission
@@ -96,6 +118,7 @@ const OurMission = () => {
             className="lg:absolute -bottom-24 right-0 w-full sm:w-72 lg:w-56"
             data-aos="fade-up"
             data-aos-delay="200"
+            ref={businessImageRef} 
           >
             <div className="relative overflow-hidden group">
               <img 

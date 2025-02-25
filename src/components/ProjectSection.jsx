@@ -34,7 +34,7 @@ const ProjectSection = () => {
   const projects = [
     {
       id: 1,
-      title: "Third New Town - A Prime Investment Opportunity",
+      title: "KSC New Town – A Visionary Development in Maha Mumbai",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
@@ -46,17 +46,19 @@ const ProjectSection = () => {
       description: "Maha Mummbai Project is a premium farmland venture catering to investors looking for high-growth opportunities near Mumbai. Located in the heart of Raigad, this project offers an excellent chance to own land in a strategically developing region while enjoying the beuty of nature.",
       WhyInvest: "Why invest in Maha Mumbai Project?",
       whyIvestPoints:[
-        "• Near Key infrastructure projects and industrial zones",
-        "• Rapid urbanization and demand surge",
-        "• Ensuring a smooth investment process",
-        "• Perfect for eco-retreats, farmhouses, and long-term gains"
+        "• Strategic Location – At the core of Mumbai’s next growth phase",
+        "• Proximity to NAINA’s Development – Direct benefits from planned infrastructure",
+        "• Smart & Sustainable Living – Eco-friendly infrastructure with modern amenities",
+        "• High ROI Potential – Early investment advantages with rising property values",
+        "• Seamless Documentation – Clear land titles and transparent transactions"
 
       ],
       highlights: [
-        "Mumbai Goa Four-Lane",
-        "Mumbai Trans Harbour Link(MTHL)",
-        "Navi Mumbai International Airport",
-        "Dedicated Industrial & Bussiness Hubs"
+        "Strategic location near Atal Setu – Ensuring excellent connectivity",
+        "IT parks, Data Centers & Smart City initiatives – Driving the digital economy",
+        "Green Highway from Dhatum to Chowk – Sustainable transport infrastructure",
+        "Eco-Friendly Development – Integrating forests, hills, and farmland",
+        "Corporate Investments – Data hubs attracting major players like Reliance"
       ],
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
@@ -65,36 +67,6 @@ const ProjectSection = () => {
     },
     {
       id: 2,
-      title: "Dapoli 712 – Coastal Living in Kelashi",
-      type: "Residential Plot",
-      rating: "4.5",
-      mainImage: dapoliimg1,
-      subImages: [
-        agroimg1,
-        agroimg3,
-        agroimg4
-      ],
-      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
-      WhyInvest: "Why invest in Dapoli 712",
-      whyIvestPoints:[
-        "• Close to key infrastructure projects",
-        "• Perfect for organic farming and eco-retreats",
-        "• With upcoming highways and connectivity plans",
-        "• Clear LAnd Titles & Hassle-Free Documentation"
-
-      ],
-      highlights: [
-        "10 mins from the Beach",
-        "1 hour from Mumbai-Goa Highway",
-        "2 hours from Navi Mumbai International Airport"
-      ],
-      details: [
-        { price: "₹X lakhs", area: "20 Guntha (20,000 SQ. FT)", type: "Residential Plot" },
-        { price: "₹X lakhs", area: "ACRE (40,000 SQ. FT)", type: "Residential Plot" }
-      ]
-    },
-    {
-      id: 3,
       title: "Agrow Eco",
       type: "Residential Plot",
       rating: "4.5",
@@ -124,38 +96,10 @@ const ProjectSection = () => {
         { price: "₹X lakhs", area: "ACRE (40,000 SQ. FT)", type: "Residential Plot" }
       ]
     },
-    {
-      id: 4,
-      title: "The Fram dale",
-      type: "Residential Plot",
-      rating: "4.5",
-      mainImage: farmimg1,
-      subImages: [
-        farmimg2,
-        farmimg3,
-        farmimg4
-      ],
-      description: "Farm Dale is an exclusive farm-living community offeriing lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blemds sustainable living with luxury.",
-      WhyInvest: "Why invest in Farm Dale",
-      whyIvestPoints:[
-        "• Gated & Secure community",
-        "• Plots with Plantation & Organic Farming",
-        "• Modern Amenities with Rustic Charm",
-        "• Excellent Investment & Weekend Gateway"
 
-      ],
-      highlights: [
-        "30 mins from City Center",
-        "10 mins from Nearest Railway Station",
-        "Surrounded by Natural Lakes & Hills"
-      ],
-      details: [
-        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
-        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
-      ]
-    },
+
     {
-      id: 5,
+      id: 3,
       title: "Shivsprash",
       type: "Residential Plot",
       rating: "4.5",
@@ -185,8 +129,9 @@ const ProjectSection = () => {
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
       ]
     },
+
     {
-      id: 6,
+      id: 4,
       title: "Smarath Hill",
       type: "Residential Plot",
       rating: "4.5",
@@ -213,6 +158,70 @@ const ProjectSection = () => {
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
+      ]
+    },
+    
+    {
+      id: 5,
+      title: "The Fram dale",
+      type: "Residential Plot",
+      rating: "4.5",
+      mainImage: farmimg1,
+      subImages: [
+        farmimg2,
+        farmimg3,
+        farmimg4
+      ],
+      description: "Farm Dale is an exclusive farm-living community offeriing lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blemds sustainable living with luxury.",
+      WhyInvest: "Why invest in Farm Dale",
+      whyIvestPoints:[
+        "• Gated & Secure community",
+        "• Plots with Plantation & Organic Farming",
+        "• Modern Amenities with Rustic Charm",
+        "• Excellent Investment & Weekend Gateway"
+
+      ],
+      highlights: [
+        "30 mins from City Center",
+        "10 mins from Nearest Railway Station",
+        "Surrounded by Natural Lakes & Hills"
+      ],
+      details: [
+        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
+        { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" }
+      ]
+    },
+    
+    
+
+    {
+      id: 6,
+      title: "Dapoli 712 – Coastal Living in Kelashi",
+      type: "Residential Plot",
+      rating: "4.5",
+      mainImage: dapoliimg1,
+      subImages: [
+        agroimg1,
+        agroimg3,
+        agroimg4
+      ],
+      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
+      WhyInvest: "Why invest in Dapoli 712",
+      whyIvestPoints:[
+        "• Close to key infrastructure projects",
+        "• Perfect for organic farming and eco-retreats",
+        "• With upcoming highways and connectivity plans",
+        "• Clear LAnd Titles & Hassle-Free Documentation"
+
+      ],
+      highlights: [
+        "10 mins from the Beach",
+        "1 hour from Mumbai-Goa Highway",
+        "2 hours from Navi Mumbai International Airport"
+      ],
+      details: [
+        { price: "₹X lakhs", area: "20 Guntha (20,000 SQ. FT)", type: "Residential Plot" },
+        { price: "₹X lakhs", area: "ACRE (40,000 SQ. FT)", type: "Residential Plot" }
       ]
     },
   ];
@@ -277,13 +286,34 @@ const ProjectSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  
   const toggleProject = (projectId) => {
+    // Store the current expanded card (if any)
+    const previousId = expandedId;
+  
     if (expandedId === projectId) {
       setExpandedId(null);
     } else {
       setExpandedId(projectId);
+      
+      // Use a timeout to ensure the DOM updates
+      setTimeout(() => {
+        const newCardElement = document.getElementById(`project-${projectId}`);
+        if (newCardElement) {
+          const rect = newCardElement.getBoundingClientRect();
+          const absoluteElementTop = rect.top + window.scrollY;
+          const offset = 23; // Pixels from the top; adjust this value as needed
+          const scrollToPosition = Math.max(0, absoluteElementTop - offset);
+          
+          window.scrollTo({ top: scrollToPosition, behavior: 'auto' });
+        }
+      }, 110);
     }
   };
+  
+  
+  
+  
 
   const handleImageLoad = (projectId, idx) => {
     if (imageRefs.current[`${projectId}-${idx}`]) {
@@ -295,43 +325,43 @@ const ProjectSection = () => {
     const projectId = parseInt(searchParams.get('id'));
     if (projectId) {
       setExpandedId(projectId);
-
-      //Add small delay to ensure DOM is updated
+      
+      // Calculate dynamic offset - increases by 100px for each project
+      const scrollOffset = 0 + (projectId * 50); 
+      
       setTimeout(() => {
         const element = document.getElementById(`project-${projectId}`);
         if(element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          // Add some padding from top of viewport
-          window.scrollBy(0, 200);
+          window.scrollBy(0, scrollOffset);
         }
-      }, 100)
+      }, 100);
     }
   }, [searchParams]);
-
   
 
   return (
     <div 
       ref={sectionRef}
-      className="bg-gray-50 max-w-7xl mx-auto px-4 md:px-8 py-8 opacity-0 translate-y-4 transition-all duration-1000"
+      className="bg-gray-50 max-w-7xl mx-auto px-4 md:px-8 py-8 opacity-0 translate-y-4 transition-all duration-1000 "
     >
       <h1 className="text-4xl font-bold text-center text-gray-900 mb-12">
         Our Projects
       </h1>
 
-      <div className="space-y-6">
+      <div className="space-y-6 ">
         {projects.map((project) => (
           <div 
             id={`project-${project.id}`}
             key={project.id} 
-            className="bg-white rounded-2xl shadow-sm overflow-hidden transform transition-all duration-300 hover:shadow-lg"
+            className="bg-white rounded-2xl overflow-hidden transform transition-all duration-300 shadow-sm"
           >
             <button
               onClick={() => toggleProject(project.id)}
               className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors duration-300"
             >
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-bold text-left text-gray-900 transition-transform duration-300 hover:translate-x-2">
+              <div className="flex items-center gap-4 ">
+                <h2 className="text-2xl font-bold text-left text-gray-900 transition-transform duration-300 hover:translate-x-2 mt-7">
                   {project.title}
                 </h2>
               </div>

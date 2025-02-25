@@ -107,7 +107,7 @@ const Hero = () => {
               >
                 <span className="block mb-2">Transforming</span>
                 <span className="text-yellow-400 inline-block">
-                  Maha Mumbai
+                  Third New Town
                 </span>
               </motion.h1>
               

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useSmootherScroll } from '../hooks/useSmootherScroll';
 import { applyScrollOptimizations } from '../utils/scrollOptimizer';
-import bgimgWEb from '../assets/maha2.jpg';
+import bgimgWEb from '../assets/mumbai-skyline-webm.webp';
 import GrowthSection from '../components/GrowthSection';
 import KeyHighlights from '../components/KeyHighlights';
-import InvestmentOpportunities from '../components/InvestmentOpportunities';
 import NaturalBeauty from '../components/NaturalBeauty';
 import WhyChooseUs from '../components/WhyChooseUs';
+import TimeLine from '../components/TimeLine';
+import FloatingLand from '../components/FloatingLand';
 
 
 const OptimizedImageSection = ({ src, alt }) => {
@@ -125,7 +126,8 @@ const MahaMumbai = () => {
       <div className="relative z-10">
         <GrowthSection />
         <KeyHighlights />
-        <InvestmentOpportunities />
+        <TimeLine/>
+        <FloatingLand/>
         <NaturalBeauty />
         <WhyChooseUs />
 

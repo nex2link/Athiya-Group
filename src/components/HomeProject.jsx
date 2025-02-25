@@ -1,18 +1,18 @@
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useCallback, memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dapoliimg1 from "../assets/project-1.webp";
-import agroimg2 from "../assets/project-2.webp";
-import farmimg1 from "../assets/project-3.webp";
-import shivimg1 from "../assets/project-4.webp";
-import samimg1 from "../assets/project-5.webp";
+import dapoliimg1 from "../assets/project-1.webp"
+import farmimg1 from "../assets/project-2.webp"
+import agroimg2 from "../assets/project-3.webp"
+import shivimg1 from "../assets/project-4.webp"
+import samimg1 from "../assets/project-5.webp"
 
 const cards = [
-  { url: dapoliimg1, title: "Dalopli, Ratnagiri", id: 2 },
-  { url: farmimg1, title: "Agrow Eco, Mahad", id: 3 },
-  { url: agroimg2, title: "Farm Dale, Pali", id: 4 },
-  { url: shivimg1, title: "Shivsparash", id: 5 },
-  { url: samimg1, title: "Samarth Hill", id: 6 }
+  { url: farmimg1, title: "Agrow Eco, Mahad", id: 2 },
+  { url: shivimg1, title: "Shivsparash", id: 3 },
+  { url: samimg1, title: "Samarth Hill", id: 4 },
+  { url: agroimg2, title: "Farm Dale, Pali", id: 5 },
+  { url: dapoliimg1, title: "Dalopli, Ratnagiri", id: 6 },
 ];
 
 const HomeProject = () => {
@@ -21,62 +21,92 @@ const HomeProject = () => {
     navigate(`/project?id=${id}`);
     localStorage.setItem('activeProject', id.toString());
   }, [navigate]);
-  return <HorizontalScrollCarousel onKnowMore={handleKnowMore} />;
+  
+  return <ProjectDisplay onKnowMore={handleKnowMore} />;
 };
 
-const HorizontalScrollCarousel = ({ onKnowMore }) => {
-  const targetRef = useRef(null);
-  const containerRef = useRef(null);
-  const [transformPercentage, setTransformPercentage] = useState("-25%");
-  const { scrollYProgress } = useScroll({ target: targetRef });
+const ProjectDisplay = ({ onKnowMore }) => {
+  const [translateX, setTranslateX] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isDesktopMonitor, setIsDesktopMonitor] = useState(false);
 
+  // Check if display is desktop
   useEffect(() => {
-    const updateTransformPercentage = () => {
-      if (!containerRef.current) return;
-      
-      const containerWidth = containerRef.current.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      const percentage = ((containerWidth - viewportWidth) / viewportWidth) * 100;
-      
-      // Set different percentages based on screen size
-      if (viewportWidth < 768) { // Small screens
-        setTransformPercentage(`-${Math.min(percentage, 80)}%`);
-      } else if (viewportWidth < 1024) { // Medium screens
-        setTransformPercentage(`-${Math.min(percentage, 60)}%`);
-      } else { // Large screens
-        setTransformPercentage(`-${Math.min(percentage, 25)}%`);
-      }
+    const checkDisplay = () => {
+      const width = window.innerWidth;
+      const dpr = window.devicePixelRatio;
+      setIsDesktopMonitor(width >= 1920 && dpr <= 1);
     };
-
-    updateTransformPercentage();
-    window.addEventListener('resize', updateTransformPercentage);
     
-    return () => window.removeEventListener('resize', updateTransformPercentage);
+    checkDisplay();
+    window.addEventListener('resize', checkDisplay);
+    return () => window.removeEventListener('resize', checkDisplay);
   }, []);
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", transformPercentage]);
+  // Calculate total width for animation
+  const cardWidth = 350;
+  const gapWidth = 16; // 4rem = 16px
+  const totalWidth = (cardWidth + gapWidth) * (cards.length * 2);
+
+  // Smooth animation using requestAnimationFrame (like KeyHighlights)
+  useEffect(() => {
+    if (isDesktopMonitor) return; // Don't animate on desktop
+    
+    let animationId;
+    const animate = () => {
+      setTranslateX(prev => {
+        // Reset when scrolled one complete set
+        if (Math.abs(prev) >= totalWidth / 2) return 0;
+        return prev - 1;
+      });
+      animationId = requestAnimationFrame(animate);
+    };
+    
+    if (hoveredIndex === null) {
+      animationId = requestAnimationFrame(animate);
+    }
+    
+    return () => cancelAnimationFrame(animationId);
+  }, [hoveredIndex, totalWidth, isDesktopMonitor]);
+
+  // Create duplicated cards for infinite scroll effect
+  const displayCards = [...cards, ...cards, ...cards];
 
   return (
-    <section ref={targetRef} className="relative h-[300vh]">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div 
-          ref={containerRef} 
-          style={{ x }} 
-          className="flex gap-4"
+    <section className="relative min-h-screen">
+      <div className="flex h-screen items-center overflow-hidden">
+        <div 
+          className={`flex gap-4 px-4 ${isDesktopMonitor ? 'justify-center flex-wrap' : 'flex-nowrap'}`}
+          style={isDesktopMonitor ? {} : { 
+            transform: `translateX(${translateX}px)`,
+            transition: 'transform 0.1s linear'
+          }}
+          onMouseEnter={() => setHoveredIndex(0)}
+          onMouseLeave={() => setHoveredIndex(null)}
+          onTouchStart={() => setHoveredIndex(0)}
+          onTouchEnd={() => setHoveredIndex(null)}
         >
-          {cards.map(card => (
-            <Card key={card.id} card={card} onKnowMore={onKnowMore} />
+          {displayCards.map((card, index) => (
+            <Card 
+              key={`${card.id}-${index}`}
+              card={card} 
+              onKnowMore={onKnowMore}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-const Card = memo(({ card: { id, url, title }, onKnowMore }) => (
+const Card = memo(({ card: { id, url, title }, onKnowMore, onMouseEnter, onMouseLeave }) => (
   <motion.div 
-    className="flex flex-col w-[350px] mt-20"
+    className="flex flex-col w-[350px] mt-20 flex-shrink-0"
     style={{ y: id % 2 === 0 ? -40 : 0 }}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
   >
     <div className="group relative h-[400px] overflow-hidden bg-neutral-200 rounded-3xl">
       <div 

@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Quote } from "lucide-react";
 import TestimonialCard from "./TestimonialCard";
-import testimg1 from "../assets/test-1.jpg";
-import testimg2 from "../assets/test-2.jpg";
-import testimg3 from "../assets/test-3.jpg";
+import testimg1 from "../assets/test-1.png";
+import testimg2 from "../assets/test-2.png";
+import testimg3 from "../assets/test-3.png";
 
 const Testimonials = () => {
   const [ref, inView] = useInView({
@@ -17,21 +17,21 @@ const Testimonials = () => {
   const testimonials = [
     {
       image: testimg1,
-      name: "Mr. Arvind Bhupi",
-      role: "Property Investor",
-      testimonial: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut labore et dolore magna aliqua ut labore et dolore magna"
+      name: "Mr. & Mrs. Onkar Bhogle & Manali Bhogle",
+      role: "",
+      testimonial: "Buying farmland in Maharashtra is challenging if you're not from an agricultural background. Athiya Group made it possible by guiding us through 7/12 documentation and more. Trusting in the plot's future value, we took the plunge, and now we proudly own a beautiful farmhouse. Thanks, Athiya Group."
     },
     {
       image: testimg2,
       name: "Mr. Arvind Bhupi",
-      role: "Real Estate Developer",
-      testimonial: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut labore et dolore magna aliqua ut labore et dolore magna"
+      role: "",
+      testimonial: "Acquiring farmland in Maharashtra was challenging without an agricultural background, but Athiya Group made it achievable. Their guidance with paperwork, including the 7/12 documents, gave us the confidence to invest. Today, we proudly own a stunning farm—thanks to Athiya Group."
     },
     {
       image: testimg3,
-      name: "Mr. Arvind Bhupi",
-      role: "Business Owner",
-      testimonial: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut labore et dolore magna aliqua ut labore et dolore magna"
+      name: "Mr. & Mrs. K. N. Balasbramaniam",
+      role: "",
+      testimonial: "Athiya Group’s professionalism truly impressed us. Their dedicated team ensured a smooth project completion, delivering results well within the expected timeframe while keeping us informed at every step."
     }
   ];
 
@@ -74,7 +74,7 @@ const Testimonials = () => {
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard 
               key={index} 

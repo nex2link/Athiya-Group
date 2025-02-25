@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from "../assets/athiya-logo.webp"
+import {motion} from "framer-motion"
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+
+  const buttonVariant = {
+    rest: { scale: 1 },
+    hover: { scale: 1.06 },
+    tap: { scale: 0.98 }
+  };
 
   useEffect(() => {
     setIsOpen(false);
@@ -73,19 +81,19 @@ const Navbar = () => {
             <Link to="/aboutus" className={linkClass('/aboutus')}>About Us</Link>
             <Link to="/project" className={linkClass('/project')}>Projects</Link>
             <Link to="/service" className={linkClass('/service')}>Services</Link>
-            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Why Maha Mumbai?</Link>
+            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Third New Town</Link>
           </div>
 
           {/* Contact Button */}
           <div className="hidden md:block">
             <Link to="contactus">
-            <button className={`px-6 py-2 rounded-full transition-colors duration-300 font-normal  ${
-              isActive('/contactus') 
-                ? 'bg-yellow-600 text-black'
-                : 'bg-yellow-400 text-black hover:bg-yellow-600'
-            }`}>
+            <motion.button variants={buttonVariant}
+                  initial="rest"
+                  whileHover="hover"
+                  whileTap="tap" 
+                  className={`px-6 py-2 rounded-full transition-colors duration-300 font-normal bg-yellow-400 hover:bg-yellow-300`}>
               Contact Us
-            </button>
+            </motion.button>
             </Link>
           </div>
         </div>
@@ -96,15 +104,15 @@ const Navbar = () => {
           <Link to="/aboutus" className={linkClass('/aboutus')}>About Us</Link>
             <Link to="/project" className={linkClass('/project')}>Projects</Link>
             <Link to="/service" className={linkClass('/service')}>Services</Link>
-            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Why Maha Mumbai?</Link>
+            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Third New Town</Link>
             <Link to="/contactus">
-            <button className={`w-full px-6 py-2 rounded-full transition-colors duration-300 font-normal ${
-              isActive('/contactus')
-                ? 'bg-yellow-600 text-black'
-                : 'bg-yellow-400 text-black hover:bg-yellow-600'
-            }`}>
+            <motion.button variants={buttonVariant}
+                  initial="rest"
+                  whileHover="hover"
+                  whileTap="tap" 
+                  className={`px-6 py-2 rounded-full transition-colors duration-300 font-normal bg-yellow-400 hover:bg-yellow-300`}>
               Contact Us
-            </button>
+            </motion.button>
             </Link>
           </div>
         </div>
