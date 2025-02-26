@@ -4,42 +4,44 @@ import rect1 from "../assets/Rectangle-1.png";
 import rect2 from "../assets/Rectangle-2.png";
 import rect3 from "../assets/Rectangle-3.png";
 
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = () => setPrefersReducedMotion(mq.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return prefersReducedMotion;
-}
-
-// Custom hook for responsive design
-function useWindowSize() {
-  const [windowSize, setWindowSize] = useState({
+// Combined hooks for better performance and fewer lines
+function useResponsiveSettings() {
+  const [settings, setSettings] = useState({
+    prefersReducedMotion: false,
     width: undefined,
   });
 
   useEffect(() => {
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-      });
-    }
+    // Handle reduced motion preference
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motionHandler = () => 
+      setSettings(s => ({ ...s, prefersReducedMotion: mq.matches }));
     
-    window.addEventListener("resize", handleResize);
-    handleResize();
+    // Handle window resize
+    const resizeHandler = () => 
+      setSettings(s => ({ ...s, width: window.innerWidth }));
     
-    return () => window.removeEventListener("resize", handleResize);
+    // Set initial values
+    motionHandler();
+    resizeHandler();
+    
+    // Add event listeners
+    mq.addEventListener("change", motionHandler);
+    window.addEventListener("resize", resizeHandler);
+    
+    // Cleanup
+    return () => {
+      mq.removeEventListener("change", motionHandler);
+      window.removeEventListener("resize", resizeHandler);
+    };
   }, []);
   
-  return windowSize;
+  return settings;
 }
 
-const AnimatedImg = ({ src, alt, text, delay = 0, className = "", style = {} }) => {
-  const prefersReducedMotion = usePrefersReducedMotion();
+const AnimatedImg = ({ src, alt, text, delay = 0, className = "" }) => {
+  const { prefersReducedMotion } = useResponsiveSettings();
+  
   return (
     <motion.div
       initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
@@ -52,7 +54,6 @@ const AnimatedImg = ({ src, alt, text, delay = 0, className = "", style = {} }) 
         src={src} 
         alt={alt} 
         className={`w-full mx-auto rounded shadow-sm ${className}`}
-        style={style}
         loading="lazy"
         onError={(e) => {
           e.target.onerror = null;
@@ -65,20 +66,12 @@ const AnimatedImg = ({ src, alt, text, delay = 0, className = "", style = {} }) 
 };
 
 function NaturalBeauty() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const { width } = useWindowSize();
-  const isLargeScreen = width >= 1024;
-
-  // Determine rect2 image size based on screen width
-  const rect2ImgWidth = isLargeScreen ? 250 : 350; // 100px larger on mobile/tablet
+  const { prefersReducedMotion, width } = useResponsiveSettings();
   
-  // Determine margin top based on screen width
-  const topMargin = width >= 768 ? 250 : 50;
-
   return (
     <div className="p-4 mx-auto w-full max-w-screen-xl relative">
-      {/* Title section - Mobile: stacked, Desktop: absolute positioned */}
-      <div className="md:absolute md:top-20 md:left-40  md:mb-0 text-center md:text-left z-10">
+      {/* Title section */}
+      <div className="mb-8 md:absolute md:top-20 md:left-10 lg:left-40 text-center md:text-left z-10">
         <motion.h1
           className="text-3xl sm:text-4xl font-extrabold text-gray-900"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
@@ -103,38 +96,33 @@ function NaturalBeauty() {
         {/* Left Section - Empty on mobile, half on desktop */}
         <div className="hidden md:block md:w-1/2"></div>
 
-        {/* Right Section - Full width on mobile, half on desktop with original desktop layout */}
-        <div className="w-full md:w-1/2 md:mr-40">
-          <div className="flex flex-col sm:flex-row gap-4 ">
-            <div className="w-full md:mt-16 mx-auto" style={{ marginTop: `${topMargin}px` }}>
+        {/* Right Section - Full width on mobile, half on desktop */}
+        <div className="w-full md:w-1/2 md:pr-8 lg:pr-16">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className={`w-full sm:w-1/2 ${width >= 768 ? "mt-64" : "mt-16"}`}>
               <AnimatedImg
                 src={rect2}
                 alt="Green landscape"
                 text="Lush green surroundings and scenic coastline."
                 delay={0.2}
-                style={{ 
-                  width: `${rect2ImgWidth}px`, 
-                  maxWidth: "unset" 
-                }}
+                className="max-w-full sm:max-w-xs"
               />
             </div>
-            <div className="flex flex-col">
-              <div className="mb-5" style={{ maxWidth: "calc(380px + 180px)" }}>
+            <div className="flex flex-col sm:w-1/2">
+              <div className="mb-5">
                 <AnimatedImg
                   src={rect1}
                   alt="Beachside villa"
-                  style={{ 
-                    width: isLargeScreen ? "320px" : "350px", 
-                    maxWidth: "unset" 
-                  }}
+                  className="max-w-full sm:max-w-xs"
                 />
               </div>
-              <div className="max-w-xs mx-auto" style={{ maxWidth: "calc(380px + 180px)" }}>
+              <div>
                 <AnimatedImg
                   src={rect3}
                   alt="Beach sunset view"
                   text="Proximity to hill stations, beaches and cultural landmarks"
                   delay={0.2}
+                  className="max-w-full sm:max-w-xs"
                 />
               </div>
             </div>
