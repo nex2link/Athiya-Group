@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ServiceCard from "./ServiceCard";
 import KnowMoreButton from "./KnowMoreButton";
-import Serviceimg from "../assets/services.webp";
+import Serviceimg from "../assets/serviceimg.jpg";
 import consulticon from "../assets/icons/consult.png"
 import investmenticon from "../assets/icons/investment.png"
 import landdevlopmenticon from "../assets/icons/land-devlopment.png"
