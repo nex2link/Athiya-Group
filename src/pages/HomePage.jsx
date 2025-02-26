@@ -13,7 +13,7 @@ function HomePage() {
     <main className="relative min-h-screen pt-[72px]">
     <div >
       <Hero />
-{/*       <HomeProject /> */}
+      <HomeProject />
       <AboutUs/>
       <Services/>
       <WhyMahaMumbai/>
