@@ -47,7 +47,7 @@ const OurMission = () => {
       className="relative bg-white overflow-hidden"
       style={{ minHeight: '80vh' }}
     >
-      <div className="container mx-auto px-20 py-8 max-w-6xl">
+      <div className="container mx-auto px-8 py-8 max-w-6xl">
         {/* Header Section - Simplified animations */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-8">
           <div className="lg:w-1/2 flex flex-col">
