@@ -43,7 +43,7 @@ const ProjectSection = () => {
         dapoliimg3,
         dapoliimg4
       ],
-      description: "Maha Mummbai Project is a premium farmland venture catering to investors looking for high-growth opportunities near Mumbai. Located in the heart of Raigad, this project offers an excellent chance to own land in a strategically developing region while enjoying the beuty of nature.",
+      description: "Maha Mumbai Project is a premium farmland venture catering to investors looking for high-growth opportunities near Mumbai. Located in the heart of Raigad, this project offers an excellent chance to own land in a strategically developing region while enjoying the beauty of nature.",
       WhyInvest: "Why invest in Maha Mumbai Project?",
       whyIvestPoints:[
         "• Strategic Location – At the core of Mumbai’s next growth phase",
@@ -77,18 +77,18 @@ const ProjectSection = () => {
         agroimg4
       ],
       description: "AGrow Eco is a prestigious farmland design for eco-conscious investors and nature lovers. Located in the lush greenery of raigad, this project offers on excellent opportunity to own land in a rapidly developing region while embracing sustainable living",
-      WhyInvest: "Why invest in AGrow Eco",
+      WhyInvest: "Why invest in AGrow Eco?",
       whyIvestPoints:[
         "• Close to key infrastructure projects",
         "• Perfect for organic farming and eco-retreats",
         "• With upcoming highways and connectivity plans",
-        "• Clear LAnd Titles & Hassle-Free Documentation"
+        "• Clear Land Titles & Hassle-Free Documentation"
 
       ],
       highlights: [
         "Mumbai Goa Four-Lane Highway",
-        "Mumabi Multimodal corridor",
-        "CST-Raha Local Train Expansion",
+        "Mumabai Multimodal corridor",
+        "CSMT-Raha Local Train Expansion",
         "Ro-Ro Ferry System"
       ],
       details: [
@@ -109,10 +109,10 @@ const ProjectSection = () => {
         shivimg3,
         "/api/placeholder/300/200"
       ],
-      description: "Shivsparsh is a Premium land investmnet prject set amidst the serene landscapes of raigad. with a vision to offer tranquil and strategically located farmland, this project presents a perfect opportunity for investors and nature enthusiasts looking for a balance modern infrasturcture and peaceful living",
-      WhyInvest: "Why invest in Shivsprash",
+      description: "Shivsparsh is a Premium land investment prject set amidst the serene landscapes of raigad with a vision to offer tranquil and strategically located farmland, this project presents a perfect opportunity for investors and nature enthusiasts looking for a balance modern infrasturcture and peaceful living",
+      WhyInvest: "Why invest in Shivsprash?",
       whyIvestPoints:[
-        "• ideal for weekend homes and agricultural ventures",
+        "• Ideal for weekend homes and agricultural ventures",
         "• Nestled in the heart of developing Raigad",
         "• Ensuring high appreciation value",
         "• Surrounded by natural beauty and greenery"
@@ -120,7 +120,7 @@ const ProjectSection = () => {
       ],
       highlights: [
         "Mumbai Goa Four-Lane Highway",
-        "CST-Raha Local Train Expansion",
+        "CSMT-Raha Local Train Expansion",
         "Mumbai Multimodal Corridor (Virar-Alibag)",
         "Ro-ro Ferry System"
       ],
@@ -132,7 +132,7 @@ const ProjectSection = () => {
 
     {
       id: 4,
-      title: "Smarath Hill",
+      title: "Smarath Hills",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: samimg1,
@@ -141,18 +141,18 @@ const ProjectSection = () => {
         samimg3,
         samimg4
       ],
-      description: "samarth Hill is a premium plotted development project designed to blend modern infrastructure with nautre's serenit. Nestled in the lush landscapes of sindhudurg, this project offers an excellent opportunity for those seeking investment, weekend homes, or sustainable farm living",
-      WhyInvest: "Why invest in Smarath Hill",
+      description: "Samarth Hill is a premium plotted development project designed to blend modern infrastructure with nautre's serenit. Nestled in the lush landscapes of sindhudurg, this project offers an excellent opportunity for those seeking investment, weekend homes, or sustainable farm living",
+      WhyInvest: "Why invest in Smarath Hills?",
       whyIvestPoints:[
         "• Growing demand for real estate in Sindhudurg",
-        "• A perceft gateway from the city's hustle",
+        "• A perfect gateway from the city's hustle",
         "• Backed by government projects"
 
       ],
       highlights: [
         "Mumbai Goa Four-Lane Highway",
         "Mumbai Multimodal Corridor",
-        "CST-Raha Local Expansion",
+        "CSMT-Raha Local Expansion",
         "Ro-Ro Ferry System"
       ],
       details: [
@@ -163,7 +163,7 @@ const ProjectSection = () => {
     
     {
       id: 5,
-      title: "The Fram dale",
+      title: "The Fram Dale",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: farmimg1,
@@ -172,8 +172,8 @@ const ProjectSection = () => {
         farmimg3,
         farmimg4
       ],
-      description: "Farm Dale is an exclusive farm-living community offeriing lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blemds sustainable living with luxury.",
-      WhyInvest: "Why invest in Farm Dale",
+      description: "Farm Dale is an exclusive farm-living community offering lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blends sustainable living with luxury.",
+      WhyInvest: "Why invest in Farm Dale ?",
       whyIvestPoints:[
         "• Gated & Secure community",
         "• Plots with Plantation & Organic Farming",
@@ -206,12 +206,12 @@ const ProjectSection = () => {
         agroimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
-      WhyInvest: "Why invest in Dapoli 712",
+      WhyInvest: "Why invest in Dapoli 712?",
       whyIvestPoints:[
         "• Close to key infrastructure projects",
         "• Perfect for organic farming and eco-retreats",
         "• With upcoming highways and connectivity plans",
-        "• Clear LAnd Titles & Hassle-Free Documentation"
+        "• Clear Land Titles & Hassle-Free Documentation"
 
       ],
       highlights: [
