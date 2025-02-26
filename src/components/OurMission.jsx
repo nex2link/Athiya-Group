@@ -47,7 +47,7 @@ const OurMission = () => {
       className="relative bg-white overflow-hidden"
       style={{ minHeight: '80vh' }}
     >
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+      <div className="container mx-auto px-20 py-8 max-w-6xl">
         {/* Header Section - Simplified animations */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mb-8">
           <div className="lg:w-1/2 flex flex-col">
@@ -89,7 +89,7 @@ const OurMission = () => {
             ref={textSectionRef}
           >
             <p className="text-gray-700 text-base leading-relaxed">
-              With over seven years of expertise in real estate, we are committed to transparency, qiality and innovation.
+              With over seven years of expertise in real estate, we are committed to transparency, quality and innovation.
             </p>
             <p className="text-gray-700 text-base leading-relaxed">
               From premium residential and commercial projects to sustainable farm developments, we ensure every project reflects our dedication to excellence. Our Team of experts delivers strategic  planning, seamless execution, and long-term value, making every investment a step toward growth.
@@ -109,7 +109,7 @@ const OurMission = () => {
               Our Mission
             </h2>
             <p className="text-gray-700 text-base leading-relaxed mb-8">
-              We strive to create sustainable real estate opportunities...
+            Athiya Group is driven by a mission to create growth for our customers's  capital and satisfaction while delivering exceptional returns on investment. We strive to provide better real estate opportunities and nurture long-lasting business relationships.
             </p>
           </div>
           
