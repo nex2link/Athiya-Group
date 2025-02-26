@@ -127,7 +127,7 @@ const OurMission = () => {
                 loading="lazy"
                 className="w-full h-32 object-cover transform will-change-transform transition-transform duration-500 group-hover:scale-105  rounded-lg"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+{/*               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" /> */}
             </div>
           </div>
         </div>
