@@ -154,7 +154,7 @@ const NaturalBeauty = () => {
     <div className="relative w-full max-w-screen-xl mx-auto p-6 overflow-hidden ">
       {/* Title section */}
       <div className="relative mb-16 md:absolute md:top-20 md:left-10 lg:left-40 z-10 text-center md:text-left overflow-hidden">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-2">
           Natural Beauty Meets <br className="hidden md:block" /> Urban Comfort
         </h1>
         <p className="text-gray-700">
