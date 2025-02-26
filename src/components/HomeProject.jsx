@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import ProjectCard from "./ProjectCard"; // Import your existing ProjectCard component
 import dapoliimg1 from "../assets/project-1.webp";
 import farmimg1 from "../assets/project-2.webp";
 import agroimg2 from "../assets/project-3.webp";
@@ -9,161 +10,188 @@ import samimg1 from "../assets/project-5.webp";
 
 // Define projects data
 const projects = [
-  { id: 2, image: farmimg1, title: "Agrow Eco, Mahad", sqft: "5 to 20" },
+  { id: 2, image: farmimg1, title: "Agrow Eco", sqft: "5 to 20" },
   { id: 3, image: shivimg1, title: "Shivsparash", sqft: "5 to 20" },
   { id: 4, image: samimg1, title: "Samarth Hill", sqft: "5 to 20" },
   { id: 5, image: agroimg2, title: "Farm Dale, Pali", sqft: "5 to 20" },
   { id: 6, image: dapoliimg1, title: "Dalopli, Ratnagiri", sqft: "5 to 20" }
 ];
 
-// Project Card Component
-const ProjectCard = ({ project, onKnowMore }) => (
-  <motion.div 
-    className="flex flex-col w-[350px] mt-20 flex-shrink-0"
-    style={{ y: project.id % 2 === 0 ? -40 : 0 }}
-    whileHover={{ y: project.id % 2 === 0 ? -50 : -10 }}
-    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-  >
-    <div className="group relative h-[400px] overflow-hidden bg-neutral-200 rounded-3xl">
-      <div 
-        style={{
-          backgroundImage: `url(${project.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}
-        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
-        role="img"
-        aria-label={project.title}
-      />
-    </div>
-    <div className="p-4 rounded-b-3xl bg-white">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-bold">{project.title}</h3>
-        <motion.button 
-          onClick={() => onKnowMore(project.id)}
-          className="px-4 py-1 bg-[#b7beba] text-black rounded-lg hover:bg-black hover:text-white"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Know More
-        </motion.button>
-      </div>
-      <p className="mt-2 text-gray-600">{project.sqft} sqft</p>
-    </div>
-  </motion.div>
-);
-
 const HomeProject = () => {
-  const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef(null);
 
-  // Handle navigation when clicking "Know More"
-  const handleKnowMore = (id) => {
-    navigate(`/project?id=${id}`);
-    localStorage.setItem('activeProject', id.toString());
-  };
-  
-  // Check device type
+  // Check if device is mobile
   useEffect(() => {
-    const checkDevice = () => {
-      // Check if it's a mobile device
-      setIsMobile(window.innerWidth <= 768);
-      // Check if it's a large desktop
-      setIsDesktop(window.innerWidth >= 1920);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
     };
     
-    checkDevice();
-    window.addEventListener('resize', checkDevice);
-    return () => window.removeEventListener('resize', checkDevice);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Number of cards to display based on screen size
-  const getDisplayCount = () => {
-    if (isDesktop) return projects.length;
-    if (isMobile) return 3; // Show fewer cards on mobile
-    return 6; // Medium screens
+  // Handle touch start
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+    setIsDragging(true);
+  };
+
+  // Handle touch move
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  // Handle touch end
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const minSwipeDistance = 50;
+    
+    if (Math.abs(distance) > minSwipeDistance) {
+      if (distance > 0) {
+        // Swiped left - next slide
+        nextSlide();
+      } else {
+        // Swiped right - previous slide
+        prevSlide();
+      }
+    }
+    
+    setTouchStart(0);
+    setTouchEnd(0);
   };
   
-  // Create appropriate number of cards
-  const displayProjects = projects.slice(0, getDisplayCount());
+  // Go to next slide
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === projects.length - 1 ? 0 : prevIndex + 1
+    );
+  };
   
+  // Go to previous slide
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? projects.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Auto-slide for mobile only (with larger interval to avoid performance issues)
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000);
+    
+    return () => clearInterval(interval);
+  }, [isMobile, currentIndex]);
+
   return (
-    <section className="relative py-10 min-h-[80vh] overflow-hidden">
-      <div className="flex items-center justify-center">
-        {isDesktop ? (
-          // Desktop layout - static grid
-          <div className="flex flex-wrap justify-center gap-8 px-4">
-            {projects.map((project) => (
-              <ProjectCard 
-                key={`desktop-${project.id}`}
-                project={project}
-                onKnowMore={handleKnowMore}
-              />
-            ))}
-          </div>
-        ) : (
-          // Mobile and tablet layout - CSS-based animation instead of JS
-          <div className="relative w-full overflow-hidden">
-            <div className={`flex gap-4 px-4 ${isMobile ? 'mobile-scroll' : 'tablet-scroll'}`}>
-              {/* Duplicate projects for infinite scroll effect */}
-              {[...projects, ...projects, ...projects].map((project, index) => (
-                <ProjectCard 
-                  key={`scroll-${project.id}-${index}`}
-                  project={project}
-                  onKnowMore={handleKnowMore}
+    <section className="relative py-10 min-h-[60vh] md:min-h-[80vh]">
+      {isMobile ? (
+        // Mobile Carousel
+        <div className="w-full px-4">
+          <h2 className="text-2xl font-bold text-center mb-6">Our Projects</h2>
+          <div 
+            ref={containerRef}
+            className="mobile-carousel relative w-full max-w-[90%] mx-auto touch-pan-y"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div 
+              className="carousel-inner w-full transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {projects.map((project, index) => (
+                <div 
+                  key={project.id}
+                  className="carousel-item w-full flex-shrink-0"
+                  style={{ 
+                    position: 'absolute', 
+                    left: `${index * 100}%`,
+                    width: '100%' 
+                  }}
+                >
+                  <ProjectCard 
+                    project={project}
+                    index={index}
+                    isVisible={index === currentIndex}
+                  />
+                </div>
+              ))}
+            </div>
+            
+            {/* Simple dot indicators */}
+            <div className="flex justify-center mt-6 space-x-2">
+              {projects.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentIndex ? 'bg-black' : 'bg-gray-300'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>
           </div>
-        )}
-      </div>
-
-      {/* CSS animations for scrolling */}
+        </div>
+      ) : (
+        // Desktop Layout - Simple horizontal scroll with fixed width cards
+        <div className="flex items-center justify-center overflow-hidden">
+          <div className="flex gap-6 px-8 py-12 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+            {projects.map((project, index) => (
+              <div 
+                key={project.id} 
+                className="snap-center"
+                style={{ width: '350px', flexShrink: 0 }}
+              >
+                <ProjectCard 
+                  project={project}
+                  index={index}
+                  isVisible={true}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      
       <style jsx="true">{`
-        /* Slower animation for mobile */
-        .mobile-scroll {
-          animation: scrollMobile 60s linear infinite;
+        /* Hide scrollbar for clean UI */
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        
+        /* For mobile optimization */
+        .mobile-carousel {
+          height: 450px;
+          overflow: hidden;
+          touch-action: pan-y;
+          position: relative;
+          box-sizing: border-box;
+        }
+        
+        .carousel-inner {
+          position: relative;
+          height: 100%;
+          width: 100%;
           will-change: transform;
-          transform: translateZ(0);
-        }
-        
-        /* Faster animation for tablet */
-        .tablet-scroll {
-          animation: scrollTablet 50s linear infinite;
-          will-change: transform;
-          transform: translateZ(0);
-        }
-        
-        /* Pause animation on hover/touch */
-        .mobile-scroll:hover, .tablet-scroll:hover,
-        .mobile-scroll:active, .tablet-scroll:active {
-          animation-play-state: paused;
-        }
-        
-        @keyframes scrollMobile {
-          0% {
-            transform: translateX(0) translateZ(0);
-          }
-          100% {
-            transform: translateX(calc(-366px * ${projects.length})) translateZ(0);
-          }
-        }
-        
-        @keyframes scrollTablet {
-          0% {
-            transform: translateX(0) translateZ(0);
-          }
-          100% {
-            transform: translateX(calc(-366px * ${projects.length})) translateZ(0);
-          }
-        }
-        
-        /* For reduced motion preference */
-        @media (prefers-reduced-motion) {
-          .mobile-scroll, .tablet-scroll {
-            animation: none;
-          }
         }
       `}</style>
     </section>
