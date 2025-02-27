@@ -75,7 +75,7 @@ const AboutUs = () => {
           </motion.h3>
           
           <motion.p 
-            className="text-gray-200 text-base sm:text-lg x3l:text-xl mb-6 sm:mb-8 leading-relaxed"
+            className="text-gray-200 text-base sm:text-lg 3xl:text-xl mb-6 sm:mb-8 leading-relaxed"
             variants={itemVariants}
           >
             With over seven years of expertise, Athiya Group has redefined 
