@@ -1,3 +1,5 @@
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      // fontFamily: {
+      //   poppins: ['Poppins', 'sans-serif']
+      // },
       colors: {
         // primary: "#0F1F14",
         accent: "#F9B42A",
@@ -19,6 +24,9 @@ export default {
           900: '#111827'
         }
         
+      },
+      screens: {
+        '3xl': '1600px', // Custom extra small breakpoint
       },
       
     },
