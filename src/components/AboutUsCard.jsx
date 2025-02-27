@@ -55,7 +55,7 @@ const AboutUs = () => {
                    shadow-xl hover:shadow-2xl transition-shadow duration-500"
       >
         {/* Content Section */}
-        <div className="lg:max-w-6xl lg:mx-auto flex flex-col lg:flex-row justify-between items-center">
+        <div className="lg:max-w-7xl lg:mx-auto flex flex-col lg:flex-row justify-between items-center">
         
         <motion.div 
           className="flex-1 max-w-xl lg:mr-12 mb-10 sm:mb-12 lg:mb-0" // Added margin bottom for mobile
