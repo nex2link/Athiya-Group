@@ -52,10 +52,11 @@ const AboutUs = () => {
         animate={inView ? "visible" : "hidden"}
         variants={containerVariants}
         className="bg-[#0A2919] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 
-                   flex flex-col lg:flex-row justify-between items-center
                    shadow-xl hover:shadow-2xl transition-shadow duration-500"
       >
         {/* Content Section */}
+        <div className="lg:max-w-6xl lg:mx-auto flex flex-col lg:flex-row justify-between items-center">
+        
         <motion.div 
           className="flex-1 max-w-xl lg:mr-12 mb-10 sm:mb-12 lg:mb-0" // Added margin bottom for mobile
           variants={itemVariants}
@@ -115,6 +116,7 @@ const AboutUs = () => {
             <div className="absolute inset-0 bg-black/10 group-hover:opacity-0 transition-opacity duration-300" />
           </div>
         </motion.div>
+          </div>
       </motion.div>
     </div>
   );
