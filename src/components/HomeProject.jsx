@@ -14,7 +14,7 @@ const projects = [
   { id: 3, image: shivimg1, title: "Shivsparash", sqft: "5 to 20" },
   { id: 4, image: samimg1, title: "Samarth Hill", sqft: "5 to 20" },
   { id: 5, image: agroimg2, title: "Farm Dale, Pali", sqft: "5 to 20" },
-  { id: 6, image: dapoliimg1, title: "Dalopli, Ratnagiri", sqft: "5 to 20" }
+  { id: 6, image: dapoliimg1, title: "Dapoli, Ratnagiri", sqft: "5 to 20" }
 ];
 
 const HomeProject = () => {
