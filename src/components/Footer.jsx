@@ -25,7 +25,7 @@ const Footer = () => {
               </p>
               {/* Social Media Icons */}
               <div className="flex space-x-5 mt-4">
-                <a href="https://www.facebook.com/AthiyaGroup" className="text-gray-400 hover:text-white transition-colors duration-300">
+                <a href="https://www.facebook.com/profile.php?id=100093049946700" className="text-gray-400 hover:text-white transition-colors duration-300">
                   <Facebook size={20} />
                 </a>
                 <a href="https://www.instagram.com/athiyagroup?igsh=dmNsbGh3bDBjOGt0" className="text-gray-400 hover:text-white transition-colors duration-300">
