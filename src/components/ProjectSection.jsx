@@ -34,7 +34,7 @@ const ProjectSection = () => {
   const projects = [
     {
       id: 1,
-      title: "Third New Town – A Visionary Development in Maha Mumbai",
+      title: "KSC New Town – A Visionary Development in Maha Mumbai",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
@@ -67,7 +67,7 @@ const ProjectSection = () => {
     },
     {
       id: 2,
-      title: "AGrow Eco",
+      title: "Agrow Eco",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: agroimg2,
@@ -132,7 +132,7 @@ const ProjectSection = () => {
 
     {
       id: 4,
-      title: "Smarath Hills - Vaibhavwadi, sindhudurg",
+      title: "Smarath Hills",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: samimg1,
@@ -201,9 +201,9 @@ const ProjectSection = () => {
       rating: "4.5",
       mainImage: dapoliimg1,
       subImages: [
-        agroimg1,
-        agroimg3,
-        agroimg4
+        dapoliimg2,
+        dapoliimg3,
+        dapoliimg4
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
       WhyInvest: "Why invest in Dapoli 712?",
