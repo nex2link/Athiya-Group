@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import ProjectCard from "./ProjectCard"; // Import your existing ProjectCard component
+import ProjectCard from "./ProjectCard";
 import dapoliimg1 from "../assets/project-1.webp";
 import farmimg1 from "../assets/project-2.webp";
 import agroimg2 from "../assets/project-3.webp";
 import shivimg1 from "../assets/project-4.webp";
 import samimg1 from "../assets/project-5.webp";
 
-// Define projects data
 const projects = [
   { id: 2, image: farmimg1, title: "Agrow Eco", sqft: "5 to 20" },
-  { id: 3, image: shivimg1, title: "Shivsparash", sqft: "5 to 20" },
   { id: 4, image: samimg1, title: "Samarth Hill", sqft: "5 to 20" },
+  { id: 3, image: shivimg1, title: "Shivsparash", sqft: "5 to 20" },
   { id: 5, image: agroimg2, title: "Farm Dale, Pali", sqft: "5 to 20" },
-  { id: 6, image: dapoliimg1, title: "Dapoli, Ratnagiri", sqft: "5 to 20" }
+  { id: 6, image: dapoliimg1, title: "Dalopli, Ratnagiri", sqft: "5 to 20" }
 ];
 
 const HomeProject = () => {
@@ -23,27 +22,27 @@ const HomeProject = () => {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef(null);
+  const carouselTrackRef = useRef(null);
 
   // Check if device is mobile
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Handle touch start
-  const handleTouchStart = (e) => {
+  const handleTouchStart = e => {
     setTouchStart(e.targetTouches[0].clientX);
     setIsDragging(true);
+    setIsPaused(true); // Pause auto-scroll on touch
   };
 
   // Handle touch move
-  const handleTouchMove = (e) => {
+  const handleTouchMove = e => {
     if (!isDragging) return;
     setTouchEnd(e.targetTouches[0].clientX);
   };
@@ -51,6 +50,7 @@ const HomeProject = () => {
   // Handle touch end
   const handleTouchEnd = () => {
     setIsDragging(false);
+    setIsPaused(false); // Resume auto-scroll
     
     if (!touchStart || !touchEnd) return;
     
@@ -58,13 +58,7 @@ const HomeProject = () => {
     const minSwipeDistance = 50;
     
     if (Math.abs(distance) > minSwipeDistance) {
-      if (distance > 0) {
-        // Swiped left - next slide
-        nextSlide();
-      } else {
-        // Swiped right - previous slide
-        prevSlide();
-      }
+      distance > 0 ? nextSlide() : prevSlide();
     }
     
     setTouchStart(0);
@@ -73,28 +67,28 @@ const HomeProject = () => {
   
   // Go to next slide
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex(prevIndex => 
       prevIndex === projects.length - 1 ? 0 : prevIndex + 1
     );
   };
   
   // Go to previous slide
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex(prevIndex => 
       prevIndex === 0 ? projects.length - 1 : prevIndex - 1
     );
   };
 
-  // Auto-slide for mobile only (with larger interval to avoid performance issues)
+  // Auto-scroll for mobile
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobile || isPaused) return;
     
     const interval = setInterval(() => {
       nextSlide();
-    }, 4000);
+    }, 3000);
     
     return () => clearInterval(interval);
-  }, [isMobile, currentIndex]);
+  }, [isMobile, currentIndex, isPaused]);
 
   return (
     <section className="relative py-10 min-h-[60vh] md:min-h-[80vh]">
@@ -148,28 +142,57 @@ const HomeProject = () => {
           </div>
         </div>
       ) : (
-        // Desktop Layout - Simple horizontal scroll with fixed width cards
-        <div className="flex items-center justify-center overflow-hidden">
-          <div className="flex gap-6 px-8 py-12 overflow-x-auto snap-x snap-mandatory scrollbar-hide">
-            {projects.map((project, index) => (
-              <div 
-                key={project.id} 
-                className="snap-center"
-                style={{ width: '350px', flexShrink: 0 }}
-              >
-                <ProjectCard 
-                  project={project}
-                  index={index}
-                  isVisible={true}
-                />
-              </div>
-            ))}
+        // Desktop Layout with CSS-based continuous scroll animation
+        <div className="carousel-container relative w-full overflow-hidden py-12">
+          <h2 className="text-2xl font-bold text-center mb-6">Our Projects</h2>
+          <div 
+            className="carousel-wrapper relative w-full overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <div 
+              ref={carouselTrackRef}
+              className="carousel-track flex"
+              style={{
+                animation: isPaused ? 'none' : 'scroll 25s linear infinite',
+                width: 'fit-content' // Allow the track to be as wide as needed
+              }}
+            >
+              {/* First set of items */}
+              {projects.map(project => (
+                <div 
+                  key={project.id}
+                  className="carousel-item mx-3"
+                  style={{ width: '350px', flexShrink: 0 }}
+                >
+                  <ProjectCard 
+                    project={project}
+                    index={project.id}
+                    isVisible={true}
+                  />
+                </div>
+              ))}
+              
+              {/* Duplicate set for seamless looping */}
+              {projects.map(project => (
+                <div 
+                  key={`clone-${project.id}`}
+                  className="carousel-item mx-3"
+                  style={{ width: '350px', flexShrink: 0 }}
+                >
+                  <ProjectCard 
+                    project={project}
+                    index={project.id}
+                    isVisible={true}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
       
       <style jsx="true">{`
-        /* Hide scrollbar for clean UI */
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
@@ -178,7 +201,6 @@ const HomeProject = () => {
           scrollbar-width: none;
         }
         
-        /* For mobile optimization */
         .mobile-carousel {
           height: 450px;
           overflow: hidden;
@@ -192,6 +214,39 @@ const HomeProject = () => {
           height: 100%;
           width: 100%;
           will-change: transform;
+        }
+        
+        /* CSS Animation for continuous scrolling */
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%); /* Move exactly one set of items */
+          }
+        }
+        
+        .carousel-container {
+          padding: 0 20px;
+        }
+        
+        .carousel-wrapper {
+          margin: 0 auto;
+          max-width: calc(100% - 100px);
+        }
+        
+        .carousel-track {
+          display: flex;
+          width: fit-content;
+          will-change: transform;
+        }
+        
+        .carousel-item {
+          transition: transform 0.3s ease;
+        }
+        
+        .carousel-item:hover {
+          transform: scale(1.02);
         }
       `}</style>
     </section>
