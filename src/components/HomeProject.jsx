@@ -154,7 +154,8 @@ const HomeProject = () => {
               ref={carouselTrackRef}
               className="carousel-track flex"
               style={{
-                animation: isPaused ? 'none' : 'scroll 25s linear infinite',
+                animation: 'scroll 25s linear infinite',
+                animationPlayState: isPaused ? 'paused' : 'running',
                 width: 'fit-content' // Allow the track to be as wide as needed
               }}
             >
@@ -239,6 +240,7 @@ const HomeProject = () => {
           display: flex;
           width: fit-content;
           will-change: transform;
+          transition: animation-play-state 0.3s ease;
         }
         
         .carousel-item {
