@@ -34,7 +34,7 @@ const ProjectSection = () => {
   const projects = [
     {
       id: 1,
-      title: "KSC New Town – A Visionary Development in Maha Mumbai",
+      title: "Third New Town – A Visionary Development in Maha Mumbai",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
@@ -67,7 +67,7 @@ const ProjectSection = () => {
     },
     {
       id: 2,
-      title: "Agrow Eco",
+      title: "AGrow Eco",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: agroimg2,
@@ -132,7 +132,7 @@ const ProjectSection = () => {
 
     {
       id: 4,
-      title: "Smarath Hills",
+      title: "Smarath Hills - Vaibhavwadi, sindhudurg",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: samimg1,
