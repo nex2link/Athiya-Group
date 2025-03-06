@@ -34,7 +34,7 @@ const ProjectSection = () => {
   const projects = [
     {
       id: 1,
-      title: "KSC New Town – A Visionary Development in Maha Mumbai",
+      title: "Third New Town – A Visionary Development in Maha Mumbai",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
