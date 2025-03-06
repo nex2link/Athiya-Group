@@ -1,5 +1,4 @@
-// Testimonials.jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
@@ -7,7 +6,7 @@ import TestimonialCard from "./TestimonialCard";
 import testimg1 from "../assets/test-1.png";
 import testimg2 from "../assets/test-2.png";
 import testimg3 from "../assets/test-3.png";
-import testimg4 from "../assets/test-4.png"; // Add your fourth image
+import testimg4 from "../assets/test-4.png";
 
 const Testimonials = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -34,10 +33,10 @@ const Testimonials = () => {
       testimonial: "Athiya Group's professionalism truly impressed us. Their dedicated team ensured a smooth project completion, delivering results well within the expected timeframe while keeping us informed at every step."
     },
     {
-      image: testimg4, // New testimonial
+      image: testimg4,
       name: "Mr. Amit Prabhale",
       role: "",
-      testimonial: "Athiya Group’s transparency and support made my land purchase in Mahad seamless. Their efficient team handled everything quickly, and I was so satisfied that I bought 2 acres instead of one. Truly exceptional service!"
+      testimonial: "Athiya Group's transparency and support made my land purchase in Mahad seamless. Their efficient team handled everything quickly, and I was so satisfied that I bought 2 acres instead of one. Truly exceptional service!"
     }
   ];
 
@@ -46,7 +45,6 @@ const Testimonials = () => {
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
   };
 
-  // Number of cards to show based on screen size
   const getVisibleItems = () => {
     if (typeof window !== 'undefined') {
       if (window.innerWidth >= 1024) return 3;
@@ -60,8 +58,6 @@ const Testimonials = () => {
 
   const nextSlide = () => setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
   const prevSlide = () => setCurrentIndex(prev => Math.max(prev - 1, 0));
-
-  // Auto scroll disabled as requested
 
   return (
     <section className="w-full py-12 sm:py-16 lg:py-20 bg-[#B7BEBA] overflow-hidden">
@@ -91,46 +87,52 @@ const Testimonials = () => {
           </p>
         </motion.div>
 
-        {/* Carousel Navigation */}
-        <div className="flex justify-center gap-4 mb-6">
+        {/* Carousel Container with Absolute Positioned Navigation */}
+        <div className="relative">
+          {/* Left Navigation Button */}
           <button 
             onClick={prevSlide} 
             disabled={currentIndex === 0}
-            className={`p-2 rounded-full ${currentIndex === 0 ? 'bg-gray-300 text-gray-500' : 'bg-gray-800 text-white'} hover:bg-gray-700 transition-colors`}
+            className={`absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full shadow-md
+              ${currentIndex === 0 ? 'bg-gray-300 text-gray-500' : 'bg-gray-800 text-white'} 
+              hover:bg-gray-700 transition-colors`}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
+          
+          <div className="overflow-hidden">
+            <motion.div 
+              ref={carouselRef}
+              className="flex transition-all duration-500 ease-in-out"
+              initial={false}
+              animate={{ x: `-${currentIndex * 100 / visibleItems}%` }}
+              transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
+            >
+              {testimonials.map((testimonial, index) => (
+                <div 
+                  key={index} 
+                  className={`flex-none w-full md:w-1/2 lg:w-1/3 px-3`}
+                >
+                  <TestimonialCard 
+                    {...testimonial} 
+                    index={index}
+                    inView={inView}
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+          
+          {/* Right Navigation Button */}
           <button 
             onClick={nextSlide} 
             disabled={currentIndex >= maxIndex}
-            className={`p-2 rounded-full ${currentIndex >= maxIndex ? 'bg-gray-300 text-gray-500' : 'bg-gray-800 text-white'} hover:bg-gray-700 transition-colors`}
+            className={`absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full shadow-md
+              ${currentIndex >= maxIndex ? 'bg-gray-300 text-gray-500' : 'bg-gray-800 text-white'} 
+              hover:bg-gray-700 transition-colors`}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
-        </div>
-
-        {/* Carousel Container */}
-        <div className="relative overflow-hidden">
-          <motion.div 
-            ref={carouselRef}
-            className="flex transition-all duration-500 ease-in-out"
-            initial={false}
-            animate={{ x: `-${currentIndex * 100 / visibleItems}%` }}
-            transition={{ type: "tween", ease: "easeInOut", duration: 0.5 }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <div 
-                key={index} 
-                className={`flex-none w-full md:w-1/2 lg:w-1/3 px-3`}
-              >
-                <TestimonialCard 
-                  {...testimonial} 
-                  index={index}
-                  inView={inView}
-                />
-              </div>
-            ))}
-          </motion.div>
         </div>
 
         {/* Pagination Dots */}
