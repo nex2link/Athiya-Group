@@ -67,7 +67,7 @@ const ProjectSection = () => {
     },
     {
       id: 2,
-      title: "Agrow Eco",
+      title: "AGrow Eco",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: agroimg2,
@@ -132,7 +132,7 @@ const ProjectSection = () => {
 
     {
       id: 4,
-      title: "Smarath Hills",
+      title: "Samarath Hills",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: samimg1,
