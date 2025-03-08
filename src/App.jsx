@@ -1,4 +1,4 @@
-import react from 'react';
+
 import { Routes, Route } from 'react-router-dom';
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -9,6 +9,8 @@ import ProjectsPage from './pages/ProjectsPage';
 import ServicePage from './pages/ServicePage';
 import ScrollToTop from './components/ScrollToTop';
 import ContactUsPage from './pages/ContactusPage';
+import GalleryPage from "./components/GalleryPage"
+
 
 export default function App() {
   return (
@@ -22,6 +24,7 @@ export default function App() {
         <Route path="/service" element={<ServicePage />} />
         <Route path="/mahamumbai" element={<MahaMumbai />} />
         <Route path="/contactus" element={<ContactUsPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
       </Routes>
     <Footer/>
     </div>
