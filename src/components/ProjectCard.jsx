@@ -80,7 +80,7 @@ const ProjectCard = memo(({ project, index, isVisible }) => {
           {project.title}
         </h3>
           <span className="text-gray-600 text-sm">
-            {project.sqft} Sqft
+            {project.sqft} 
           </span>
           </div>
           <motion.button 
