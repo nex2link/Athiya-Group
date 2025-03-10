@@ -78,11 +78,7 @@ const OurMission = () => {
             <p className="text-gray-700 text-lg leading-relaxed mb-10 font-medium">
               Athiya Group is driven by a mission to create growth for our customers' capital 
               and satisfaction while delivering exceptional returns on investment. We strive to 
-<<<<<<< HEAD
-              provide <span className="underline decoration-indigo-500 decoration-2 underline-offset-4">
-=======
               provide <span className="underline decoration-[#facc15] decoration-2 underline-offset-4">
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
               better real estate opportunities</span> and nurture long-lasting business relationships.
             </p>
           </div>

@@ -1,5 +1,3 @@
-
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -26,11 +24,7 @@ export default {
         
       },
       screens: {
-<<<<<<< HEAD
-        '3xl': '1680px',
-=======
-        '3xl': '1600px', // Custom extra small breakpoint
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
+        '3xl': '1680px', // Using HEAD version (1680px instead of 1600px)
       },
       
     },

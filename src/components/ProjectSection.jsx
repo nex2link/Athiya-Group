@@ -37,15 +37,11 @@ const ProjectSection = () => {
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
-<<<<<<< HEAD
-      subImages: [dapoliimg2, dapoliimg3, dapoliimg4],
-=======
       subImages: [
         dapoliimg2,
         dapoliimg3,
         dapoliimg4
       ],
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
       description: "Maha Mumbai Project is a premium farmland venture catering to investors looking for high-growth opportunities near Mumbai. Located in the heart of Raigad, this project offers an excellent chance to own land in a strategically developing region while enjoying the beauty of nature.",
       WhyInvest: "Why invest in Maha Mumbai Project?",
       whyIvestPoints: [
@@ -76,19 +72,11 @@ const ProjectSection = () => {
       subImages: [agroimg1, agroimg3, agroimg4],
       description: "AGrow Eco is a prestigious farmland design for eco-conscious investors and nature lovers. Located in the lush greenery of raigad, this project offers on excellent opportunity to own land in a rapidly developing region while embracing sustainable living",
       WhyInvest: "Why invest in AGrow Eco?",
-<<<<<<< HEAD
       whyIvestPoints: [
-=======
-      whyIvestPoints:[
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
         "• Close to key infrastructure projects",
         "• Perfect for organic farming and eco-retreats",
         "• With upcoming highways and connectivity plans",
         "• Clear Land Titles & Hassle-Free Documentation"
-<<<<<<< HEAD
-=======
-
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
       ],
       highlights: [
         "Mumbai Goa Four-Lane Highway",
@@ -108,12 +96,6 @@ const ProjectSection = () => {
       type: "Residential Plot",
       rating: "4.5",
       mainImage: shivimg1,
-<<<<<<< HEAD
-      subImages: [shivimg2, shivimg3, "/api/placeholder/300/200"],
-      description: "Shivsparsh is a Premium land investment prject set amidst the serene landscapes of raigad with a vision to offer tranquil and strategically located farmland, this project presents a perfect opportunity for investors and nature enthusiasts looking for a balance modern infrasturcture and peaceful living",
-      WhyInvest: "Why invest in Shivsprash?",
-      whyIvestPoints: [
-=======
       subImages: [
         shivimg2, 
         shivimg3,
@@ -121,25 +103,17 @@ const ProjectSection = () => {
       ],
       description: "Shivsparsh is a Premium land investment prject set amidst the serene landscapes of raigad with a vision to offer tranquil and strategically located farmland, this project presents a perfect opportunity for investors and nature enthusiasts looking for a balance modern infrasturcture and peaceful living",
       WhyInvest: "Why invest in Shivsprash?",
-      whyIvestPoints:[
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
+      whyIvestPoints: [
         "• Ideal for weekend homes and agricultural ventures",
         "• Nestled in the heart of developing Raigad",
         "• Ensuring high appreciation value",
         "• Surrounded by natural beauty and greenery"
       ],
       highlights: [
-<<<<<<< HEAD
-        "Mumbai Goa Four Lane highway",
-        "Mumbai Multimodal Corridor from Virar to Alibag",
+        "Mumbai Goa Four-Lane Highway",
+        "Mumbai Multimodal Corridor (Virar-Alibag)",
         "Internal Road connectivity",
         "Mahad MIDC, Roha MIDC, Vile Bagad MIDC"
-=======
-        "Mumbai Goa Four-Lane Highway",
-        "CSMT-Raha Local Train Expansion",
-        "Mumbai Multimodal Corridor (Virar-Alibag)",
-        "Ro-ro Ferry System"
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
       ],
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
@@ -148,17 +122,7 @@ const ProjectSection = () => {
     },
     {
       id: 4,
-<<<<<<< HEAD
       title: "Samarth Hills",
-      type: "Residential Plot",
-      rating: "4.5",
-      mainImage: samimg1,
-      subImages: [samimg2, samimg3, samimg4],
-      description: "Samarth Hill is a premium plotted development project designed to blend modern infrastructure with nautre's serenit. Nestled in the lush landscapes of sindhudurg, this project offers an excellent opportunity for those seeking investment, weekend homes, or sustainable farm living",
-      WhyInvest: "Why invest in Smarath Hills?",
-      whyIvestPoints: [
-=======
-      title: "Samarath Hills",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: samimg1,
@@ -168,25 +132,17 @@ const ProjectSection = () => {
         samimg4
       ],
       description: "Samarth Hill is a premium plotted development project designed to blend modern infrastructure with nautre's serenit. Nestled in the lush landscapes of sindhudurg, this project offers an excellent opportunity for those seeking investment, weekend homes, or sustainable farm living",
-      WhyInvest: "Why invest in Smarath Hills?",
-      whyIvestPoints:[
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
+      WhyInvest: "Why invest in Samarth Hills?",
+      whyIvestPoints: [
         "• Growing demand for real estate in Sindhudurg",
         "• A perfect gateway from the city's hustle",
         "• Backed by government projects"
       ],
       highlights: [
-<<<<<<< HEAD
         "Chipi Airport",
         "Mumbai Goa 4 Lane Highway",
         "Kokan Railways",
         "Swamidhyan Mandir Meditation Center"
-=======
-        "Mumbai Goa Four-Lane Highway",
-        "Mumbai Multimodal Corridor",
-        "CSMT-Raha Local Expansion",
-        "Ro-Ro Ferry System"
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
       ],
       details: [
         { price: "₹X lakhs", area: "5000 Sq.ft", type: "Residential Plot" },
@@ -195,17 +151,7 @@ const ProjectSection = () => {
     },
     {
       id: 5,
-<<<<<<< HEAD
       title: "The Farm Dale",
-      type: "Residential Plot",
-      rating: "4.5",
-      mainImage: farmimg1,
-      subImages: [farmimg2, farmimg3, farmimg4],
-      description: "Farm Dale is an exclusive farm-living community offering lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blends sustainable living with luxury.",
-      WhyInvest: "Why invest in Farm Dale ?",
-      whyIvestPoints: [
-=======
-      title: "The Fram Dale",
       type: "Residential Plot",
       rating: "4.5",
       mainImage: farmimg1,
@@ -216,8 +162,7 @@ const ProjectSection = () => {
       ],
       description: "Farm Dale is an exclusive farm-living community offering lush green plots and farmmhouse villas nestled in a serene natural environment. Design for those who crave tranquility yet want modern comforts, this project blends sustainable living with luxury.",
       WhyInvest: "Why invest in Farm Dale ?",
-      whyIvestPoints:[
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
+      whyIvestPoints: [
         "• Gated & Secure community",
         "• Plots with Plantation & Organic Farming",
         "• Modern Amenities with Rustic Charm",
@@ -240,12 +185,6 @@ const ProjectSection = () => {
       type: "Residential Plot",
       rating: "4.5",
       mainImage: dapoliimg1,
-<<<<<<< HEAD
-      subImages: [dapoliimg2, dapoliimg3, dapoliimg4],
-      description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
-      WhyInvest: "Why invest in Dapoli 712?",
-      whyIvestPoints: [
-=======
       subImages: [
         dapoliimg2,
         dapoliimg3,
@@ -253,16 +192,11 @@ const ProjectSection = () => {
       ],
       description: "Dapoli 712 is a premium seaside escape nestled in the lush greenery of Kelashi. Experience beachfront living with modern amenities, just a short drive from Mumbai & Pune.",
       WhyInvest: "Why invest in Dapoli 712?",
-      whyIvestPoints:[
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
+      whyIvestPoints: [
         "• Close to key infrastructure projects",
         "• Perfect for organic farming and eco-retreats",
         "• With upcoming highways and connectivity plans",
         "• Clear Land Titles & Hassle-Free Documentation"
-<<<<<<< HEAD
-=======
-
->>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
       ],
       highlights: [
         "10 mins from the Beach",
