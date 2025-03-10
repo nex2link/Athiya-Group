@@ -46,7 +46,7 @@ const ProjectCard = memo(({ project, index, isVisible }) => {
   };
 
   // Only apply the alternating height on desktop
-  const cardOffset = !isMobileOrTablet && project.id % 2 === 0 ? -40 : 0;
+  const cardOffset = 0
   
   return (
     <motion.div
@@ -54,7 +54,7 @@ const ProjectCard = memo(({ project, index, isVisible }) => {
       initial="initial"
       animate={isVisible ? "animate" : "initial"}
       style={{ y: cardOffset }}
-      whileHover={isMobileOrTablet ? {} : { y: cardOffset - 20 }} // Adjust hover offset based on initial position
+      whileHover={isMobileOrTablet ? {} : { y: cardOffset - 25 }} // Adjust hover offset based on initial position
       transition={{ 
         duration: 0.5, 
         delay: isMobileOrTablet ? 0 : index * 0.1 
@@ -80,7 +80,7 @@ const ProjectCard = memo(({ project, index, isVisible }) => {
           {project.title}
         </h3>
           <span className="text-gray-600 text-sm">
-            {project.sqft} 
+            {project.sqft}
           </span>
           </div>
           <motion.button 
