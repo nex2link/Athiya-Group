@@ -53,4 +53,8 @@
     );
   };
 
+<<<<<<< HEAD
   export default TestimonialCard;
+=======
+  export default TestimonialCard;
+>>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560

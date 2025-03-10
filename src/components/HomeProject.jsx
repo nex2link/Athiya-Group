@@ -9,11 +9,19 @@ import shivimg1 from "../assets/project-4.webp";
 import samimg1 from "../assets/project-5.webp";
 
 const projects = [
+<<<<<<< HEAD
   { id: 2, image: farmimg1, title: "Agrow Eco", sqft: "Mahad, Raigad" },
   { id: 4, image: samimg1, title: "Samarth Hill", sqft: "Vaibhavwadi, Sindhdurg" },
   { id: 3, image: shivimg1, title: "Shivsparash", sqft: "Tala, Raigad" },
   { id: 5, image: agroimg2, title: "Farm Dale", sqft: "Pali, Raigad" },
   { id: 6, image: dapoliimg1, title: "Dalopli", sqft: "Dapoli, Ratnagiri" }
+=======
+  { id: 2, image: farmimg1, title: "Agrow Eco", sqft: "5 to 20" },
+  { id: 4, image: samimg1, title: "Samarth Hill", sqft: "5 to 20" },
+  { id: 3, image: shivimg1, title: "Shivsparash", sqft: "5 to 20" },
+  { id: 5, image: agroimg2, title: "Farm Dale, Pali", sqft: "5 to 20" },
+  { id: 6, image: dapoliimg1, title: "Dalopli, Ratnagiri", sqft: "5 to 20" }
+>>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560
 ];
 
 const HomeProject = () => {
@@ -255,4 +263,8 @@ const HomeProject = () => {
   );
 };
 
+<<<<<<< HEAD
 export default HomeProject;
+=======
+export default HomeProject;
+>>>>>>> 38d575703a79cd3991bfba295b6ce1dde1370560

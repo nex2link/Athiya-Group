@@ -79,7 +79,7 @@ const WhyMahaMumbai = () => {
         <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12">
           <motion.div className="bg-[#E5EFE1] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 lg:flex-1">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 pr-8 lg:pr-14">
-            Third<br />New Town
+            KSC<br />New Town
             </h2>
             <p className="text-gray-700 text-base sm:text-lg">Invest in the Future of Third New Town</p>
           </motion.div>
