@@ -233,11 +233,12 @@
                   required
                 >
                   <option value="">Select a project</option>
-                  <option value="Maha Mumbai">Third Mumbai</option>
-                  <option value="dapoli 712">dapoli 712</option>
+                  <option value="Maha Mumbai">Third New Town</option>
                   <option value="AGRow eco">AGRow eco</option>
                   <option value="Samarth Hill">Samarth Hill</option>
                   <option value="Shivsparash">Shivsparash</option>
+                  <option value="Shivsparash">The Farm Dale</option>
+                  <option value="dapoli 712">Dapoli 712</option>
                 </select>
               </div>
 

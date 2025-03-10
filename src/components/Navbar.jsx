@@ -81,7 +81,8 @@ const Navbar = () => {
             <Link to="/aboutus" className={linkClass('/aboutus')}>About Us</Link>
             <Link to="/project" className={linkClass('/project')}>Projects</Link>
             <Link to="/service" className={linkClass('/service')}>Services</Link>
-            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Third New Town</Link>
+            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>KSC New Town</Link>
+            <Link to="/Gallery" className={linkClass('/gallery')}>Gallery</Link>
           </div>
 
           {/* Contact Button */}
@@ -104,7 +105,8 @@ const Navbar = () => {
           <Link to="/aboutus" className={linkClass('/aboutus')}>About Us</Link>
             <Link to="/project" className={linkClass('/project')}>Projects</Link>
             <Link to="/service" className={linkClass('/service')}>Services</Link>
-            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>Third New Town</Link>
+            <Link to="/mahamumbai" className={linkClass('/mahamumbai')}>KSc New Town</Link>
+            <Link to="/Gallery" className={linkClass('/gallery')}>Gallery</Link>
             <Link to="/contactus">
             <motion.button variants={buttonVariant}
                   initial="rest"

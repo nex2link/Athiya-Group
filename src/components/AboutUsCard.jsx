@@ -45,13 +45,13 @@ const AboutUs = () => {
   };
 
   return (
-    <div className="px-4 sm:px-6 lg:px-16 my-8 sm:my-12 lg:my-14">
+    <div className="px-4 sm:px-6 lg:px-16 my-8 sm:my-12 lg:my-14 xl:my-16">
       <motion.div
         ref={ref}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
         variants={containerVariants}
-        className="bg-[#0A2919] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 
+        className="bg-[#0A2919] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 3xl:p-20
                    flex flex-col lg:flex-row justify-between items-center
                    shadow-xl hover:shadow-2xl transition-shadow duration-500"
       >
@@ -61,21 +61,21 @@ const AboutUs = () => {
           variants={itemVariants}
         >
           <motion.h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl 3xl:text:6xl font-bold text-white mb-3 sm:mb-4"
             variants={itemVariants}
           >
             About Us
           </motion.h2>
           
           <motion.h3 
-            className="text-xl sm:text-2xl font-semibold text-white mb-4 sm:mb-6"
+            className="text-xl sm:text-xl 3xl:text-2xl font-semibold text-white mb-4 sm:mb-6"
             variants={itemVariants}
           >
             Built on Excellence, Driven by Vision
           </motion.h3>
           
           <motion.p 
-            className="text-gray-200 text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed"
+            className="text-gray-200 text-base sm:text-lg 3xl:text-xl mb-6 sm:mb-8 leading-relaxed"
             variants={itemVariants}
           >
             With over seven years of expertise, Athiya Group has redefined 
@@ -85,7 +85,7 @@ const AboutUs = () => {
           </motion.p>
           <Link to="/aboutus">
           <motion.button 
-            className="bg-white px-6 py-3 rounded-full text-[#0A2919] font-medium
+            className="bg-white px-6 py-3 3xl:py-4  3xl:px-10 rounded-full text-[#0A2919] font-medium 3xl:text-lg
                        transform transition-all duration-300 ease-out
                        hover:bg-gray-100 hover:scale-105 hover:shadow-lg
                        focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50
@@ -101,7 +101,7 @@ const AboutUs = () => {
 
         {/* Image Section */}
         <motion.div 
-          className="w-full lg:w-[400px] h-64 sm:h-80 lg:h-[450px] flex-shrink-0"
+          className="w-full lg:w-[400px]  3xl:w-[600px] h-64 sm:h-80 lg:h-[450px] flex-shrink-0"
           variants={imageVariants}
         >
           <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden

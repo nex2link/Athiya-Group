@@ -7,7 +7,7 @@ const ServicesSection = () => {
     {
       icon: <Building2 />,
       title: "Property Management",
-      description: "Comprehensive solutions to maintain and enhance the value of your property, ensuring hassle-free ownership.",
+      description: "Comprehensive solutions to maintain and enhance the value of your property ensuring hassle-free ownership.",
     },
     {
       icon: <LineChart />,
@@ -74,7 +74,7 @@ const ServicesSection = () => {
               </div>
               
               {/* Content */}
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <h3 className="text-xl font-semibold text-gray-900 group-hover:text-black transition-colors duration-300">
                   {service.title}
                 </h3>

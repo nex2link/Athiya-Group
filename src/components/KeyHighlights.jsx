@@ -6,10 +6,8 @@ import itpark from "../assets/it-park.webp"
 import corporate from "../assets/corporate.webp"
 import ecofrnd from "../assets/eco-frnd.webp"
 
-
 const KeyHighlights = () => {
   const [translateX, setTranslateX] = useState(0);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   
   const projects = [
     {
@@ -53,12 +51,9 @@ const KeyHighlights = () => {
       animationId = requestAnimationFrame(animate);
     };
     
-    if (hoveredIndex === null) {
-      animationId = requestAnimationFrame(animate);
-    }
-    
+    animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [hoveredIndex, totalWidth]);
+  }, [totalWidth]);
 
   const extendedProjects = [...projects, ...projects, ...projects];
 
@@ -81,43 +76,39 @@ const KeyHighlights = () => {
           >
             {extendedProjects.map((project, index) => {
               const isPrimary = index % projects.length === 0;
-              const isHovered = hoveredIndex === index;
               
               return (
                 <div
                   key={index}
                   className={`flex-shrink-0 relative overflow-hidden ${isPrimary ? 'w-[600px]' : 'w-[400px]'}`}
                   style={{ borderRadius: '15px' }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
                 >
                   <div className="relative overflow-hidden" style={{ borderRadius: '15px' }}>
                     <img
                       src={project.image}
                       alt={project.title || "Project image"}
-                      className={`w-full object-cover h-[400px] transition-transform duration-500 ease-in-out rounded-[15px] ${isHovered ? 'scale-105' : 'scale-100'}`}
+                      className="w-full object-cover h-[400px] rounded-[15px]"
                       style={{ borderRadius: '0' }}
                     />
                   </div>
                   <div 
-                      className={`absolute  bottom-0 left-0 right-0 p-7 transition-all duration-300 ease-in-out ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                      style={{
-                        background: isPrimary 
-                          ? 'linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 15%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 100%)'
-                          : 'linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 100%)',
-                        height: isPrimary ? '75%' : '65%',
-                        pointerEvents: isHovered ? 'auto' : 'none'
-                      }}
-                    >
-                      <div className={`${isPrimary ? 'max-w-[80%]' : 'max-w-full'} absolute bottom-5 left-8 transition-all duration-300 ease-in-out ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-                        <h3 className={`font-semibold mb-3 text-gray-900 ${isPrimary ? 'text-2xl' : 'text-xl'}`}>
-                          {project.title}
-                        </h3>
-                        <p className={`text-gray-700 ${isPrimary ? 'text-lg' : 'text-md'}`}>
-                          {project.description}
-                        </p>
-                      </div>
+                    className="absolute bottom-0 left-0 right-0 p-7"
+                    style={{
+                      background: isPrimary 
+                        ? 'linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 15%, rgba(255,255,255,0.8) 30%, rgba(255,255,255,0.4) 60%, rgba(255,255,255,0) 100%)'
+                        : 'linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 100%)',
+                      height: isPrimary ? '75%' : '65%'
+                    }}
+                  >
+                    <div className={`${isPrimary ? 'max-w-[80%]' : 'max-w-full'} absolute bottom-5 left-8`}>
+                      <h3 className={`font-semibold mb-3 text-gray-900 ${isPrimary ? 'text-2xl' : 'text-xl'}`}>
+                        {project.title}
+                      </h3>
+                      <p className={`text-gray-700 ${isPrimary ? 'text-lg' : 'text-md'}`}>
+                        {project.description}
+                      </p>
                     </div>
+                  </div>
                 </div>
               );
             })}

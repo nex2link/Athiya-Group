@@ -1,139 +1,207 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import reac1 from "../assets/Rectangle-1.png";
-import reac2 from "../assets/Rectangle-2.png";
-import reac3 from "../assets/Rectangle-3.png";
+import rect1 from "../assets/Rectangle-1.png";
+import rect2 from "../assets/Rectangle-2.png";
+import rect3 from "../assets/Rectangle-3.png";
 
-// Custom hook to detect prefers-reduced-motion
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+// Add this to your main index.html or App component
+// <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+const NaturalBeauty = () => {
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handler = () => setPrefersReducedMotion(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handler);
-
-    return () => mediaQuery.removeEventListener("change", handler);
+    // Simple mobile detection
+    const checkMobile = () => {
+      setIsMobileDevice(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  return prefersReducedMotion;
-}
-
-// Animated image component with fade, slide-in, and hover scale effects
-const AnimatedImg = ({ src, alt, className, text, delay = 0 }) => {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  return (
-    <motion.div
-      initial={prefersReducedMotion ? {} : { opacity: 0, y: 50 }}
-      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay, type: "spring", stiffness: 200 }}
-      viewport={{ once: false, amount: 0.3 }}
-      className="cursor-pointer"
-    >
-      {/* Using w-full and h-auto so the image scales responsively */}
-      <img src={src} alt={alt} className={`${className} w-full h-auto`} loading="lazy" />
-      {text && <p className="text-sm mt-2">{text}</p>}
-    </motion.div>
-  );
-};
-
-// Variants for staggered container
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-// Variants for each child image in the staggered group
-const childVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
-function NaturalBeauty() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  return (
-    <div className="p-4 lg:ml-60 mx-auto max-w-screen-xl">
-      <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-        {/* Left Section */}
-        <div className="relative flex-1">
-          <div className="mb-6 md:mr-12 text-center md:text-left">
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900"
-              initial={
-                prefersReducedMotion
-                  ? {}
-                  : { opacity: 0, y: 100, scale: 0.8, rotate: -5 }
-              }
-              whileInView={
-                prefersReducedMotion
-                  ? {}
-                  : { opacity: 1, y: 0, scale: 1, rotate: 0 }
-              }
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              viewport={{ once: false, amount: 0.3 }}
-            >
-              Natural Beauty Meets <br /> Urban Comfort
-            </motion.h1>
-            <motion.p
-              className="text-gray-700"
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
-              whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              viewport={{ once: false, amount: 0.3 }}
-            >
-              Maha Mumbai offers a unique blend of natural <br />
-              beauty and urban convenience
-            </motion.p>
+  // Mobile layout with strict containment
+  if (isMobileDevice) {
+    return (
+      <div style={{
+        width: '100%',
+        maxWidth: '100%',
+        overflow: 'hidden',
+        position: 'relative',
+        padding: '16px',
+        marginBottom: '30px',
+        boxSizing: 'border-box',
+        backgroundColor: 'white'
+      }}>
+        {/* Title container with strict bounds */}
+        <div style={{
+          margin: '0 0 24px 0',
+          padding: '0',
+          width: '100%',
+          overflow: 'hidden',
+          boxSizing: 'border-box'
+        }}>
+          <h2 style={{
+            margin: '0 0 8px 0',
+            padding: '0',
+            fontSize: '24px',
+            lineHeight: '1.2',
+            fontWeight: 'bold',
+            color: '#333',
+            textAlign: 'center',
+            width: '100%'
+          }}>
+            Natural Beauty Meets Urban Comfort
+          </h2>
+          
+          <p style={{
+            margin: '0',
+            padding: '0',
+            fontSize: '16px',
+            lineHeight: '1.4',
+            color: '#666',
+            textAlign: 'center',
+            width: '100%'
+          }}>
+            Third New Town offers a unique blend of natural beauty and urban convenience
+          </p>
+        </div>
+        
+        {/* Strictly contained image gallery */}
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          width: '100%',
+          overflow: 'hidden',
+          boxSizing: 'border-box'
+        }}>
+          {/* Image 1 */}
+          <div style={{ width: '100%', overflow: 'hidden' }}>
+            <img 
+              src={rect1} 
+              alt="Beachside villa" 
+              style={{ 
+                width: '100%', 
+                maxWidth: '100%',
+                height: 'auto', 
+                display: 'block',
+                borderRadius: '4px'
+              }} 
+            />
           </div>
-          <div className="flex justify-center md:justify-end">
-            <div className="mt-28">
-              <AnimatedImg
-                src={reac2}
-                alt="Green landscape"
-                className="max-w-xs rounded"
-                text="Lush green surroundings and scenic coastline."
-                delay={0.2}
+          
+          {/* Image 2 with caption */}
+          <div style={{ width: '100%', overflow: 'hidden' }}>
+            <img 
+              src={rect2} 
+              alt="Green landscape" 
+              style={{ 
+                width: '100%', 
+                maxWidth: '100%',
+                height: 'auto', 
+                display: 'block',
+                borderRadius: '4px'
+              }} 
+            />
+            <p style={{ 
+              fontSize: '14px', 
+              margin: '8px 0 0 0',
+              padding: '0',
+              color: '#666', 
+              textAlign: 'center',
+              width: '100%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}>
+              Lush green surroundings and scenic coastline.
+            </p>
+          </div>
+          
+          {/* Image 3 with caption */}
+          <div style={{ width: '100%', overflow: 'hidden' }}>
+            <img 
+              src={rect3} 
+              alt="Beach sunset view" 
+              style={{ 
+                width: '100%', 
+                maxWidth: '100%',
+                height: 'auto', 
+                display: 'block',
+                borderRadius: '4px'
+              }} 
+            />
+            <p style={{ 
+              fontSize: '14px', 
+              margin: '8px 0 0 0',
+              padding: '0',
+              color: '#666', 
+              textAlign: 'center',
+              width: '100%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}>
+              Proximity to hill stations, beaches and cultural landmarks
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Desktop layout (simplified)
+  return (
+    <div className="relative w-full max-w-screen-xl mx-auto p-6 overflow-hidden ">
+      {/* Title section */}
+      <div className="relative mb-16 md:absolute md:top-20 md:left-10 lg:left-40 z-10 text-center md:text-left overflow-hidden">
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-2">
+          Natural Beauty Meets <br className="hidden md:block" /> Urban Comfort
+        </h1>
+        <p className="text-gray-700">
+          Third New Town offers a unique blend of natural <br className="hidden md:block" /> beauty and urban convenience
+        </p>
+      </div>
+
+      <div className="flex flex-col md:flex-row items-start pt-4 md:pt-0">
+        <div className="hidden md:block md:w-1/2"></div>
+        
+        <div className="w-full md:w-1/2 flex flex-col md:flex-row md:pl-8 gap-6">
+          <div className="w-full md:w-1/2 md:mt-64 overflow-hidden">
+            <div className="text-center overflow-hidden">
+              <img 
+                src={rect2} 
+                alt="Green landscape" 
+                className="w-full max-w-full md:max-w-xs mx-auto rounded shadow-sm" 
               />
+              <p className="text-sm mt-2 text-gray-600 px-2 overflow-hidden">
+                Lush green surroundings and scenic coastline.
+              </p>
+            </div>
+          </div>
+          
+          <div className="w-full md:w-1/2 flex flex-col gap-6 overflow-hidden">
+            <div className="text-center overflow-hidden">
+              <img 
+                src={rect1} 
+                alt="Beachside villa" 
+                className="w-full max-w-full md:max-w-xs mx-auto rounded shadow-sm" 
+              />
+            </div>
+            <div className="text-center overflow-hidden">
+              <img 
+                src={rect3} 
+                alt="Beach sunset view" 
+                className="w-full max-w-full md:max-w-xs mx-auto rounded shadow-sm" 
+              />
+              <p className="text-sm mt-2 text-gray-600 px-2 overflow-hidden">
+                Proximity to hill stations, beaches and cultural landmarks
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Right Section: Staggered images */}
-        <motion.div
-          className="flex flex-col gap-4 flex-1"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
-        >
-          <motion.div variants={childVariants}>
-            <AnimatedImg
-              src={reac1}
-              alt="Beachside villa"
-              className="max-w-sm rounded"
-            />
-          </motion.div>
-          <motion.div variants={childVariants}>
-            <AnimatedImg
-              src={reac3}
-              alt="Beach sunset view"
-              className="max-w-xs rounded"
-              text="Proximity to hill stations, beaches and cultural landmarks"
-            />
-          </motion.div>
-        </motion.div>
       </div>
     </div>
   );
-}
+};
 
 export default NaturalBeauty;

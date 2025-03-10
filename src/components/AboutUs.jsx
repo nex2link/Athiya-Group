@@ -4,7 +4,7 @@ import Aboutimg from "../assets/about-us.webp";
 
 const AboutUs = () => {
     return (
-      <div className="bg-[#0A2919] rounded-3xl p-12 flex justify-between items-center m-14">
+      <div className="bg-[#0A2919] rounded-3xl p-12 flex justify-between items-center m-14 ">
         <div className="max-w-xl">
           <h2 className="text-white text-5xl font-bold mb-4">About Us</h2>
           <h3 className="text-white text-2xl font-semibold mb-6">

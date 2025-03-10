@@ -81,7 +81,7 @@ const WhyMahaMumbai = () => {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 pr-8 lg:pr-14">
             Third<br />New Town
             </h2>
-            <p className="text-gray-700 text-base sm:text-lg">Invest in the Future of Maha Mumbai</p>
+            <p className="text-gray-700 text-base sm:text-lg">Invest in the Future of Third New Town</p>
           </motion.div>
 
           {isMobile ? (
